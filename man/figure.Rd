@@ -23,12 +23,11 @@ None
 }
 \description{
 This function is intended to reproduce the figures presented in \emph{rassta:
-Raster-based Spatial Stratification Algorithms and their Application in
-Environmental Modeling}, by Fuentes et al. (n.d.). Note that this function
-assumes that all the necessary inputs for each figure are loaded in the
-working environment. For the creation of each input, please refer to the data
-and examples presented in the aforementioned publication. Also, please note
-that the use of this function is not intended for RStudio.
+Raster-based Spatial Stratification Algorithms} (Fuentes et al., n.d.). Note
+that this function assumes that all the necessary inputs for each figure are
+loaded in the working environment. For the creation of each input, please refer
+to the data and examples presented in the aforementioned publication. Also,
+please note that the use of this function is not intended for RStudio.
 }
 \examples{
 if(interactive()){
