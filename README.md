@@ -2,7 +2,7 @@
 <img align="right" width="230" height="270" src="man/figures/rassta_logo.png">
 
 `rassta` (**r**aster-based **s**patial **st**ratification **a**lgorithms) is a collection of algorithms for the spatial stratification of
-landscapes and modeling of spatially-varying phenomena in the [R](https://www.r-project.org) environment.
+landscapes, sampling, and modeling of spatially-varying phenomena in the [R](https://www.r-project.org) environment.
 
 `rassta` offers a simple framework for the stratification of geographic space based on raster layers representing landscape factors and/or
 factor scales. The stratification process follows a hierarchical approach, which is based on first level units (i.e., classification units)
