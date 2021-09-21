@@ -33,7 +33,7 @@
 #' @details
 #' This function mainly differs from \code{\link[terra]{segregate}} in
 #' that presence and absence values can be set arbitrarily, thus allowing for
-#' values other than those traditionally used in one-hot/dummy enconding (i.e.,
+#' values other than those traditionally used in one-hot/dummy encoding (i.e.,
 #' 1 and 0).
 #'
 #' Please note that the argument \emph{extension} does not correspond to the

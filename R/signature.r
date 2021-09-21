@@ -98,11 +98,13 @@
 #' @rdname
 #' signature
 #' @references
-#' Pike, R.J. and Rozema, W.J., 1975. Spectral analysis of landforms. Annals of
-#' the Association of American Geographers, 65(4), pp.499-516.
+#' R. Pike. The geometric signature: quantifying landslide-terrain types from
+#' digital elevation models. Mathematical geology, 20(5):491–511, 1988.
+#' \doi{https://doi.org/10.1007/BF00890333}
 #'
-#' Pike, R.J., 1988. The geometric signature: quantifying landslide-terrain
-#' types from digital elevation models. Mathematical geology, 20(5), pp.491-511.
+#' R. Pike and W. Rozema. Spectral analysis of landforms. Annals of the
+#' Association of American Geographers,65(4):499–516, 1975.
+#' \doi{https://doi.org/10.1111/j.1467-8306.1975.tb01058.x}
 #'
 signature <- function(pdif.rast, inprex, outname, fun = mean,
                       to.disk = FALSE, outdir = ".", extension = ".tif",

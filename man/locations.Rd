@@ -16,6 +16,7 @@ locations(
   parallel = FALSE,
   to.disk = FALSE,
   outdir = ".",
+  verbose = FALSE,
   ...
 )
 }
@@ -68,6 +69,8 @@ processing can result prohibitive for large data sets. Default: FALSE}
 \item{outdir}{Character. If \emph{to.disk = TRUE}, string specifying the path
 for the output SpatVector(s). Default: "."}
 
+\item{verbose}{Boolean. Show warning messages in the console? Default: FALSE}
+
 \item{...}{Additional arguments, as for \code{\link[terra]{writeVector}}.}
 }
 \value{
@@ -115,8 +118,8 @@ the absolute method, a sample is placed at the \emph{XY} locations with the
 to constrain the sampling process to the boundaries of the stratification
 unit. Constraining the process ensures that the sampling locations determined
 for a given unit are placed within the boundaries of that unit. See
-\strong{Details} for some guidance in the use of this function for classification
-units.
+\strong{Details} for some guidance in the use of this function for
+classification units.
 }
 \details{
 Except when \emph{buf.n = 1} or \emph{abs.n = 1}, the number of returned
@@ -135,18 +138,18 @@ sampling locations and thus, greater chances of getting the total number of
 requested sampling locations per stratification unit.
 
 Note that this sampling scheme can be applied for classification units. In
-order to do this, one should replace the multi-layer SpatRast of landscape
-similarities with a multi-layer SpatRast of spatial signatures. One should
+order to do this, one should replace the multi-layer SpatRaster of landscape
+similarities with a multi-layer SpatRaster of spatial signatures. One should
 also replace the raster layer of stratification units with that of
 classification units.
 }
 \examples{
 require(terra)
 p <- system.file("exdat", package = "rassta")
-# Multi-layer SpatRast of landscape similarities
+# Multi-layer SpatRaster of landscape similarities
 fls <- list.files(path = p, pattern = "su_", full.names = TRUE)
 ls <- terra::rast(fls)
-# Single-layer SpatRast of stratification units
+# Single-layer SpatRaster of stratification units
 fsu <- list.files(path = p, pattern = "strata.tif", full.names = TRUE)
 su <- terra::rast(fsu)
 # Get 1 representative sampling location per stratification unit

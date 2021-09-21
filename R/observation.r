@@ -36,6 +36,7 @@
 #' @param ls.rast SpatRaster, as in \code{\link[terra]{rast}}. Multi-layer
 #'   SpatRaster representing landscape similarities to stratification units.
 #'   Only required if \emph{method = "mls"}.
+#' @param verbose Boolean. Show warning messages in the console? Default: FALSE
 #'
 #' @return
 #' A list with the following components:
@@ -55,15 +56,15 @@
 #'
 #' @details
 #' This selection scheme can be applied to classification units. For
-#' classification units, one should replace the multi-layer SpatRast of
-#' landscape similarities with a multi-layer SpatRast of spatial signatures. One
+#' classification units, one should replace the multi-layer SpatRaster of
+#' landscape similarities with a multi-layer SpatRaster of spatial signatures. One
 #' should also replace the raster layer of stratification units with that of
 #' classification units.
 #'
 #' @examples
 #' require(terra)
 #' p <- system.file("exdat", package = "rassta")
-#' # Single-layer SpatRast of stratification units
+#' # Single-layer SpatRaster of stratification units
 #' fsu <- list.files(path = p, pattern = "strata.tif", full.names = TRUE)
 #' su <- terra::rast(fsu)
 #' # Observations with response values.
@@ -73,7 +74,7 @@
 #' # Column indices for ID and measured response value
 #' id <- 1
 #' re <- 2
-#' # Multi-layer SpatRast of landscape similarities
+#' # Multi-layer SpatRaster of landscape similarities
 #' fls <- list.files(path = p, pattern = "su_", full.names = TRUE)
 #' ls <- terra::rast(fls)
 #' # Selection of representative response observations for stratification units
@@ -93,7 +94,8 @@
 #' @seealso
 #' \code{\link{strata}}, \code{\link{similarity}}
 #'
-observation <- function(su.rast, obs, col.id, col.resp, method = "mls", ls.rast)
+observation <- function(su.rast, obs, col.id, col.resp, method = "mls", ls.rast,
+                        verbose = FALSE)
 {
 
   #-----Binding variables to prevent devtools::check() notes-----#
@@ -277,7 +279,9 @@ observation <- function(su.rast, obs, col.id, col.resp, method = "mls", ls.rast)
 
   } else {
 
-    base::print("ERROR: Please select a valid method", quote = FALSE)
+    if(verbose == TRUE){
+      base::warning("Nothing was done. Please select a valid selection method")
+    }
 
   }
 

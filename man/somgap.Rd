@@ -171,32 +171,33 @@ tsom$Kopt
 
 }
 \references{
-Kaufman, L., & Rousseeuw, P. J. (1990). Partitioning around medoids (program
-pam). Finding groups in data: an introduction to cluster analysis, 344, 68
-125.
+L. Kaufman and P. Rousseeuw. Finding groups in data: an introduction to
+cluster analysis. John Wiley & Sons, 1990.
+\doi{https://doi.org/10.1002/9780470316801}
 
-Kohonen, T. (1982). Self-organized formation of topologically correct feature
-maps. Biological cybernetics, 43(1), 59-69.
+T. Kohonen. Self-organized formation of topologically correct feature maps.
+Biological cybernetics, 43 (1):59–69, 1982.
+\doi{https://doi.org/10.1007/bf00337288}
 
-Kohonen, T. (1990). The self-organizing map. Proceedings of the IEEE, 78(9),
-1464-1480.
+T. Kohonen. The self-organizing map. Proceedings of the IEEE,
+78(9):1464–1480, 1990. \doi{https://doi.org/10.1016/s0925-2312(98)00030-7}
 
-Maechler, M., Rousseeuw, P., Struyf, A., Hubert, M., Hornik, K. (2021).
-Cluster: Cluster analysis basics and extensions. R package version 2.1.1.
+M. Maechler, P. Rousseeuw, A. Struyf, M. Hubert, and K. Hornik. cluster:
+Cluster Analysis Basics and Extensions, 2021.
+\url{https://CRAN.R-project.org/package=cluster}
 
-Tibshirani, R., Walther, G., & Hastie, T. (2001). Estimating the number of
-clusters in a data set via the gap statistic. Journal of the Royal
-Statistical Society: Series B (Statistical Methodology), 63(2), 411-423.
+R. Tibshirani, G. Walther, and T. Hastie. Estimating the number of clusters
+in a data set via the gap statistic. Journal of the Royal Statistical
+Society: Series B (Statistical Methodology), 63(2):411–423, 2001.
+\doi{https://doi.org/10.1111/1467-9868.00293}
 
-Vesanto, J., & Alhoniemi, E. (2000). Clustering of the self-organizing map.
-IEEE Transactions on neural networks, 11(3), 586-600.
+J. Vesanto and E. Alhoniemi. Clustering of the self-organizing map. IEEE
+Transactions on Neural Networks, 11(3):586–600, 2000.
+\doi{https://doi.org/10.1109/72.846731}
 
-Wehrens R., Buydens LMC. (2007). Self- and super-organizing maps in R: The
-kohonen package. Journal of Statistical Software, 21(5), 1-19. doi:
-10.18637/jss.v021.i05.
-
-Wehrens R., Kruisselbrink J. (2018). Flexible self-organizing maps in kohonen
-3.0. Journal of Statistical Software, 87(7), 1-18. doi: 10.18637/jss.v087.i07
+R. Wehrens and J. Kruisselbrink. Flexible self-organizing maps in kohonen
+3.0. Journal of Statistical Software, 87(1):1–18, 2018.
+\doi{https://doi.org/10.18637/jss.v087.i07}
 }
 \seealso{
 Other Functions for Landscape Stratification: 

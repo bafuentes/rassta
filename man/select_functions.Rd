@@ -10,6 +10,7 @@ select_functions(
   fun = mean,
   varscale = "uniminmax",
   mode = "auto",
+  verbose = TRUE,
   ...
 )
 }
@@ -33,6 +34,8 @@ in \code{\link[GGally]{ggparcoord}}. Default: "uniminmax"}
 distribution functions. Possible values are "inter" for interactive
 selection, and "auto" for automatic selection (see Details). Default:
 "auto"}
+
+\item{verbose}{Boolean. Show warning messages in the console? Default: FALSE}
 
 \item{...}{Additional arguments as for \code{\link[GGally]{ggparcoord}}.}
 }

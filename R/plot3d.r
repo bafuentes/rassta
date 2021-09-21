@@ -32,7 +32,7 @@
 #' @param fact Numeric. If \emph{agg = TRUE}, value indicating the aggregation
 #'   factor. Default: NULL
 #' @param spext Numeric. List with the coordinates of the bounding box for
-#'   spatial subset (xmin, xmax, ymin, ymax). SpatRasters or SpatVectors from
+#'   spatial subset (xmin, xmax, ymin, ymax). SpatRaster or SpatVector from
 #'   which a spatial extent can be calculated are also an acceptable input.
 #'   Default: NULL
 #' @param pals Character. List of strings with the names of the \emph{n} color

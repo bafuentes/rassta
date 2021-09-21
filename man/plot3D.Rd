@@ -34,7 +34,7 @@ processing time? Default: FALSE}
 factor. Default: NULL}
 
 \item{spext}{Numeric. List with the coordinates of the bounding box for
-spatial subset (xmin, xmax, ymin, ymax). SpatRasters or SpatVectors from
+spatial subset (xmin, xmax, ymin, ymax). SpatRaster or SpatVector from
 which a spatial extent can be calculated are also an acceptable input.
 Default: NULL}
 

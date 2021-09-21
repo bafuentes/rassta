@@ -49,6 +49,7 @@
 #'   from disk after the tile merging process? Default: TRUE
 #' @param extension Character. String specifying the extension for the output
 #'   raster layer(s) of modeled response(s). Default: ".tif"
+#' @param verbose Boolean. Show warning messages in the console? Default: FALSE
 #' @param ... Additional arguments as for \code{\link[terra]{writeRaster}}.
 #'
 #' @return
@@ -120,7 +121,7 @@
 #' grep(x[2], x)                            # Explicit
 #' grep(x[3], x)                            # Explicit
 #'
-#' ## This will will result in correct values
+#' ## This will result in correct values
 #' x <- c("SOM_15cm", "SOM_30cm", "SOM_45cm")
 #' grep(x[1], x)                            # Explicit
 #' grep(x[2], x)                            # Explicit
@@ -136,7 +137,7 @@
 #'
 engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
                    parallel = FALSE, outdir = ".", tile.rm = TRUE,
-                   extension = ".tif", ...)
+                   extension = ".tif", verbose = FALSE, ...)
 {
 
   #-----Binding variables to prevent devtools::check() notes-----#
@@ -646,9 +647,10 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
 
   } else {
 
-    base::print("ERROR: Please select an appropiate response type",
-                quote = FALSE
-              )
+    if(verbose == TRUE){
+      base::warning("Nothing was done. Please select a valid response type.")
+    }
+
   }
 
 }

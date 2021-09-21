@@ -16,6 +16,7 @@
 #'   with \emph{x} = pixels. The default pixel size (not adjustable) and scaling
 #'   value should work fine. Default = 100
 #' @param to.disk Boolean. Save figure to disk? Default = FALSE
+#' @param verbose Boolean. Show warning messages in the console? Default: FALSE
 #'
 #' @return
 #' None
@@ -37,17 +38,17 @@
 #' Miscellaneous Functions
 #' @rdname
 #' figure
-#' @references
-#' TBD
 #'
-figure <- function(x, d, scaling = 100, to.disk = FALSE) {
+figure <- function(x, d, scaling = 100, to.disk = FALSE, verbose = FALSE) {
 
   if(x == 4) {
 
-    # Restart graphic device
-    if(base::names(grDevices::dev.cur()) != "null device") { grDevices::dev.off() }
+    # Get user's graphical parameters
+    userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
-    grDevices::dev.new(width = 1195/scaling, height = 431/scaling, unit = "px")
+    grDevices::dev.new(width = 1195/scaling, height = 431/scaling, unit = "px",
+                       noRStudioGD = TRUE
+                      )
 
     # Set graphics arrangement
     graphics::par(mfrow = c(2, 5))
@@ -82,12 +83,17 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE) {
     # Write to disk?
     if(to.disk == TRUE) { grDevices::savePlot("figure_4.png", type = "png") }
 
+    # Restore user's graphical parameters
+    base::on.exit(graphics::par(userpar))
+
   } else if(x == 5) {
 
-    # Restart graphic device
-    if(base::names(grDevices::dev.cur()) != "null device") { grDevices::dev.off() }
+    # Get user's graphical parameters
+    userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
-    grDevices::dev.new(width = 1264/scaling, height = 590/scaling, unit = "px")
+    grDevices::dev.new(width = 1264/scaling, height = 590/scaling, unit = "px",
+                       noRStudioGD = TRUE
+                      )
 
     # Set graphics arrangement
     graphics::par(mfrow = c(1,2))
@@ -118,12 +124,17 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE) {
     # Write to disk?
     if(to.disk == TRUE) { grDevices::savePlot("figure_5.png", type = "png") }
 
+    # Restore user's graphical parameters
+    base::on.exit(graphics::par(userpar))
+
   } else if(x == 6){
 
-    # Restart graphic device
-    if(base::names(grDevices::dev.cur()) != "null device") { grDevices::dev.off() }
+    # Get user's graphical parameters
+    userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
-    grDevices::dev.new(width = 990/scaling, height = 445/scaling, unit = "px")
+    grDevices::dev.new(width = 990/scaling, height = 445/scaling, unit = "px",
+                       noRStudioGD = TRUE
+                      )
 
     # Set graphics arrangement
     graphics::par(mfrow = c(2,2))
@@ -172,12 +183,17 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE) {
     # Write to disk?
     if(to.disk == TRUE) { grDevices::savePlot("figure_6.png", type = "png") }
 
+    # Restore user's graphical parameters
+    base::on.exit(graphics::par(userpar))
+
   } else if(x == 8) {
 
-    # Restart graphic device
-    if(base::names(grDevices::dev.cur()) != "null device") { grDevices::dev.off() }
+    # Get user's graphical parameters
+    userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
-    grDevices::dev.new(width = 1500/scaling, height = 495/scaling, unit = "px")
+    grDevices::dev.new(width = 1500/scaling, height = 495/scaling, unit = "px",
+                       noRStudioGD = TRUE
+                      )
 
     # Set graphics arrangement
     graphics::par(mfrow = c(1,4))
@@ -215,12 +231,17 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE) {
     # Write to disk?
     if(to.disk == TRUE) { grDevices::savePlot("figure_8.png", type = "png") }
 
+    # Restore user's graphical parameters
+    base::on.exit(graphics::par(userpar))
+
   } else if(x == 9) {
 
-    # Restart graphic device
-    if(base::names(grDevices::dev.cur()) != "null device") { grDevices::dev.off() }
+    # Get user's graphical parameters
+    userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
-    grDevices::dev.new(width = 710/scaling, height = 431/scaling, unit = "px")
+    grDevices::dev.new(width = 710/scaling, height = 431/scaling, unit = "px",
+                       noRStudioGD = TRUE
+                      )
 
     # Set graphics arrangement
     graphics::par(mfrow = c(3,3))
@@ -244,12 +265,17 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE) {
     # Write to disk?
     if(to.disk == TRUE) { grDevices::savePlot("figure_9.png", type = "png") }
 
+    # Restore user's graphical parameters
+    base::on.exit(graphics::par(userpar))
+
   } else if(x == 10) {
 
-    # Restart graphic device
-    if(base::names(grDevices::dev.cur()) != "null device") { grDevices::dev.off() }
+    # Get user's graphical parameters
+    userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
-    grDevices::dev.new(width = 1350/scaling, height = 475/scaling, unit = "px")
+    grDevices::dev.new(width = 1350/scaling, height = 475/scaling, unit = "px",
+                       noRStudioGD = TRUE
+                      )
 
     # Set graphics arrangement
     graphics::par(mfrow = c(1,5))
@@ -273,16 +299,21 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE) {
     # Write to disk?
     if(to.disk == TRUE) { grDevices::savePlot("figure_10.png", type = "png") }
 
+    # Restore user's graphical parameters
+    base::on.exit(graphics::par(userpar))
+
   } else if(x == 12) {
 
-    # Restart graphic device
-    if(base::names(grDevices::dev.cur()) != "null device") { grDevices::dev.off() }
+    # Get user's graphical parameters
+    userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
-    grDevices::dev.new(width = 1200/scaling, height = 520/scaling, unit = "px")
+    grDevices::dev.new(width = 1200/scaling, height = 520/scaling, unit = "px",
+                       noRStudioGD = TRUE
+                      )
 
-    # Multi-layer SpatRaster with signatures and landscape similarity for SU = 111
+  # Multi-layer SpatRaster with signatures and landscape similarity for SU = 111
     su111 <- c(d[[1]]$landsim[[1]], d[[3]][[1]], d[[4]][[1]], d[[5]][[1]])
-    # Multi-layer SpatRaster with signatures and landscape similarity for SU = 468
+  # Multi-layer SpatRaster with signatures and landscape similarity for SU = 468
     su468 <- c(d[[1]]$landsim[[56]], d[[3]][[4]], d[[4]][[6]], d[[5]][[8]])
     # Spatial boundaries for SU = 111 with terra::classify() and ::as.polygon()
     b111 <- terra::classify(d[[2]], cbind(111, 1), othersNA = TRUE)
@@ -292,24 +323,24 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE) {
     b468 <- terra::as.polygons(b468)
     # Set graphics arrangement
     graphics::par(mfrow = c(2,4))
-    # Map of landscape similarity, spatial signatures and boundaries of SU = 1101
+  # Map of landscape similarity, spatial signatures and boundaries of SU = 1101
     for(i in 1:4){terra::plot(su111[[i]],
-                                    col = grDevices::hcl.colors(100,
-                                                                "Oslo",
-                                                                rev = TRUE
-                                                              ),
-                                    mar = c(1.5, 2, 1.5, 4),
-                                    fun = function() terra::polys(b111,
-                                                           col = NA,
-                                                           border = "darkred",
-                                                           lwd = 1
+                              col = grDevices::hcl.colors(100,
+                                                          "Oslo",
+                                                          rev = TRUE
+                                                        ),
+                              mar = c(1.5, 2, 1.5, 4),
+                              fun = function() terra::polys(b111,
+                                                            col = NA,
+                                                            border = "darkred",
+                                                            lwd = 1
                                                           ),
-                                    main = c("Landscape Similarity to SU = 111",
-                                             base::paste("Spatial Signature:",
-                                                         base::names(su111[[2:4]])
-                                                        )
-                                            )[i]
-                                  )
+                              main = c("Landscape Similarity to SU = 111",
+                                       base::paste("Spatial Signature:",
+                                                   base::names(su111[[2:4]])
+                                                  )
+                                      )[i]
+                            )
     }
     # Map of landscape similarity, spatial signatures and boundaries of SU = 428
     for(i in 1:4){terra::plot(su468[[i]],
@@ -325,7 +356,7 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE) {
                                                           ),
                                     main = c("Landscape Similarity to SU = 468",
                                              base::paste("Spatial Signature:",
-                                                         base::names(su468[[2:4]]))
+                                                      base::names(su468[[2:4]]))
                                             )[i]
                                   )
     }
@@ -333,12 +364,17 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE) {
     # Write to disk?
     if(to.disk == TRUE) { grDevices::savePlot("figure_12.png", type = "png") }
 
+    # Restore user's graphical parameters
+    base::on.exit(graphics::par(userpar))
+
   } else if(x == 13) {
 
-    # Restart graphic device
-    if(base::names(grDevices::dev.cur()) != "null device") { grDevices::dev.off() }
+    # Get user's graphical parameters
+    userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
-    grDevices::dev.new(width = 1060/scaling, height = 431/scaling, unit = "px")
+    grDevices::dev.new(width = 1060/scaling, height = 431/scaling, unit = "px",
+                       noRStudioGD = TRUE
+                      )
 
     # Set graphics arrangement
     graphics::par(mfrow = c(1,2))
@@ -349,13 +385,13 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE) {
                 legend = FALSE,
                 main = base::paste("Soil Organic Carbon Observations"),
                 fun = function() c(terra::points(d[[2]],
-                                          pch = 21,
-                                          bg = grDevices::rgb(0,1,0,1)
-                                        ),
+                                                 pch = 21,
+                                                 bg = grDevices::rgb(0,1,0,1)
+                                                ),
                                    terra::points(d[[1]]$su_repobs.sp,
-                                          pch = 21,
-                                          bg = grDevices::rgb(0,0,1,1)
-                                        )
+                                                 pch = 21,
+                                                 bg = grDevices::rgb(0,0,1,1)
+                                                )
                                   )
               )
     # Set new graphics arrangement
@@ -383,12 +419,17 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE) {
     # Write to disk?
     if(to.disk == TRUE) { grDevices::savePlot("figure_13.png", type = "png") }
 
+    # Restore user's graphical parameters
+    base::on.exit(graphics::par(userpar))
+
   } else if(x == 14) {
 
-    # Restart graphic device
-    if(base::names(grDevices::dev.cur()) != "null device") { grDevices::dev.off() }
+    # Get user's graphical parameters
+    userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
-    grDevices::dev.new(width = 1180/scaling, height = 431/scaling, unit = "px")
+    grDevices::dev.new(width = 1180/scaling, height = 431/scaling, unit = "px",
+                       noRStudioGD = TRUE
+                      )
 
     # Set new graphics arrangement
     graphics::par(mfrow = c(1,2))
@@ -399,13 +440,13 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE) {
                 mar = c(2,6,2,6),
                 main = base::paste("Representative Sampling Locations for Stratification units"),
                 fun = function() c(terra::polys(d[[1]]$buffers,
-                                         col = grDevices::rgb(0,1,0,0.5)
-                                        ),
+                                                col = grDevices::rgb(0,1,0,0.5)
+                                              ),
                                    terra::points(d[[1]]$locations,
-                                          pch = 21,
-                                          col = "black",
-                                          bg = grDevices::rgb(0,1,0,1)
-                                        )
+                                                 pch = 21,
+                                                 col = "black",
+                                                 bg = grDevices::rgb(0,1,0,1)
+                                                )
                                   )
               )
     # Set new graphics arrangement
@@ -419,12 +460,17 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE) {
     # Write to disk?
     if(to.disk == TRUE) { grDevices::savePlot("figure_14.png", type = "png") }
 
+    # Restore user's graphical parameters
+    base::on.exit(graphics::par(userpar))
+
   } else if(x == 16) {
 
-    # Restart graphic device
-    if(base::names(grDevices::dev.cur()) != "null device") { grDevices::dev.off() }
+    # Get user's graphical parameters
+    userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
-    grDevices::dev.new(width = 1200/scaling, height = 500/scaling, unit = "px")
+    grDevices::dev.new(width = 1200/scaling, height = 500/scaling, unit = "px",
+                       noRStudioGD = TRUE
+                      )
 
     # Set graphics arrangement
     graphics::par(mfrow = c(1,2))
@@ -468,12 +514,17 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE) {
     # Write to disk?
     if(to.disk == TRUE) { grDevices::savePlot("figure_16.png", type = "png") }
 
+    # Restore user's graphical parameters
+    base::on.exit(graphics::par(userpar))
+
   } else if(x == 17) {
 
-    # Restart graphic device
-    if(base::names(grDevices::dev.cur()) != "null device") { grDevices::dev.off() }
+    # Get user's graphical parameters
+    userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
-    grDevices::dev.new(width = 1399/scaling, height = 214/scaling, unit = "px")
+    grDevices::dev.new(width = 1399/scaling, height = 214/scaling, unit = "px",
+                       noRStudioGD = TRUE
+                      )
 
     # Plot binary layers
     terra::plot(d,
@@ -484,12 +535,14 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE) {
     # Write to disk?
     if(to.disk == TRUE) { grDevices::savePlot("figure_17.png", type = "png") }
 
+    # Restore user's graphical parameters
+    base::on.exit(graphics::par(userpar))
+
   } else {
 
-    base::print(base::paste("Nothing to plot! Check figure number and/or inputs"
-                          ),
-                quote = FALSE
-              )
+    if(verbose == TRUE){
+      base::warning("Nothing to plot. Check figure number and/or inputs")
+    }
 
   }
 

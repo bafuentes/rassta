@@ -65,6 +65,7 @@
 #' @param extension Character. If \emph{to.disk = TRUE}, string specifying the
 #'   extension for the output raster layers of predicted distribution function.
 #'   Default: ".tif"
+#' @param verbose Boolean. Show warning messages in the console? Default: FALSE
 #' @param ... If \emph{to.disk = TRUE}, additional arguments as for
 #'   \code{\link[terra]{writeRaster}}.
 #'
@@ -75,20 +76,20 @@
 #' @details
 #' To calculate the PDF, this function uses the binned KDE for observations
 #' drawn from the breaks of a regular/irregular histogram. The "optimal" number
-#' of bins for the histogram is defined by calling
-#' \code{\link[histogram]{histogram}} with the user-defined penalty
-#' \emph{hist.pen}. Subsequently, the optimal number of bins is treated as
-#' equivalent to the "optimal" grid size for the binned KDE. The grid size can
-#' be adjusted by specifying the multiplying factor \emph{grid.mult}. Lastly,
-#' the "optimal" bandwidth for the binned KDE is calculated by applying the
-#' \emph{direct plugin} method of Sheater and Jones (1991). For the calculation
-#' of optimal bandwidth and for the binned KDE, the package \strong{KernSmooth}
-#' is called. To calculate both the ECDF and the iECDF, this function calls the
-#' \code{\link[stats]{ecdf}} function on equally-spaced quantiles. The spacing
-#' between quantiles can be manually adjusted via \emph{quant.sep}. In the case
-#' of iECDF, the ECDF is inverted by applying the formula: \emph{iECDF = ((x -
-#' max(ECDF)) * -1) + min(ECDF)}; where \emph{x} corresponds to each value of
-#' the ECDF.
+#' of bins for the histogram is defined by calling the function
+#' \code{\link[histogram]{histogram}} (Mildenberger et al., 2019) with the
+#' user-defined penalty \emph{hist.pen}. Subsequently, the optimal number of
+#' bins is treated as equivalent to the "optimal" grid size for the binned KDE.
+#' The grid size can be adjusted by specifying the multiplying factor
+#' \emph{grid.mult}. Lastly, the "optimal" bandwidth for the binned KDE is
+#' calculated by applying the \emph{direct plugin} method of Sheather and Jones
+#' (1991). For the calculation of optimal bandwidth and for the binned KDE, the
+#' package \strong{KernSmooth} is called. To calculate both the ECDF and the
+#' iECDF, this function calls the \code{\link[stats]{ecdf}} function on
+#' equally-spaced quantiles. The spacing between quantiles can be manually
+#' adjusted via \emph{quant.sep}. In the case of iECDF, the ECDF is inverted by
+#' applying the formula: \emph{iECDF = ((x - max(ECDF)) * -1) + min(ECDF)};
+#' where \emph{x} corresponds to each value of the ECDF.
 #'
 #' The "cu", "vars", and "dif" parameters of this function are configured such
 #' that the output table from \code{\link{select_functions}} can be used
@@ -137,15 +138,20 @@
 #' @rdname
 #' predict_functions
 #' @references
-#' Sheather, S., & Jones, M. (1991). A reliable data-based bandwidth selection
-#' method for kernel density estimation. Journal of the Royal Statistical
-#' Society. Series B (Methodological), 53(3), 683-690.
+#' T. Mildenberger, Y. Rozenholc, and D. Zasada. histogram: Construction of
+#' Regular and Irregular Histograms with Different Options for Automatic Choice
+#' of Bins, 2019. \url{https://CRAN.R-project.org/package=histogram}
+#'
+#' S. Sheather and M. Jones. A reliable data-based bandwidth selection method
+#' for kernel density estimation. Journal of the Royal Statistical Society.
+#' Series B. Methodological, 53:683–690, 1991.
 #'
 predict_functions <- function(cuvar.rast, cu.ind, cu, vars, dif,
                               hist.type = "regular", hist.pen = "default",
                               grid.mult = 1, kern = "normal", quant.sep = 0.01,
                               span = 0.6, to.disk = FALSE, outdir = ".",
-                              prefix = "", extension = ".tif", ...)
+                              prefix = "", extension = ".tif", verbose = FALSE,
+                              ...)
 {
 
   #-----Binding variables to prevent devtools::check() notes-----#
@@ -271,9 +277,9 @@ predict_functions <- function(cuvar.rast, cu.ind, cu, vars, dif,
 
     } else {
 
-      raster::print("ERROR: No distribution function was recognized",
-                    quotes = FALSE
-                  )
+      if(verbose == TRUE){
+     base::warning("Nothing was done. No distribution function was recognized.")
+      }
 
     }
 

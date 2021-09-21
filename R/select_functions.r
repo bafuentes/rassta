@@ -28,6 +28,7 @@
 #'   distribution functions. Possible values are "inter" for interactive
 #'   selection, and "auto" for automatic selection (see Details). Default:
 #'   "auto"
+#' @param verbose Boolean. Show warning messages in the console? Default: FALSE
 #' @param ... Additional arguments as for \code{\link[GGally]{ggparcoord}}.
 #'
 #' @return
@@ -115,7 +116,8 @@
 #' select_functions
 #'
 select_functions <- function(cu.rast, var.rast, fun = mean,
-                             varscale = "uniminmax", mode = "auto", ...)
+                             varscale = "uniminmax", mode = "auto",
+                             verbose = TRUE, ...)
 {
 
   #-----Binding variables to prevent devtools::check() notes-----#
@@ -303,7 +305,9 @@ select_functions <- function(cu.rast, var.rast, fun = mean,
 
   } else {
 
-    print("ERROR: Please select a valid mode", quote = FALSE)
+    if(verbose == TRUE){
+      base::warning("Nothing was done. Please select a valid selection mode.")
+    }
 
   }
 

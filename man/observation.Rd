@@ -4,7 +4,15 @@
 \alias{observation}
 \title{Select the Representative Response Observation for Stratification Units}
 \usage{
-observation(su.rast, obs, col.id, col.resp, method = "mls", ls.rast)
+observation(
+  su.rast,
+  obs,
+  col.id,
+  col.resp,
+  method = "mls",
+  ls.rast,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{su.rast}{SpatRaster, as in \code{\link[terra]{rast}}. Single-layer
@@ -30,6 +38,8 @@ landscape similarity value, "mrv" for the median response value, and
 \item{ls.rast}{SpatRaster, as in \code{\link[terra]{rast}}. Multi-layer
 SpatRaster representing landscape similarities to stratification units.
 Only required if \emph{method = "mls"}.}
+
+\item{verbose}{Boolean. Show warning messages in the console? Default: FALSE}
 }
 \value{
 A list with the following components:
@@ -66,15 +76,15 @@ function for classification units.
 }
 \details{
 This selection scheme can be applied to classification units. For
-classification units, one should replace the multi-layer SpatRast of
-landscape similarities with a multi-layer SpatRast of spatial signatures. One
+classification units, one should replace the multi-layer SpatRaster of
+landscape similarities with a multi-layer SpatRaster of spatial signatures. One
 should also replace the raster layer of stratification units with that of
 classification units.
 }
 \examples{
 require(terra)
 p <- system.file("exdat", package = "rassta")
-# Single-layer SpatRast of stratification units
+# Single-layer SpatRaster of stratification units
 fsu <- list.files(path = p, pattern = "strata.tif", full.names = TRUE)
 su <- terra::rast(fsu)
 # Observations with response values.
@@ -84,7 +94,7 @@ ob <- terra::vect(fob)
 # Column indices for ID and measured response value
 id <- 1
 re <- 2
-# Multi-layer SpatRast of landscape similarities
+# Multi-layer SpatRaster of landscape similarities
 fls <- list.files(path = p, pattern = "su_", full.names = TRUE)
 ls <- terra::rast(fls)
 # Selection of representative response observations for stratification units

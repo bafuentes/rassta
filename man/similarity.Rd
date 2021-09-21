@@ -150,8 +150,6 @@ su <- c(1101, 2410)
 su[1]   # 'geology' = 1, 'climate' = 1, and 'topography' = 1
 su[2]   # 'geology' = 2, 'climate' = 4, and 'topography' = 10
 
-
-
 }
 \seealso{
 \code{\link{strata}}

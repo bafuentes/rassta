@@ -4,7 +4,7 @@
 \alias{figure}
 \title{Reproduce Figures from Fuentes et al. (n.d.)}
 \usage{
-figure(x, d, scaling = 100, to.disk = FALSE)
+figure(x, d, scaling = 100, to.disk = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{x}{Integer. Number identifying the figure to reproduce.}
@@ -17,6 +17,8 @@ with \emph{x} = pixels. The default pixel size (not adjustable) and scaling
 value should work fine. Default = 100}
 
 \item{to.disk}{Boolean. Save figure to disk? Default = FALSE}
+
+\item{verbose}{Boolean. Show warning messages in the console? Default: FALSE}
 }
 \value{
 None
@@ -41,9 +43,6 @@ mat.sig <- dummies(ca.rast = geol, preval = 100, absval = 0)
 figure(17, d = mat.sig)
 }
 
-}
-\references{
-TBD
 }
 \seealso{
 Other Miscellaneous Functions: 
