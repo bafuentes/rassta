@@ -24,5 +24,5 @@ remotes::install_github("bafuentes/rassta")
 
 To cite the *beta release* of `rassta` please use the following (edit accordingly):
 
-Fuentes, Bryan A., Dorantes, Minerva J., Tipton, John R., Hijmans, R.J., 2021. rassta: Raster-based Spatial Stratification Algorithms.
-https://doi.org/10.5281/zenodo.5520042
+Fuentes, Bryan A., Dorantes, Minerva J., Tipton, John R., & Hijmans, R.J. (2021). rassta: Raster-based Spatial Stratification Algorithms (V1.0.0-beta).
+Zenodo. https://doi.org/10.5281/zenodo.5520042
