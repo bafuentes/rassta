@@ -1,5 +1,4 @@
-# rassta <img align="right" width="230" height="270"
-src="bafuentes/rassta/man/figures/rassta_logo.png">
+# rassta <img align="right" width="230" height="270" src="man/figures/rassta_logo.png">
 
 <!-- badges: start -->
   [![R-CMD-check](https://github.com/bafuentes/rassta/workflows/R-CMD-check/badge.svg)](https://github.com/bafuentes/rassta/actions)
