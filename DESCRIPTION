@@ -16,7 +16,7 @@ Authors@R: c(person("Bryan A.", "Fuentes", role = c("aut", "cre"),
                      comment = c(ORCID = "0000-0001-5872-2872"))
             )
 Description: Algorithms for the spatial stratification of landscapes, sampling and
-    modeling of spatially-varying phenomena. These algorithms offers a simple framework
+    modeling of spatially-varying phenomena. These algorithms offer a simple framework
     for the stratification of geographic space based on raster layers representing
     landscape factors and/or factor scales. The stratification process follows a 
     hierarchical approach, which is based on first level units (i.e., classification 
