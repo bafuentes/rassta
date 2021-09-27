@@ -1,13 +1,12 @@
 # rassta   
 
-
-<img align="right" width="240" height="280" src="man/figures/rassta_logo.png">
-
 <!-- badges: start -->
   [![R-CMD-check](https://github.com/bafuentes/rassta/workflows/R-CMD-check/badge.svg)](https://github.com/bafuentes/rassta/actions)
   [![CRANstatus](https://www.r-pkg.org/badges/version/rassta)](https://cran.r-project.org/package=rassta)
   [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/rassta)](http://www.r-pkg.org/pkg/rassta)
-  <!-- badges: end -->
+<!-- badges: end -->
+
+<img align="right" width="240" height="280" src="man/figures/rassta_logo.png">
 
  \
 `rassta` (**r**aster-based **s**patial **st**ratification **a**lgorithms) is a collection of algorithms for the 
