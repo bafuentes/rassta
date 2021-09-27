@@ -6,7 +6,7 @@
   [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/rassta)](http://www.r-pkg.org/pkg/rassta)
 <!-- badges: end -->
 
-<img align="right" width="240" height="280" src="man/figures/rassta_logo.png">
+<img align="right" width="230" height="270" src="man/figures/rassta_logo.png">
 
  \
 `rassta` (**r**aster-based **s**patial **st**ratification **a**lgorithms) is a collection of algorithms for the 
