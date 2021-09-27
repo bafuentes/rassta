@@ -298,7 +298,12 @@ select_functions <- function(cu.rast, var.rast, fun = mean,
     }
 
     # Build final table (all variables, all classification units)
-    distfun <- base::Reduce(function(...) base::merge(..., all = T), distlist)
+    distfun <- base::Reduce(function(...) base::merge(...,
+                                                  by = colnames(distlist[[1]]),
+                                                  all = T
+                                                ),
+                          distlist
+                        )
 
     # Return objects (parallel coordinates plot & final table)
     base::list(parcoord = parcoord, distfun = distfun)
