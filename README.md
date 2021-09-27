@@ -3,6 +3,7 @@
 <!-- badges: start -->
   [![R-CMD-check](https://github.com/bafuentes/rassta/workflows/R-CMD-check/badge.svg)](https://github.com/bafuentes/rassta/actions)
   [![CRANstatus](https://www.r-pkg.org/badges/version/rassta)](https://cran.r-project.org/package=rassta)
+  [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/rassta)](http://www.r-pkg.org/pkg/rassta)
   <!-- badges: end -->
 
  \
