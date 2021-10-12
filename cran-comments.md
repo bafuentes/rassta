@@ -74,3 +74,49 @@ warning messages in the console.
 * **Issue 3.** A call of on.exit() as been included in function 'figure.r' to
 restore the user's graphical parameters after their modification by the
 function.
+
+**Second submission was approved by CRAN**
+
+## Third submission - Wednesday, Oct 12, ~3:45 PM CDT 
+
+### Issues with previous submission (second submission, accepted by CRAN)
+
+- The package includes one example with code that attempts write to the user
+library, which is in violation of CRAN's policy. Check logs regarding this issue
+can be accessed through:
+
+https://cran-archive.r-project.org/web/checks/2021/2021-10-08_check_results_rassta.html
+
+**The package was archived because of this issue**
+
+### Proposed fixes
+
+- The package's example code does not attempt to write to the user library
+anymore. One example uses *tempdir()* to write temporary files, which are
+deleted at the end of the example (see *engine()*).
+
+### Test environments
+- R-hub windows-x86_64-devel (r-devel)
+- R-hub ubuntu-gcc-release (r-release)
+- R-hub fedora-clang-devel (r-devel)
+
+### R CMD check results
+There were no ERRORs or WARNINGs. 
+
+There was 1 NOTE:  
+- New submission  
+  Maintainer: ‘Bryan A. Fuentes <bryandrep@gmail.com>’  
+
+  **Package was archived on CRAN**
+
+#### Results
+> On windows-x86_64-devel (r-devel),
+  ubuntu-gcc-release (r-release),
+  fedora-clang-devel (r-devel)
+  
+  checking CRAN incoming feasibility ... NOTE  
+  
+  New submission  
+  Maintainer: 'Bryan A. Fuentes <bryandrep@gmail.com>'  
+
+0 errors ✓ | 0 warnings ✓ | 1 note x

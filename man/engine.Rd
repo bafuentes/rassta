@@ -133,12 +133,16 @@ ls <- ls[[as.character(ro$SU)]]
 # SpatVector with processing tiles
 fti <- list.files(path = p, pattern = "tiles.shp", full.names = TRUE)
 ti <- terra::vect(fti)
+# Directory for temporary files
+o <- tempdir()
 # Perform spatial modeling of continuous response
 r <- engine(res.type = "cont", ls.rast = ls, n.win = 2, su.repobs = ro,
-            tiles = ti, outdir = p, overwrite = TRUE
+            tiles = ti, outdir = o, overwrite = TRUE
            )
 # Plot modeled response
 if(interactive()){plot(r)}
+# Clean temporary files
+file.remove(list.files(path = o, pattern = "soc.tif", full.names = TRUE))
 #
 #-------
 # A note on non-explicit response's names (obtained from su.repobs):

@@ -1,6 +1,6 @@
 Package: rassta
 Title: Raster-Based Spatial Stratification Algorithms
-Version: 1.0.0
+Version: 1.0.1
 Maintainer: Bryan A. Fuentes <bryandrep@gmail.com>
 Authors@R: c(person("Bryan A.", "Fuentes", role = c("aut", "cre"),
                      email = "bryandrep@gmail.com",
@@ -10,8 +10,8 @@ Authors@R: c(person("Bryan A.", "Fuentes", role = c("aut", "cre"),
                      comment = c(ORCID = "0000-0002-2877-832X")),
              person("John", "Tipton", role = c("aut"),
                      email = "jrtipton@uark.edu",
-                     comment = c(Website = "www.johnrtipton.com")),
-             person("Robert J.", "Hijmans", role = c("aut"),
+                     comment = c(ORCID = "0000-0002-6135-8141")),
+             person("Robert J.", "Hijmans", role = "ctb",
                      email = "r.hijmans@gmail.com",
                      comment = c(ORCID = "0000-0001-5872-2872"))
             )
