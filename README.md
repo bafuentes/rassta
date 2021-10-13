@@ -1,11 +1,5 @@
 # rassta   
 
-<!-- badges: start -->
-  [![R-CMD-check](https://github.com/bafuentes/rassta/workflows/R-CMD-check/badge.svg)](https://github.com/bafuentes/rassta/actions)
-  [![CRANstatus](https://www.r-pkg.org/badges/version/rassta)](https://cran.r-project.org/package=rassta)
-  [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/rassta)](http://www.r-pkg.org/pkg/rassta)
-<!-- badges: end -->
-
 <img align="right" width="230" height="270" src="man/figures/rassta_logo.png">
 
  \
@@ -47,6 +41,6 @@ A journal article describing the analysis and theoretical background of `rassta`
 is on its way. In the meantime, if you use `rassta` as part of your research
 please consider including the following citation in your work:
 
-Bryan A. Fuentes, Minerva J. Dorantes, John Tipton and Robert J. Hijmans (2021).
+Bryan A. Fuentes, Minerva J. Dorantes, and John R. Tipton (2021).
 rassta: Raster-Based Spatial Stratification Algorithms. R package version 1.0.0.
 https://CRAN.R-project.org/package=rassta
