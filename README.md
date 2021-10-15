@@ -37,7 +37,7 @@ remotes::install_github("bafuentes/rassta")
 
 `rassta` greatly benefits from past and current efforts to make spatial data
 analysis fully operational in R, which in turn have benefited from titans like
-GDAL, PROJ, GEOS, etc. Special thanks to the minds behind the `raster`, `rgdal`,
+GDAL, PROJ, GEOS, etc. Special thanks to the minds behind the `terra`, `rgdal`,
 `rgeos`, and `sf` packages, and those behind the packages that `rassta` depends
 on as well.
 
