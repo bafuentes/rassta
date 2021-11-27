@@ -68,17 +68,19 @@ empirical cumulative density function (iECDF). Please note that
 \code{\link{select_functions}} DOES NOT calculate the aforementioned
 distribution functions. The sole purpose of \code{\link{select_functions}} is
 to assist in the knowledge-driven selection of the most appropriate
-distribution function for each variable of a given classification unit (see
-\strong{Details}).
+distribution function for each continuous variable used to create a given
+classification unit (see \strong{Details}).
 }
 \details{
 The selection of distribution functions is univariate, that is, for each
 variable, and it is constrained, meaning that the selection has to be made
-for each classification unit. The rationale behind the selection process is
-that given a classification unit and a variable, the 'optimal' conditions (in
-feature space) for the occurrence of that classification unit can be
-associated with the lowest (iECDF), highest (ECDF), or any value between the
-lowest and highest values of the variable (PDF).
+for each classification unit. Overall, the distribution functions are used to
+characterize typical values of a given continuous variable within a given
+classification unit. When the PDF is selected, values closer to, or at the
+peak of the PDF will be considered as the most typical. Contrarily, values at
+the tails of the PDF will be considered as the less typical. When the ECDF or
+the iECDF are selected, values toward (+)infinity and (-)infinity will be
+considered as the most typical values, respectively.
 
 In order to assist the selection process, when \emph{mode = "inter"}, this
 function displays an interactive parallel coordinates plot (see

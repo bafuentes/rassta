@@ -1,3 +1,8 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 # rassta   
 
 <!-- badges: start -->
@@ -33,6 +38,12 @@ To install the development version from github, please use:
 remotes::install_github("bafuentes/rassta")
 ```
 
+## Cheat Sheet
+
+<p align="center" width="100%">
+    <img src="man/figures/rassta_cheatsheet.png">
+</p>
+
 ## Acknowledgments
 
 `rassta` greatly benefits from past and current efforts to make spatial data
@@ -45,8 +56,8 @@ on as well.
 
 A journal article describing the analysis and theoretical background of `rassta`
 is on its way. In the meantime, if you use `rassta` as part of your research
-please consider including the following citation in your work:
+please cite the EarthArXiv preprint in your work:
 
-Bryan A. Fuentes, Minerva J. Dorantes, and John R. Tipton (2021).
-rassta: Raster-Based Spatial Stratification Algorithms. R package version 1.0.0.
-https://CRAN.R-project.org/package=rassta
+B.A. Fuentes, M.J. Dorantes, and J.R. Tipton. rassta: Raster-based Spatial
+Stratification Algorithms. *EarthArXiv*, 2021. https://doi.org/10.31223/X50S57
+

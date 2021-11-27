@@ -45,12 +45,11 @@ Single-layer or multi-layer SpatRaster with dummy layer(s).
 }
 \description{
 Given a SpatRaster whose cell values represent categories (e.g., soil types,
-land use/cover classes), for each category, a dummy layer indicating the
-presence/absence of that category is created, and optionally written on disk.
-Each category in the raster layer must be represented by a unique integer
-cell value. Output values indicating the presence or absence of categories in
-the dummy layers may be set using \emph{preval} and \emph{absval} arguments,
-respectively.
+land use/cover classes), a dummy layer indicating the presence/absence of
+each category is created, and optionally written on disk. Each category in
+the raster layer must be represented by a unique integer cell value. Output
+values indicating the presence or absence of categories in the dummy layers
+may be set using \emph{preval} and \emph{absval} arguments, respectively.
 }
 \details{
 This function mainly differs from \code{\link[terra]{segregate}} in

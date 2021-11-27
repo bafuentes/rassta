@@ -6,11 +6,11 @@
 #' aggregation of a set of predicted distribution functions for a classification
 #' unit (see \code{\link{predict_functions}}). Each element in this set can be
 #' thought of as a correspondence measurement between an \emph{XY} location in
-#' the landscape and the landscape conditions represented by a given
-#' classification unit, but only in terms of a specific variable. Therefore,
-#' aggregating the set of predicted distribution functions into a single layer
-#' produces an overall (multivariate) measurement of correspondence. This
-#' multivariate correspondence measurement is considered to be the \emph{spatial
+#' the geographic space and the landscape configuration represented by a given
+#' classification unit in terms of a specific variable. Therefore, aggregating
+#' the set of predicted distribution functions into a single layer produces an
+#' overall (multivariate) measurement of correspondence. This multivariate
+#' landscape correspondence metric is considered to be the \emph{spatial
 #' signature} of the classification unit.
 #'
 #' @param pdif.rast SpatRaster, as in \code{\link[terra]{rast}}. Multi-layer

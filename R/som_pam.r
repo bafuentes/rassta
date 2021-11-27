@@ -7,11 +7,11 @@
 #' reference raster layer, each SOM's winning unit and PAM's clustering value
 #' will be mapped on the corresponding cell in the reference layer and across
 #' the geographic space supported by such layer. This function is a follow-up of
-#' the \code{\link{somgap}} function. It is important to note that in order for
-#' \code{\link{sompam}} to work properly, the reference layer \emph{ref.rast}
+#' the \code{\link{som_gap}} function. It is important to note that in order for
+#' \code{\link{som_pam}} to work properly, the reference layer \emph{ref.rast}
 #' must have the same cell size, number of rows, number of columns, and index of
 #' valid cells as those in the multi-layer SpatRaster object used in
-#' \code{\link{somgap}}.
+#' \code{\link{som_gap}}.
 #'
 #' @param ref.rast SpatRaster, as in \code{\link[terra]{rast}}. This raster
 #'   layer will serve as a reference for both cell position and geographic
@@ -39,9 +39,9 @@
 #' codebook vectors by PAM.
 #'
 #' @details
-#' As in \code{\link{somgap}}, this function calls \code{\link[cluster]{pam}} to
-#' perform the clustering of SOM's codebook vectors. The SOM object must belong
-#' to the class \strong{kohonen}, as in \code{\link[kohonen]{supersom}}.
+#' As in \code{\link{som_gap}}, this function calls \code{\link[cluster]{pam}}
+#' to perform the clustering of SOM's codebook vectors. The SOM object must
+#' belong to the class \strong{kohonen}, as in \code{\link[kohonen]{supersom}}.
 #'
 #' For this function to work as intended, the additional argument
 #' \emph{cluster.only} in \code{\link[cluster]{pam}} must remain as FALSE, which
@@ -59,14 +59,14 @@
 #' ts <- scale(t)
 #' # Self-organizing map and gap statistic for optimum k
 #' set.seed(963)
-#' tsom <- somgap(var.rast = ts, xdim = 8, ydim = 8, rlen = 150,
+#' tsom <- som_gap(var.rast = ts, xdim = 8, ydim = 8, rlen = 150,
 #'                mode = "online", K.max = 6, B = 300, spaceH0 = "original",
 #'                method = "globalSEmax"
 #'               )
 #' # Optimum k
 #' tsom$Kopt
 #' # PAM clustering of topographic SOM's codebook vectors
-#' tpam <- sompam(ref.rast = t[[1]], kohsom = tsom$SOM, k = tsom$Kopt)
+#' tpam <- som_pam(ref.rast = t[[1]], kohsom = tsom$SOM, k = tsom$Kopt)
 #' # Plot topographic variables, SOM grid and PAM clustering
 #' if(interactive()){plot(c(t, tpam$sompam.rast))}
 #'
@@ -74,9 +74,9 @@
 #' @family
 #' Functions for Landscape Stratification
 #' @rdname
-#' sompam
+#' som_pam
 #'
-sompam <- function(ref.rast, kohsom, k, metric = "manhattan", stand = FALSE,
+som_pam <- function(ref.rast, kohsom, k, metric = "manhattan", stand = FALSE,
                    ...)
 {
 

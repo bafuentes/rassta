@@ -1,21 +1,20 @@
 #' @title
-#' Spatial Modeling Engine
+#' Predictive Modeling Engine
 #'
 #' @description
 #' Modeling of spatially varying phenomena based on landscape similarity to
-#' stratification units. The rationale behind this modeling approach is that if
-#' each stratification unit across geographic space represents a distinctive
-#' configuration in terms of multiple landscape factors and/or factor scales
-#' (e.g., topography, climate, micro-climate, etc.), and if each of these
-#' configurations influences a phenomenon in a distinct way, then the spatial
-#' variability of that phenomenon can be assessed across a landscape by relating
-#' each geographic location to each distinctive configuration. Therefore, the
-#' more similar a geographic location is to the landscape configuration
-#' represented by a given stratification unit, then also the more similar the
-#' response of a phenomenon will be at that location to the typical response for
-#' conditions within the given stratification unit. Both continuous and
-#' categorical response variables are supported. For categorical responses, each
-#' category must be identified by an integer value.
+#' stratification units. If each stratification unit across geographic space
+#' represents a distinct landscape configuration (in terms of multiple landscape
+#' factors and/or factor scales), and if each landscape configuration influences
+#' a phenomenon in a distinct way, then the spatial variability of that
+#' phenomenon can be assessed across a landscape by relating each geographic
+#' location to each distinct landscape configuration. Therefore, the more
+#' similar a geographic location is to the landscape configuration represented
+#' by a given stratification unit, then also the more similar the response of a
+#' phenomenon will be at that location to the typical response for conditions
+#' within the given stratification unit. Both continuous and categorical
+#' response variables are supported. For categorical responses, each category
+#' must be identified by an integer value.
 #'
 #' @param res.type Character. Type of response to model. Options are "cont" for
 #'   continuous, and "cat" for categorical response. Default: "cont"
@@ -56,17 +55,17 @@
 #' Multi-layer or single-layer SpatRaster with modeled response(s).
 #'
 #' @details
-#' The spatial modeling process is cell-wise, which means that it operates on a
-#' cell-by-cell basis. For a given cell occurring in the geographic space
-#' supported by a raster layer, the spatial modeling engine first identifies the
-#' \emph{n} stratification units to which the given cell is most similar (i.e.,
-#' 'winning stratification units'). The engine is able to identify the winning
-#' stratification units thanks to the user-provided set of landscape similarity
-#' layers \emph{ls.rast}. Subsequently, the response value from the
+#' The predictive modeling process is cell-wise, which means that it operates on
+#' a cell-by-cell basis. For a given cell occurring in the geographic space
+#' supported by a raster layer, the predictive modeling engine first identifies
+#' the \emph{n} stratification units to which the given cell is most similar
+#' (i.e., 'winning stratification units'). The engine is able to identify the
+#' winning stratification units thanks to the user-provided set of landscape
+#' similarity layers \emph{ls.rast}. Subsequently, the response value from the
 #' representative observation for each winning stratification unit is
 #' identified. In the case of a continuous response, a weighted average of
 #' representative response values is performed. For each representative response
-#' value, the weight is equal to the corresponding stratification unit's
+#' value, the weight is proportional to the corresponding stratification unit's
 #' landscape similarity value in the given cell. The result of the weighted
 #' average is assigned as the response value in the given cell. In the case of a
 #' categorical response, the modal value from the representative response values
@@ -83,7 +82,7 @@
 #'
 #' When dealing with large geographic spaces, high raster resolutions (i.e.,
 #' small cell sizes), or both, a considerable amount of memory is required to
-#' perform the modeling process. To reduce memory usage, the spatial modeling
+#' perform the modeling process. To reduce memory usage, the predictive modeling
 #' engine performs tile-based processing of landscape similarity layers and
 #' \strong{writes results directly on disk}. Tile-based processing increases the
 #' computational time, thus parallelization is allowed by setting up a parallel
@@ -107,7 +106,7 @@
 #' ti <- terra::vect(fti)
 #' # Directory for temporary files
 #' o <- tempdir()
-#' # Perform spatial modeling of continuous response
+#' # Perform predictive modeling of continuous response
 #' r <- engine(res.type = "cont", ls.rast = ls, n.win = 2, su.repobs = ro,
 #'             tiles = ti, outdir = o, overwrite = TRUE
 #'            )
@@ -133,7 +132,7 @@
 #'
 #' @export
 #' @family
-#' Functions for Spatial modeling
+#' Functions for Predictive Modeling
 #' @rdname
 #' engine
 #' @seealso

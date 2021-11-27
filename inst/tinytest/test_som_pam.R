@@ -12,10 +12,10 @@ names(vars) <- c("v1", "v2")
 
 # Dimensionality reduction and clustering with estimation of optimum k
 set.seed(963)
-vs <- somgap(var.rast = vars, xdim = 5, ydim = 5, K.max = 3, topo = "hexagonal",
+vs <- som_gap(var.rast = vars, xdim = 5, ydim = 5, K.max = 3, topo = "hexagonal",
              neighbourhood.fct = "gaussian", rlen = 600, spaceH0 = "original"
             )
-vc <- sompam(ref.rast = vars[[1]], kohsom = vs$SOM, k = vs$Kopt)
+vc <- som_pam(ref.rast = vars[[1]], kohsom = vs$SOM, k = vs$Kopt)
 
 # Manual dimensionality reduction and clustering with estimation of optimum k
 mm <- terra::as.matrix(vars)

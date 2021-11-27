@@ -3,20 +3,20 @@
 #'
 #' @description
 #' Predicts constrained, univariate distribution functions across the geographic
-#' space supported by raster layers. For a given continuous variable of a
-#' classification unit, this function first calculates a user-defined
+#' space supported by raster layers. For a given continuous variable used to
+#' create a classification unit, this function first calculates a user-defined
 #' distribution function for that variable using only observations selected from
 #' within the classification unit. In this way, the distribution function is
-#' univariate and constrained. Subsequently, the function fits a
-#' \emph{locally-estimated scatterplot smoothing} (\code{\link[stats]{loess}}).
-#' The LOESS is fitted using the variable’s observations as explanatory values
-#' and the values from the distribution function as the response values.
-#' Finally, the fitted LOESS is predicted on the complete geographic space
-#' supported by the raster layer of the given variable. This process is iterated
-#' for all of the continuous variables and classification units. Each resulting
-#' layer can be thought of as a correspondence measurement between an \emph{XY}
-#' location in the landscape and the landscape conditions represented by a given
-#' classification unit, but only in terms of a specific variable. The following
+#' univariate and constrained. Subsequently, a \emph{locally-estimated
+#' scatterplot smoothing} is fitted (see \code{\link[stats]{loess}}). The LOESS
+#' is fitted using the variable’s observations as explanatory values and the
+#' values from the distribution function as the response values. Finally, the
+#' fitted LOESS is predicted on the complete geographic space supported by the
+#' raster layer of the given variable. This process is iterated for all of the
+#' continuous variables and classification units. Each resulting layer can be
+#' thought of as a landscape correspondence measurement between an \emph{XY}
+#' location in geographic space and the landscape configuration represented by a
+#' given classification unit in terms of a specific variable. The following
 #' distribution functions are currently supported: the probability density
 #' function (PDF), the empirical cumulative density function (ECDF), and the
 #' inverse of the empirical cumulative density function (iECDF). Please refer to

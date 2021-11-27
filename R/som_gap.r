@@ -4,7 +4,7 @@
 #' @description
 #' Produces a low-dimensional representation of the input feature space for
 #' subsequent estimation of the "optimal" number of clusters (\emph{k}) in a
-#' multivariate dataset. The dimensionality reduction is based on the
+#' multivariate dataset. The dimension reduction is based on the
 #' self-organizing map technique (SOM) of Kohonen (1982; 1990), and implemented
 #' in R by the function \code{\link[kohonen]{supersom}} of Wehrens and
 #' Kruisselbrink (2018). To estimate the optimal \emph{k}, the partitioning
@@ -106,7 +106,7 @@
 #'
 #' When working with large matrices, the additional SOM argument
 #' \emph{keep.data} may be set to FALSE. However, note that by doing so, the
-#' suggested follow-up function for raster products \code{\link{sompam}} will
+#' suggested follow-up function for raster products \code{\link{som_pam}} will
 #' not work since it requires both original data and winning units.
 #'
 #' For the gap statistic, \emph{method = "scaledPCA"} has resulted in errors for
@@ -124,7 +124,7 @@
 #' ts <- scale(t)
 #' # Self-organizing map and gap statistic for optimum k
 #' set.seed(963)
-#' tsom <- somgap(var.rast = ts, xdim = 8, ydim = 8, rlen = 150,
+#' tsom <- som_gap(var.rast = ts, xdim = 8, ydim = 8, rlen = 150,
 #'                mode = "online", K.max = 6, B = 300, spaceH0 = "original",
 #'                method = "globalSEmax"
 #'               )
@@ -135,7 +135,7 @@
 #' @family
 #' Functions for Landscape Stratification
 #' @rdname
-#' somgap
+#' som_gap
 #' @references
 #' L. Kaufman and P. Rousseeuw. Finding groups in data: an introduction to
 #' cluster analysis. John Wiley & Sons, 1990.
@@ -165,7 +165,7 @@
 #' 3.0. Journal of Statistical Software, 87(1):1–18, 2018.
 #' \doi{https://doi.org/10.18637/jss.v087.i07}
 #'
-somgap <- function(var.rast, xdim = 12, ydim = 12, topo = "hexagonal",
+som_gap <- function(var.rast, xdim = 12, ydim = 12, topo = "hexagonal",
                    neighbourhood.fct = "gaussian", rlen = 600,
                    dist.fcts = c("sumofsquares", "manhattan"), mode = "pbatch",
                    K.max, stand = FALSE, B = 500, d.power = 2,

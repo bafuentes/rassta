@@ -1,0 +1,12 @@
+citHeader("To cite rassta in publications please use:")
+
+bibentry(
+  bibtype = "Article",
+  title = "rassta: {R}aster-based {S}patial {S}tratification {A}lgorithms",
+  author = "B. A. Fuentes and M. J. Dorantes and J. R. Tipton",
+  journal = "EarthArXiv",
+  year = "2021",
+  url = "https://doi.org/10.31223/X50S57",
+  textVersion = "B.A. Fuentes, M.J. Dorantes, and J.R. Tipton. rassta: Raster-based Spatial
+Stratification Algorithms. EarthArXiv, 2021. https://doi.org/10.31223/X50S57"
+)

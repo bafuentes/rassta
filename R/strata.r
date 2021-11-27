@@ -7,13 +7,13 @@
 #' classification units is related to a particular landscape factor (e.g.,
 #' topography, climate) or to a particular spatial scale for a single landscape
 #' factor (e.g., micro-climate, macro-topography). Each resulting stratification
-#' unit is considered to represent a distinct configuration of conditions and/or
-#' scales in terms of multiple landscape factors. This function automatically
-#' assigns a unique numeric code to each stratification unit. For \emph{x}
-#' stratification unit, the numeric code represents the unique combination of
-#' classification units whose spatial intersection resulted in \emph{x}. See
-#' \strong{Examples} to get a better idea of the logic behind the code
-#' assignment process.
+#' unit is considered to represent a distinct landscape configuration in terms
+#' of multiple landscape factors/factor scales (represented by the classification
+#' units). This function automatically assigns a unique numeric code to each
+#' stratification unit. For \emph{x} stratification unit, the numeric code
+#' represents the unique combination of classification units whose spatial
+#' intersection resulted in \emph{x}. See \strong{Examples} to get a better idea
+#' of the logic behind the code assignment process.
 #'
 #' @param cu.rast SpatRaster, as in \code{\link[terra]{rast}}. Multi-layer
 #'   SpatRaster for which each layer represents a set of classification units

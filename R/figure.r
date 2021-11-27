@@ -3,10 +3,10 @@
 #'
 #' @description
 #' This function is intended to reproduce the figures presented in \emph{rassta:
-#' Raster-based Spatial Stratification Algorithms} (Fuentes et al., n.d.). Note
+#' Raster-based Spatial Stratification Algorithms} (Fuentes et al., 2021). Note
 #' that this function assumes that all the necessary inputs for each figure are
-#' loaded in the working environment. For the creation of each input, please refer
-#' to the data and examples presented in the aforementioned publication. Also,
+#' loaded in the working environment. For the creation of each input, please
+#' refer to the data and examples presented in the aforementioned work. Also,
 #' please note that the use of this function is not intended for RStudio.
 #'
 #' @param x Integer. Number identifying the figure to reproduce.
@@ -38,7 +38,10 @@
 #' Miscellaneous Functions
 #' @rdname
 #' figure
-#'
+#' @references
+#' B.A. Fuentes, M.J. Dorantes, and J.R. Tipton. rassta: Raster-based Spatial
+#' Stratification Algorithms. EarthArXiv, 2021.
+#' \doi{https://doi.org/10.31223/X50S57}
 figure <- function(x, d, scaling = 100, to.disk = FALSE, verbose = FALSE) {
 
   if(x == 4) {
@@ -47,7 +50,7 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE, verbose = FALSE) {
     userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
     grDevices::dev.new(width = 1195/scaling, height = 431/scaling, unit = "px",
-                       noRStudioGD = TRUE
+                       noRStudioGD = FALSE
                       )
 
     # Set graphics arrangement
@@ -92,7 +95,7 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE, verbose = FALSE) {
     userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
     grDevices::dev.new(width = 1264/scaling, height = 590/scaling, unit = "px",
-                       noRStudioGD = TRUE
+                       noRStudioGD = FALSE
                       )
 
     # Set graphics arrangement
@@ -133,7 +136,7 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE, verbose = FALSE) {
     userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
     grDevices::dev.new(width = 990/scaling, height = 445/scaling, unit = "px",
-                       noRStudioGD = TRUE
+                       noRStudioGD = FALSE
                       )
 
     # Set graphics arrangement
@@ -192,7 +195,7 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE, verbose = FALSE) {
     userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
     grDevices::dev.new(width = 1500/scaling, height = 495/scaling, unit = "px",
-                       noRStudioGD = TRUE
+                       noRStudioGD = FALSE
                       )
 
     # Set graphics arrangement
@@ -240,7 +243,7 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE, verbose = FALSE) {
     userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
     grDevices::dev.new(width = 710/scaling, height = 431/scaling, unit = "px",
-                       noRStudioGD = TRUE
+                       noRStudioGD = FALSE
                       )
 
     # Set graphics arrangement
@@ -274,7 +277,7 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE, verbose = FALSE) {
     userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
     grDevices::dev.new(width = 1350/scaling, height = 475/scaling, unit = "px",
-                       noRStudioGD = TRUE
+                       noRStudioGD = FALSE
                       )
 
     # Set graphics arrangement
@@ -308,7 +311,7 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE, verbose = FALSE) {
     userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
     grDevices::dev.new(width = 1200/scaling, height = 520/scaling, unit = "px",
-                       noRStudioGD = TRUE
+                       noRStudioGD = FALSE
                       )
 
   # Multi-layer SpatRaster with signatures and landscape similarity for SU = 111
@@ -373,7 +376,7 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE, verbose = FALSE) {
     userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
     grDevices::dev.new(width = 1060/scaling, height = 431/scaling, unit = "px",
-                       noRStudioGD = TRUE
+                       noRStudioGD = FALSE
                       )
 
     # Set graphics arrangement
@@ -428,7 +431,7 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE, verbose = FALSE) {
     userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
     grDevices::dev.new(width = 1180/scaling, height = 431/scaling, unit = "px",
-                       noRStudioGD = TRUE
+                       noRStudioGD = FALSE
                       )
 
     # Set new graphics arrangement
@@ -469,7 +472,7 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE, verbose = FALSE) {
     userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
     grDevices::dev.new(width = 1200/scaling, height = 500/scaling, unit = "px",
-                       noRStudioGD = TRUE
+                       noRStudioGD = FALSE
                       )
 
     # Set graphics arrangement
@@ -523,7 +526,7 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE, verbose = FALSE) {
     userpar <- graphics::par(no.readonly = TRUE)
     # Set size of graphic device
     grDevices::dev.new(width = 1399/scaling, height = 214/scaling, unit = "px",
-                       noRStudioGD = TRUE
+                       noRStudioGD = FALSE
                       )
 
     # Plot binary layers

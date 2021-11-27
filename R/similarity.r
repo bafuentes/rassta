@@ -4,13 +4,16 @@
 #' @description
 #' For each stratification unit present in a single-layer SpatRaster, a raster
 #' layer of landscape similarity is created by aggregating the stratification
-#' unit's corresponding set of spatial signatures (see \code{\link{signature}}.
+#' unit's corresponding set of spatial signatures (see \code{\link{signature}}).
 #' For a stratification unit \emph{x}, the corresponding set of spatial
 #' signatures consists of one spatial signature for each of the \emph{n}
 #' classification units that are present in the numeric code of \emph{x} (one
 #' classification unit per landscape factor/factor scale). The aggregation
 #' process is performed cell-wise, and by using a mathematical function which
 #' takes multiple values but return a single value (e.g., mean, sum, min, max).
+#' The resulting raster layer represents the correspondence between an \emph{XY}
+#' location in geographic space and the landscape configuration represented by a
+#' given stratification unit.
 #'
 #' @param su.rast SpatRaster, as in \code{\link[terra]{rast}}. Single-layer
 #'   SpatRaster representing the stratification units occurring across
@@ -56,14 +59,12 @@
 #' landscape factor/factor scale.
 #'
 #' @details
-#' The landscape similarity offers a relative measurement of the correspondence
-#' between an \emph{XY} spatial location and the distinctive landscape
-#' conditions/spatial scales that are represented by a given stratification
-#' unit. As with \code{\link{signature}}, the aggregation process for spatial
-#' signatures is somewhat similar to the application of fuzzy logic and
-#' aggregation operators in GIS-based multi-criteria decision analysis.
-#' Furthermore, the aggregation of raster layers indicating relative optimality
-#' for spatially-varying phenomena, like spatial signatures, may be guided by
+#' The landscape similarity is a landscape correspondence metric. The
+#' aggregation of multiple spatial signatures into a single landscape similarity
+#' layer is somewhat similar to the application of fuzzy logic and aggregation
+#' operators in GIS-based multi-criteria decision analysis. Furthermore, the
+#' aggregation of raster layers indicating relative optimality for
+#' spatially-varying phenomena, like spatial signatures, can be guided by
 #' physical/ecological principles like Sprengel-Liebig's law of the minimum. In
 #' such case, one could select the \emph{min} function when aggregating the
 #' spatial signatures into landscape similarities.

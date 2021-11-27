@@ -103,21 +103,21 @@ coordinate.
 }
 \description{
 Selection of the \emph{representative sampling locations} based on landscape
-similarity values for each stratification unit occurring across geographic
-space. The \emph{XY} spatial location where the landscape similarity is
-maximized for a given stratification unit is considered to contain the
-optimal representation of the influence that landscape factors/factor scales
-have on a response phenomenon. Currently, two methods are supported: (1)
-\emph{maximum similarity within buffer zones} ("buffer"), and (2)
-\emph{absolute maximum similarity} ("absolute"). For the buffer method, the
-\emph{n} largest zones enclosing landscape similarity values above a certain
-threshold are first identified. Then, for each zone, one sample is placed at
-the \emph{XY} location where the landscape similarity value is maximized. For
-the absolute method, a sample is placed at the \emph{XY} locations with the
-\emph{n} maximum landscape similarity values. In both methods, it is possible
-to constrain the sampling process to the boundaries of the stratification
-unit. Constraining the process ensures that the sampling locations determined
-for a given unit are placed within the boundaries of that unit. See
+similarity values. For a give stratification unit, the representative
+sampling location is the XY position where the highest landscape similarity
+value occurs. This location is assumed to best reflect the influence that the
+landscape configuration of a given stratification unit exerts on response
+phenomena. Currently, two selection methods are supported: (1) \emph{maximum
+similarity within buffer zones} ("buffer"), and (2) \emph{absolute maximum
+similarity} ("absolute"). For the buffer method, the \emph{n} largest zones
+enclosing landscape similarity values above a certain threshold are first
+identified. Then, for each zone, one sample is placed at the \emph{XY}
+location where the landscape similarity value is maximized. For the absolute
+method, a sample is placed at the \emph{XY} locations with the \emph{n}
+maximum landscape similarity values. In both methods, it is possible to
+constrain the sampling process to the boundaries of the stratification unit.
+Constraining the process ensures that the sampling locations determined for a
+given unit are placed within the boundaries of that unit. See
 \strong{Details} for some guidance in the use of this function for
 classification units.
 }

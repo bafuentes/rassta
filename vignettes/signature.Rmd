@@ -1,0 +1,193 @@
+---
+title: "Spatial Signature of Classification Units"
+author: "rassta: Raster-based Spatial Stratification Algorithms"
+output: 
+  rmarkdown::html_vignette:
+    dev: "jpeg"
+vignette: >
+  %\VignetteIndexEntry{Spatial Signature of Classification Units}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+--------------------------------------------------------------------------------
+
+Get the data required for this vignette
+```{r data, fig.show = 'hold', fig.height = 2.5, fig.width = 2.8, message = FALSE, warning = FALSE, error = TRUE}
+# Compressed folder with files from rassta’s installation folder
+wasoil <- system.file("exdat/wasoil.zip", package = "rassta")
+# Directory for temporary files
+o <- tempdir()
+# Copy compressed folder to directory for temporary files
+file.copy(from = wasoil, to = o)
+# Extract files to subfolder
+d <- paste(o, "/rassta", sep = "")
+unzip(paste(o, "/wasoil.zip", sep = ""), exdir = d)
+```
+  
+--------------------------------------------------------------------------------
+
+The **spatial signature** is a relative measurement of the correspondence
+between any *XY* location in geographic space and the landscape configuration
+represented by a given classification unit. The spatial signature represents a
+first-level landscape correspondence metric. To estimate the spatial signature
+of a classification unit, a distribution function for each variable used to
+create the unit must be selected. Then, each selected distribution function must
+be estimated and predicted across geographic space. Finally, all the predicted
+distribution functions must be aggregated into a single measurement, which gives
+the spatial signature of the unit.
+
+## Selection of Distribution Functions
+
+For each classification unit in a set, **rassta** allows to select one
+distribution function from the following:
+
+- The probability density function (PDF)
+- The empirical cumulative distribution function (ECDF)
+- An inverted version of the empirical cumulative distribution function (iECDF)
+
+```{r df, fig.show = 'hold', fig.height = 2.5, fig.width = 2.25, echo = FALSE, warning = FALSE, error = TRUE}
+x <- rnorm(500, 60, 9)
+plot(density(x), main = "PDF", xlab = "Variable")
+xecdf <- ecdf(x)
+qx <- quantile(x, probs = seq(0, 1, by = 0.01))
+plot(qx, xecdf(qx), main = "ECDF", xlab = "Variable", ylab = "ECDF", type = "l")
+iecdf <- ((xecdf(qx) - max(xecdf(qx))) * -1) + min(xecdf(qx))
+plot(qx, iecdf, main = "iECDF", xlab = "Variable", ylab = "iECDF", type = "l")
+```
+
+The rationale behind the selection process is that given a classification unit
+*Z* and a variable *X*, the 'optimal' landscape configuration for the occurrence
+of *Z* can be associated with typical values of *X* within *Z*. Thus, the
+position of a value within the distribution function of *X* is an indicator of
+how typical the value is within *Z*. This rationale involves three important
+assumptions when selecting distribution functions:
+
+- If the PDF is selected, the classification unit will be mainly associated with
+the variable’s values approaching the peak of the curve.
+- If the ECDF is selected, the classification unit will be mainly associated
+with the variable’s values approaching +$\infty$.
+- If the iECDF is selected, the classification unit will be mainly associated
+with the variable’s values approaching -$\infty$.
+
+Currently, **rassta** allows the interactive and automatic selection of
+distribution functions for each classification unit in a set. The interactive
+selection is performed through a shiny app, while the automatic selection is
+performed based on the following criteria:
+
+- PDF = when the mean (or median) of the variable’s values within the
+classification unit is neither the maximum nor the minimum of all the mean (or
+median) values across all the units.
+- ECDF = when the mean (or median) of the variable’s values within the
+classification unit is the maximum of all the mean (or median) values across all
+the units.
+- iECDF = when the mean (or median) of the variable’s values within the
+classification unit is the minimum of all the mean (or median) values across all
+the units.
+
+The code below demonstrates the automatic selection of distribution functions
+for a set of 4 climatic classification units constructed using two variables
+(annual precipitation and mean annual temperature).
+```{r sdf, fig.show = 'hold', message = FALSE, warning = FALSE, error = TRUE}
+# Load rassta and terra packages
+library(rassta)
+library(terra)
+# Multi-layer SpatRaster with 2 climatic variables
+var <- c("precipitation.tif", "temperature.tif")
+vardir <- paste(d, var, sep = "/")
+clim.var <- rast(vardir)
+# Single-layer SpatRaster with 4 climatic classification units
+clim.cu <- rast(paste(d, "/climate.tif", sep = ""))
+# Automatic selection of statistical distribution functions
+clim.difun <- select_functions(cu.rast = clim.cu,
+                               var.rast = clim.var, 
+                               mode = "auto"
+                              )
+```
+
+The classification units, variables, and selected distribution functions can be
+visualized as demonstrated in the code below.
+```{r plots, fig.show = 'hold', fig.height = 1.9, fig.width = 7, message = FALSE, warning = FALSE, error = TRUE}
+# Plot climatic classification units and variables
+plot(c(clim.cu, clim.var), col = hcl.colors(100, "Spectral"), nc = 3,
+     mar = c(1.5, 1.5, 1.5, 5)
+    )
+# Selected distribution functions
+knitr::kable(clim.difun$distfun, filter = "none", selection = "none")
+```
+
+## Estimation and prediction of distribution functions
+
+Once a set of distribution functions has been selected for a classification
+unit, the estimation and prediction of these functions can be performed with
+*predict_functions()*. Given a classification unit *Z* and a variable *X*,
+*predict_functions()* first estimates the selected distribution function for
+*X*, using only observations selected from within *Z*. Subsequently,
+*predict_functions()* fits a locally-estimated scatterplot smoothing (LOESS).
+The LOESS is fitted using the observations from *X* as explanatory values and
+the values from the corresponding distribution function as response values.
+Finally, the fitted LOESS is predicted on the complete geographic space
+supported by the raster layer of *X*. This process is repeated for each variable
+used to construct *Z*.
+
+The code below demonstrates the estimation and prediction of distribution
+functions with *predict_functions()*.
+```{r pdf, fig.show = 'hold', fig.height = 2.89, fig.width = 6.8, message = FALSE, warning = FALSE, error = TRUE}
+# Multi-layer SpatRaster of climatic variables and classification units
+clim.all <- c(clim.var, clim.cu)
+# Ouput table from select_functions()
+df <- clim.difun$distfun
+# Predicted distribution functions for climatic variables
+clim.pdif <- predict_functions(cuvar.rast = clim.all, cu.ind = 3, 
+                               cu = df$Class.Unit,
+                               vars = df$Variable,
+                               dif = df$Dist.Func
+                              )
+plot(clim.pdif, col = hcl.colors(100, "Oslo", rev = TRUE), nc = 4,
+     mar = c(1.5, 1.5, 1.5, 3.5)
+    )
+```
+
+## Aggregation of predicted distribution functions
+
+The function *signature()* calculates the spatial signature of a given
+classification unit by aggregating all the predicted distribution functions
+associated with the unit.
+
+```{r spatsig, fig.show = 'hold', fig.height = 4, fig.width = 4.69, message = FALSE, warning = FALSE, error = TRUE}
+# Spatial signatures from predicted distribution functions
+clim.sig <- signature(pdif.rast = clim.pdif,
+                      inprex = paste(seq(1, 4), "_", sep = ""),
+                      outname = paste("climate_", seq(1, 4), sep = "")
+                    )
+# Plot spatial signatures
+plot(clim.sig, col = hcl.colors(100, "Oslo", rev = TRUE), nc = 2, 
+     mar = c(1.5, 1.5, 1.5, 3.5))
+```
+
+The argument **inprex** allows the identification of layers from a SpatRaster
+object that represent predicted distribution functions for each classification
+unit in a set. Similarly, the argument **outname** assigns a unique name to each
+layer in the resulting SpatRaster of spatial signatures.
+
+---
+
+Clean files from temporary directory
+```{r clean, message = FALSE, warning = FALSE, error = TRUE}
+unlink(c(paste(o, "/wasoil.zip", sep = ""), d), recursive = TRUE)
+```
+
+---
+
+## References
+
+- B.A. Fuentes, M.J. Dorantes, and J.R. Tipton. rassta: Raster-based Spatial
+Stratification Algorithms. *EarthArXiv*, 2021.
+https://doi.org/10.31223/X50S57

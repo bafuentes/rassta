@@ -25,10 +25,10 @@ None
 }
 \description{
 This function is intended to reproduce the figures presented in \emph{rassta:
-Raster-based Spatial Stratification Algorithms} (Fuentes et al., n.d.). Note
+Raster-based Spatial Stratification Algorithms} (Fuentes et al., 2021). Note
 that this function assumes that all the necessary inputs for each figure are
-loaded in the working environment. For the creation of each input, please refer
-to the data and examples presented in the aforementioned publication. Also,
+loaded in the working environment. For the creation of each input, please
+refer to the data and examples presented in the aforementioned work. Also,
 please note that the use of this function is not intended for RStudio.
 }
 \examples{
@@ -43,6 +43,11 @@ mat.sig <- dummies(ca.rast = geol, preval = 100, absval = 0)
 figure(17, d = mat.sig)
 }
 
+}
+\references{
+B.A. Fuentes, M.J. Dorantes, and J.R. Tipton. rassta: Raster-based Spatial
+Stratification Algorithms. EarthArXiv, 2021.
+\doi{https://doi.org/10.31223/X50S57}
 }
 \seealso{
 Other Miscellaneous Functions: 
