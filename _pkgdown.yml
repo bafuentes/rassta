@@ -1,0 +1,42 @@
+url: ~
+template:
+  params:
+    bootswatch: cerulean
+reference:
+- title: "Landscape Stratification"
+  desc: >
+    Functions for the spatial stratification of landscapes
+- contents:
+  - som_gap
+  - som_pam
+  - strata
+- title: "Landscape Correspondence Metrics"
+  desc: >
+    Continuous metrics to evaluate the correspondence between landscape
+    configurations, as represented by classification/stratification units,
+    and the geographic space.
+- contents:
+  - select_functions
+  - predict_functions
+  - signature
+  - similarity
+- title: "Stratified Sampling"
+  desc: >
+    Stratified (non-probability) sampling to select representative observations
+    and sampling locations across geographic space.
+- contents:
+  - observation
+  - locations
+- title: "Predictive Modeling"
+  desc: >
+    Predictive modeling of response phenomena across geographic space based on
+    stratification units and landscape correspondence
+- contents:
+  - engine
+- title: "Miscellaneous"
+  desc: >
+    Other functions
+- contents:
+  - dummies
+  - plot3D
+  - figure
