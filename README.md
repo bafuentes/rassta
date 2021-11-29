@@ -1,8 +1,3 @@
----
-output:
-  html_document: default
-  pdf_document: default
----
 # rassta   
 
 <!-- badges: start -->
@@ -41,7 +36,7 @@ remotes::install_github("bafuentes/rassta")
 ## Cheat Sheet
 
 <p align="center" width="100%">
-    <img src="man/figures/rassta_cheatsheet.png">
+    <img src=".github/rassta_cheatsheet.png">
 </p>
 
 ## Acknowledgments
