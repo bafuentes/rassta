@@ -48,7 +48,10 @@ signatures consists of one spatial signature for each of the n
 classification units that are present in the numeric code of x (one
 classification unit per landscape factor/factor scale). The aggregation
 process is performed cell-wise, and by using a mathematical function which
-takes multiple values but return a single value (e.g., mean, sum, min, max)." />
+takes multiple values but return a single value (e.g., mean, sum, min, max).
+The resulting raster layer represents the correspondence between an XY
+location in geographic space and the landscape configuration represented by a
+given stratification unit." />
 
 
 
@@ -160,7 +163,10 @@ signatures consists of one spatial signature for each of the <em>n</em>
 classification units that are present in the numeric code of <em>x</em> (one
 classification unit per landscape factor/factor scale). The aggregation
 process is performed cell-wise, and by using a mathematical function which
-takes multiple values but return a single value (e.g., mean, sum, min, max).</p>
+takes multiple values but return a single value (e.g., mean, sum, min, max).
+The resulting raster layer represents the correspondence between an <em>XY</em>
+location in geographic space and the landscape configuration represented by a
+given stratification unit.</p>
     </div>
 
     <pre class="usage"><span class='fu'>similarity</span><span class='op'>(</span>
@@ -253,14 +259,12 @@ unit and the corresponding classification units' numeric ID for each
 landscape factor/factor scale.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The landscape similarity offers a relative measurement of the correspondence
-between an <em>XY</em> spatial location and the distinctive landscape
-conditions/spatial scales that are represented by a given stratification
-unit. As with <code><a href='signature.html'>signature</a></code>, the aggregation process for spatial
-signatures is somewhat similar to the application of fuzzy logic and
-aggregation operators in GIS-based multi-criteria decision analysis.
-Furthermore, the aggregation of raster layers indicating relative optimality
-for spatially-varying phenomena, like spatial signatures, may be guided by
+    <p>The landscape similarity is a landscape correspondence metric. The
+aggregation of multiple spatial signatures into a single landscape similarity
+layer is somewhat similar to the application of fuzzy logic and aggregation
+operators in GIS-based multi-criteria decision analysis. Furthermore, the
+aggregation of raster layers indicating relative optimality for
+spatially-varying phenomena, like spatial signatures, can be guided by
 physical/ecological principles like Sprengel-Liebig's law of the minimum. In
 such case, one could select the <em>min</em> function when aggregating the
 spatial signatures into landscape similarities.</p>

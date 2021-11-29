@@ -41,26 +41,25 @@
 
 <meta property="og:title" content="Predict Distribution Functions Across Geographic Space — predict_functions" />
 <meta property="og:description" content="Predicts constrained, univariate distribution functions across the geographic
-space supported by raster layers. For a given continuous variable of a
-classification unit, this function first calculates a user-defined
+space supported by raster layers. For a given continuous variable used to
+create a classification unit, this function first calculates a user-defined
 distribution function for that variable using only observations selected from
 within the classification unit. In this way, the distribution function is
-univariate and constrained. Subsequently, the function fits a
-locally-estimated scatterplot smoothing (see
-loess). The LOESS is fitted using the variable’s
-observations as explanatory values and the values from the distribution
-function as the response values. Finally, the fitted LOESS is predicted on
-the complete geographic space supported by the raster layer of the given
-variable. This process is iterated for all of the continuous variables and
-classification units. Each resulting layer can be thought of as a
-correspondence measurement between an XY location in the landscape and
-the landscape conditions represented by a given classification unit, but only
-in terms of a specific variable. The following distribution functions are
-currently supported: the probability density function (PDF), the empirical
-cumulative density function (ECDF), and the inverse of the empirical
-cumulative density function (iECDF). Please refer to Details for
-more information about how each distribution function is calculated. Also,
-see details on parallel processing." />
+univariate and constrained. Subsequently, a locally-estimated
+scatterplot smoothing is fitted (see loess). The LOESS
+is fitted using the variable’s observations as explanatory values and the
+values from the distribution function as the response values. Finally, the
+fitted LOESS is predicted on the complete geographic space supported by the
+raster layer of the given variable. This process is iterated for all of the
+continuous variables and classification units. Each resulting layer can be
+thought of as a landscape correspondence measurement between an XY
+location in geographic space and the landscape configuration represented by a
+given classification unit in terms of a specific variable. The following
+distribution functions are currently supported: the probability density
+function (PDF), the empirical cumulative density function (ECDF), and the
+inverse of the empirical cumulative density function (iECDF). Please refer to
+Details for more information about how each distribution function is
+calculated. Also, see details on parallel processing." />
 
 
 
@@ -165,26 +164,25 @@ see details on parallel processing." />
 
     <div class="ref-description">
     <p>Predicts constrained, univariate distribution functions across the geographic
-space supported by raster layers. For a given continuous variable of a
-classification unit, this function first calculates a user-defined
+space supported by raster layers. For a given continuous variable used to
+create a classification unit, this function first calculates a user-defined
 distribution function for that variable using only observations selected from
 within the classification unit. In this way, the distribution function is
-univariate and constrained. Subsequently, the function fits a
-<em>locally-estimated scatterplot smoothing</em> (see
-<code><a href='https://rdrr.io/r/stats/loess.html'>loess</a></code>). The LOESS is fitted using the variable’s
-observations as explanatory values and the values from the distribution
-function as the response values. Finally, the fitted LOESS is predicted on
-the complete geographic space supported by the raster layer of the given
-variable. This process is iterated for all of the continuous variables and
-classification units. Each resulting layer can be thought of as a
-correspondence measurement between an <em>XY</em> location in the landscape and
-the landscape conditions represented by a given classification unit, but only
-in terms of a specific variable. The following distribution functions are
-currently supported: the probability density function (PDF), the empirical
-cumulative density function (ECDF), and the inverse of the empirical
-cumulative density function (iECDF). Please refer to <strong>Details</strong> for
-more information about how each distribution function is calculated. Also,
-see details on parallel processing.</p>
+univariate and constrained. Subsequently, a <em>locally-estimated
+scatterplot smoothing</em> is fitted (see <code><a href='https://rdrr.io/r/stats/loess.html'>loess</a></code>). The LOESS
+is fitted using the variable’s observations as explanatory values and the
+values from the distribution function as the response values. Finally, the
+fitted LOESS is predicted on the complete geographic space supported by the
+raster layer of the given variable. This process is iterated for all of the
+continuous variables and classification units. Each resulting layer can be
+thought of as a landscape correspondence measurement between an <em>XY</em>
+location in geographic space and the landscape configuration represented by a
+given classification unit in terms of a specific variable. The following
+distribution functions are currently supported: the probability density
+function (PDF), the empirical cumulative density function (ECDF), and the
+inverse of the empirical cumulative density function (iECDF). Please refer to
+<strong>Details</strong> for more information about how each distribution function is
+calculated. Also, see details on parallel processing.</p>
     </div>
 
     <pre class="usage"><span class='fu'>predict_functions</span><span class='op'>(</span>

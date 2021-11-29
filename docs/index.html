@@ -19,9 +19,8 @@
     (i.e., classification units) and second-level units (i.e., stratification units). Nonparametric 
     techniques allow to measure the correspondence between the geographic space and the landscape 
     configuration represented by the units. These correspondence metrics are useful to define 
-    sampling schemes and to model the spatial variability of environmental phenomena. For the 
-    theoretical background of the algorithms, see: B.A. Fuentes, M.J. Dorantes, and J.R. Tipton. 
-    rassta: Raster-based Spatial Stratification Algorithms. EarthArXiv, 2021. 
+    sampling schemes and to model the spatial variability of environmental phenomena. The 
+    theoretical background of the algorithms and code examples are presented in Fuentes et al. (2021).
     &lt;https://doi.org/10.31223/X50S57&gt;.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -106,15 +105,12 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-
-<hr>
-<p>output: html_document: default pdf_document: default —</p>
 <div id="rassta" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#rassta" class="anchor"></a>rassta</h1></div>
 <!-- badges: start -->
-<p><a href="https://github.com/bafuentes/rassta/actions"><img src="https://github.com/bafuentes/rassta/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a> <a href="https://cran.r-project.org/package=rassta"><img src="https://www.r-pkg.org/badges/version/rassta" alt="CRANstatus"></a> <a href="http://www.r-pkg.org/pkg/rassta"><img src="http://cranlogs.r-pkg.org/badges/rassta" alt="CRAN RStudio mirror downloads"></a> <!-- badges: end --></p>
-<p><img align="right" width="230" height="270" src="reference/figures/rassta_logo.png"></p>
+
+<p><img align="right" width="230" height="270" src="docs/reference/figures/rassta_logo.png"></p>
 <p>
 <code>rassta</code> (<strong>r</strong>aster-based <strong>s</strong>patial <strong>st</strong>ratification <strong>a</strong>lgorithms) is a collection of algorithms for the spatial stratification of landscapes, sampling, and modeling of spatially-varying phenomena in <a href="https://www.r-project.org">R</a>.</p>
 <p><code>rassta</code> offers a simple framework for the stratification of geographic space based on raster layers representing landscape factors and/or factor scales. The stratification process follows a hierarchical approach, which is based on first level units (i.e., classification units) and second-level units (i.e., stratification units). Nonparametric techniques allow to measure the correspondence between the geographic space and the landscape configuration represented by the units. These correspondence metrics are useful to define sampling schemes and to model the spatial variability of environmental phenomena.</p>
@@ -126,19 +122,24 @@
 <p>To install the development version from github, please use:</p>
 <pre><code>remotes::install_github("bafuentes/rassta")</code></pre>
 </div>
+<div id="cheat-sheet" class="section level2">
+<h2 class="hasAnchor">
+<a href="#cheat-sheet" class="anchor"></a>Cheat Sheet</h2>
+<p align="center" width="100%">
+<img src="docs/reference/figures/rassta_cheatsheet.png"></p>
+</div>
 <div id="acknowledgments" class="section level2">
 <h2 class="hasAnchor">
 <a href="#acknowledgments" class="anchor"></a>Acknowledgments</h2>
-<p><code>rassta</code> greatly benefits from past and current efforts to make spatial data analysis fully operational in R, which in turn have benefited from titans like GDAL, PROJ, GEOS, etc. Special thanks to the minds behind the <code>raster</code>, <code>rgdal</code>, <code>rgeos</code>, and <code>sf</code> packages, and those behind the packages that <code>rassta</code> depends on as well.</p>
+<p><code>rassta</code> greatly benefits from past and current efforts to make spatial data analysis fully operational in R, which in turn have benefited from titans like GDAL, PROJ, GEOS, etc. Special thanks to the minds behind the <code>terra</code>, <code>rgdal</code>, <code>rgeos</code>, and <code>sf</code> packages, and those behind the packages that <code>rassta</code> depends on as well.</p>
 </div>
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
 <p>A journal article describing the analysis and theoretical background of <code>rassta</code> is on its way. In the meantime, if you use <code>rassta</code> as part of your research please cite the EarthArXiv preprint in your work:</p>
-<p>B.A. Fuentes, M.J. Dorantes, and J.R. Tipton. rassta: Raster-based Spatial Stratification Algorithms. EarthArXiv, 2021. <a href="https://doi.org/10.31223/X50S57" class="uri">https://doi.org/10.31223/X50S57</a></p>
+<p>B.A. Fuentes, M.J. Dorantes, and J.R. Tipton. rassta: Raster-based Spatial Stratification Algorithms. <em>EarthArXiv</em>, 2021. <a href="https://doi.org/10.31223/X50S57" class="uri">https://doi.org/10.31223/X50S57</a></p>
 </div>
 </div>
-
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -176,7 +177,15 @@
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/bafuentes/rassta/actions"><img src="https://github.com/bafuentes/rassta/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://cran.r-project.org/package=rassta"><img src="https://www.r-pkg.org/badges/version/rassta" alt="CRANstatus"></a></li>
+<li><a href="http://www.r-pkg.org/pkg/rassta"><img src="http://cranlogs.r-pkg.org/badges/rassta" alt="CRAN RStudio mirror downloads"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 
