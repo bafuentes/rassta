@@ -35,6 +35,8 @@ remotes::install_github("bafuentes/rassta")
 
 ## Cheat Sheet
 
+Please see [rassta's website](https://bafuentes.github.io/rassta/) for the complete documentation and vignettes with code examples.
+
 <p align="center" width="100%">
     <img src=".github/rassta_cheatsheet.png">
 </p>
