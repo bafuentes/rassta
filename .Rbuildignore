@@ -8,3 +8,4 @@
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^man/figures/rassta_cheatsheet\.png$
