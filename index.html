@@ -28,6 +28,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -40,18 +42,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rassta</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -88,7 +84,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/bafuentes/rassta/">
+  <a href="https://github.com/bafuentes/rassta/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -105,98 +101,101 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="rassta" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#rassta" class="anchor"></a>rassta</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="rassta">rassta<a class="anchor" aria-label="anchor" href="#rassta"></a>
+</h1></div>
 <!-- badges: start -->
 
 <p><img align="right" width="230" height="270" src="reference/figures/rassta_logo.png"></p>
-<p>
-<code>rassta</code> (<strong>r</strong>aster-based <strong>s</strong>patial <strong>st</strong>ratification <strong>a</strong>lgorithms) is a collection of algorithms for the spatial stratification of landscapes, sampling, and modeling of spatially-varying phenomena in <a href="https://www.r-project.org">R</a>.</p>
+<p><br><code>rassta</code> (<strong>r</strong>aster-based <strong>s</strong>patial <strong>st</strong>ratification <strong>a</strong>lgorithms) is a collection of algorithms for the spatial stratification of landscapes, sampling, and modeling of spatially-varying phenomena in <a href="https://www.r-project.org" class="external-link">R</a>.</p>
 <p><code>rassta</code> offers a simple framework for the stratification of geographic space based on raster layers representing landscape factors and/or factor scales. The stratification process follows a hierarchical approach, which is based on first level units (i.e., classification units) and second-level units (i.e., stratification units). Nonparametric techniques allow to measure the correspondence between the geographic space and the landscape configuration represented by the units. These correspondence metrics are useful to define sampling schemes and to model the spatial variability of environmental phenomena.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p><code>rassta</code> is available from CRAN, so the current <strong>released version</strong> can be installed as follows:</p>
-<pre><code>install.packages("rassta")</code></pre>
+<pre><code><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rassta"</span><span class="op">)</span></code></pre>
 <p>To install the development version from github, please use:</p>
-<pre><code>remotes::install_github("bafuentes/rassta")</code></pre>
+<pre><code><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bafuentes/rassta"</span><span class="op">)</span></code></pre>
 </div>
-<div id="cheat-sheet" class="section level2">
-<h2 class="hasAnchor">
-<a href="#cheat-sheet" class="anchor"></a>Cheat Sheet</h2>
+<div class="section level2">
+<h2 id="cheat-sheet">Cheat Sheet<a class="anchor" aria-label="anchor" href="#cheat-sheet"></a>
+</h2>
 <p align="center" width="100%">
 </p>
 <p><img src="reference/figures/rassta_cheatsheet.png"></p>
 
 </div>
-<div id="acknowledgments" class="section level2">
-<h2 class="hasAnchor">
-<a href="#acknowledgments" class="anchor"></a>Acknowledgments</h2>
+<div class="section level2">
+<h2 id="acknowledgments">Acknowledgments<a class="anchor" aria-label="anchor" href="#acknowledgments"></a>
+</h2>
 <p><code>rassta</code> greatly benefits from past and current efforts to make spatial data analysis fully operational in R, which in turn have benefited from titans like GDAL, PROJ, GEOS, etc. Special thanks to the minds behind the <code>terra</code>, <code>rgdal</code>, <code>rgeos</code>, and <code>sf</code> packages, and those behind the packages that <code>rassta</code> depends on as well.</p>
 </div>
-<div id="citation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#citation" class="anchor"></a>Citation</h2>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
 <p>A journal article describing the analysis and theoretical background of <code>rassta</code> is on its way. In the meantime, if you use <code>rassta</code> as part of your research please cite the EarthArXiv preprint in your work:</p>
-<p>B.A. Fuentes, M.J. Dorantes, and J.R. Tipton. rassta: Raster-based Spatial Stratification Algorithms. <em>EarthArXiv</em>, 2021. <a href="https://doi.org/10.31223/X50S57" class="uri">https://doi.org/10.31223/X50S57</a></p>
+<p>B.A. Fuentes, M.J. Dorantes, and J.R. Tipton. rassta: Raster-based Spatial Stratification Algorithms. <em>EarthArXiv</em>, 2021. <a href="https://doi.org/10.31223/X50S57" class="external-link uri">https://doi.org/10.31223/X50S57</a></p>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=rassta">https://​cloud.r-project.org/​package=rassta</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/bafuentes/rassta/">https://​github.com/​bafuentes/​rassta/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/bafuentes/rassta/issues/">https://​github.com/​bafuentes/​rassta/​issues/​</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=rassta" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/bafuentes/rassta/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/bafuentes/rassta/issues/" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small>AGPL (&gt;= 3)</small></li>
 </ul>
 </div>
+
+
 <div class="citation">
-<h2>Citation</h2>
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html">Citing rassta</a></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Bryan A. Fuentes <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-3506-7101" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Minerva J. Dorantes <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-2877-832X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>John R. Tipton <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-6135-8141" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html#citation">Citing rassta</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/bafuentes/rassta/actions"><img src="https://github.com/bafuentes/rassta/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://cran.r-project.org/package=rassta"><img src="https://www.r-pkg.org/badges/version/rassta" alt="CRANstatus"></a></li>
-<li><a href="http://www.r-pkg.org/pkg/rassta"><img src="http://cranlogs.r-pkg.org/badges/rassta" alt="CRAN RStudio mirror downloads"></a></li>
+<li>Bryan A. Fuentes <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-3506-7101" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Minerva J. Dorantes <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-2877-832X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>John R. Tipton <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-6135-8141" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/bafuentes/rassta/actions" class="external-link"><img src="https://github.com/bafuentes/rassta/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://cran.r-project.org/package=rassta" class="external-link"><img src="https://www.r-pkg.org/badges/version/rassta" alt="CRANstatus"></a></li>
+<li><a href="http://www.r-pkg.org/pkg/rassta" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/rassta" alt="CRAN RStudio mirror downloads"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Bryan A. Fuentes, Minerva J. Dorantes, John R. Tipton.</p>
+  <p></p>
+<p>Developed by Bryan A. Fuentes, Minerva J. Dorantes, John R. Tipton.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.</p>
 </div>
 
       </footer>
@@ -204,6 +203,8 @@
 
   
 
+
+  
 
   </body>
 </html>
