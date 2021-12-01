@@ -1,6 +1,8 @@
 url: ~
 template:
-  remote_theme: pages-themes/midnight@v0.2.0
+  bootstrap: 5
+  bootswatch: cyborg
+  theme: arrow-dark
 plugins:
 - jekyll-remote-theme
 reference:
