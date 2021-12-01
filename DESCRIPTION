@@ -27,7 +27,7 @@ Description: Algorithms for the spatial stratification of landscapes, sampling a
 Maintainer: Bryan A. Fuentes <bryandrep@gmail.com>
 License: AGPL (>= 3)
 Encoding: UTF-8
-URL: https://github.com/bafuentes/rassta
+URL: https://bafuentes.github.io/rassta/
 BugReports: https://github.com/bafuentes/rassta/issues/
 LazyData: true
 Roxygen: list(markdown = TRUE)
