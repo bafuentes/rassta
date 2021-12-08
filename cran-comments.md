@@ -120,3 +120,26 @@ There was 1 NOTE:
   Maintainer: 'Bryan A. Fuentes <bryandrep@gmail.com>'  
 
 0 errors ✓ | 0 warnings ✓ | 1 note x
+
+## Fourth submission - Wednesday, Dec 8, ~00:20 AM CDT
+
+### Test environments
+- R-hub windows-x86_64-devel (r-devel)
+- R-hub ubuntu-gcc-release (r-release)
+- R-hub fedora-clang-devel (r-devel)
+
+### R CMD check results
+There were no ERRORs or WARNINGs. 
+
+> On windows-x86_64-devel (r-devel),
+  ubuntu-gcc-release (r-release),
+  fedora-clang-devel (r-devel)
+  
+  checking CRAN incoming feasibility ... NOTE
+  
+  - Possibly misspelled words in DESCRIPTION:
+     Dorantes (25:90)
+     Tipton (26:9)
+  
+  0 errors ✓ | 0 warnings ✓ | 1 note x
+
