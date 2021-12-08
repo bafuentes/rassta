@@ -1,3 +1,8 @@
+# rassta 1.0.2
+
+* Some functions have been renamed and vignettes for some functions have been created.
+
+
 # rassta 1.0.1
 
 * Fixed violation of CRAN's policy regarding package code that attempts to write

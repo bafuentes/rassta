@@ -1,6 +1,6 @@
 Package: rassta
 Title: Raster-Based Spatial Stratification Algorithms
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: c(person("Bryan A.", "Fuentes", role = c("aut", "cre"),
                      email = "bryandrep@gmail.com",
                      comment = c(ORCID = "0000-0003-3506-7101")),
@@ -22,8 +22,8 @@ Description: Algorithms for the spatial stratification of landscapes, sampling a
     techniques allow to measure the correspondence between the geographic space and the landscape 
     configuration represented by the units. These correspondence metrics are useful to define 
     sampling schemes and to model the spatial variability of environmental phenomena. The 
-    theoretical background of the algorithms and code examples are presented in Fuentes et al. (2021).
-    <https://doi.org/10.31223/X50S57>.
+    theoretical background of the algorithms and code examples are presented in Fuentes, Dorantes,
+    and Tipton (2021). <doi:10.31223/X50S57>.
 Maintainer: Bryan A. Fuentes <bryandrep@gmail.com>
 License: AGPL (>= 3)
 Encoding: UTF-8
