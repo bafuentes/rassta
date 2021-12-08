@@ -50,7 +50,7 @@ be filled with the following strings: "PDF, "ECDF", and "iECDF" (unquoted).
 This table can be saved on disk through the Shiny interface.
 
 \strong{parcoord}: A ploty-based parallel coordinate plot which can be saved
-on disk through \code{\link[htmlwidgets]{saveWidget}}.
+on disk using the R package htmlwidgets.
 
 If \emph{mode = "auto"}:
 
