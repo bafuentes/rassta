@@ -1,5 +1,5 @@
 pandoc: 2.7.3
-pkgdown: 2.0.0
+pkgdown: 2.0.1
 pkgdown_sha: ~
 articles:
   classunits: classunits.html
@@ -8,7 +8,7 @@ articles:
   signature: signature.html
   similarity: similarity.html
   stratunits: stratunits.html
-last_built: 2021-12-01T16:24Z
+last_built: 2021-12-08T04:46Z
 urls:
   reference: https://bafuentes.github.io/rassta/reference
   article: https://bafuentes.github.io/rassta/articles
