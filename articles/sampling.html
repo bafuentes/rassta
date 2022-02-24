@@ -33,7 +33,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
@@ -70,6 +70,9 @@
     
   </div>
 </nav><div class="container template-article">
+
+
+
 <script src="sampling_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Stratified Non-Probability Sampling</h1>
@@ -146,9 +149,10 @@
 <span class="co">#&gt;  geometry    : points </span>
 <span class="co">#&gt;  dimensions  : 195, 2  (geometries, attributes)</span>
 <span class="co">#&gt;  extent      : 284252, 292532, 153471, 161811  (xmin, xmax, ymin, ymax)</span>
+<span class="co">#&gt;  source      : soc.shp</span>
 <span class="co">#&gt;  coord. ref. : NAD83 / Washington South (EPSG:32149) </span>
 <span class="co">#&gt;  names       :    ID   soc</span>
-<span class="co">#&gt;  type        : &lt;num&gt; &lt;num&gt;</span>
+<span class="co">#&gt;  type        : &lt;int&gt; &lt;num&gt;</span>
 <span class="co">#&gt;  values      :     1 6.603</span>
 <span class="co">#&gt;                    2 5.701</span>
 <span class="co">#&gt;                    3 5.594</span>
@@ -159,7 +163,7 @@
 <span class="co">#&gt;  extent      : 284252, 292532, 153651, 161811  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt;  coord. ref. : NAD83 / Washington South (EPSG:32149) </span>
 <span class="co">#&gt;  names       :    ID   soc    SU land_sim</span>
-<span class="co">#&gt;  type        : &lt;num&gt; &lt;num&gt; &lt;num&gt;    &lt;num&gt;</span>
+<span class="co">#&gt;  type        : &lt;int&gt; &lt;num&gt; &lt;int&gt;    &lt;num&gt;</span>
 <span class="co">#&gt;  values      :     1 6.603   111    80.67</span>
 <span class="co">#&gt;                    6 5.443   112       85</span>
 <span class="co">#&gt;                   10 4.609   114    77.33</span></code></pre></div>
@@ -205,25 +209,25 @@
 <span class="va">su.samp</span><span class="op">$</span><span class="va">locations</span>
 <span class="co">#&gt;  class       : SpatVector </span>
 <span class="co">#&gt;  geometry    : points </span>
-<span class="co">#&gt;  dimensions  : 56, 4  (geometries, attributes)</span>
-<span class="co">#&gt;  extent      : 284042, 292532, 153351, 161841  (xmin, xmax, ymin, ymax)</span>
+<span class="co">#&gt;  dimensions  : 56, 2  (geometries, attributes)</span>
+<span class="co">#&gt;  extent      : 284072, 292532, 153351, 161841  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt;  coord. ref. : NAD83 / Washington South (EPSG:32149) </span>
-<span class="co">#&gt;  names       :    SU land_sim         x         y</span>
-<span class="co">#&gt;  type        : &lt;num&gt;    &lt;num&gt;     &lt;num&gt;     &lt;num&gt;</span>
-<span class="co">#&gt;  values      :   111    92.67 2.845e+05  1.55e+05</span>
-<span class="co">#&gt;                  112    89.33 2.843e+05 1.572e+05</span>
-<span class="co">#&gt;                  113    90.67 2.841e+05 1.552e+05</span>
+<span class="co">#&gt;  names       :    SU land_sim</span>
+<span class="co">#&gt;  type        : &lt;num&gt;    &lt;num&gt;</span>
+<span class="co">#&gt;  values      :   111    92.67</span>
+<span class="co">#&gt;                  112    89.33</span>
+<span class="co">#&gt;                  113    90.67</span>
 <span class="va">su.samp</span><span class="op">$</span><span class="va">buffers</span>
 <span class="co">#&gt;  class       : SpatVector </span>
 <span class="co">#&gt;  geometry    : polygons </span>
 <span class="co">#&gt;  dimensions  : 56, 2  (geometries, attributes)</span>
 <span class="co">#&gt;  extent      : 284027, 292547, 153336, 161856  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt;  coord. ref. : NAD83 / Washington South (EPSG:32149) </span>
-<span class="co">#&gt;  names       :                                           geometry    SU</span>
-<span class="co">#&gt;  type        :                                              &lt;chr&gt; &lt;num&gt;</span>
-<span class="co">#&gt;  values      : MULTIPOLYGON (((284027 156006, 284027 155946, 284~   116</span>
-<span class="co">#&gt;                MULTIPOLYGON (((284447 155406, 284447 155376, 284~   113</span>
-<span class="co">#&gt;                MULTIPOLYGON (((285167 155106, 285167 155076, 285~   117</span></code></pre></div>
+<span class="co">#&gt;  names       :    SU      area</span>
+<span class="co">#&gt;  type        : &lt;num&gt;     &lt;num&gt;</span>
+<span class="co">#&gt;  values      :   111  9.18e+04</span>
+<span class="co">#&gt;                  112 1.026e+05</span>
+<span class="co">#&gt;                  113 1.206e+05</span></code></pre></div>
 <p>The spatial distribution of representative sampling locations and the statistical distribution of landscape similarity can be plotted as demonstrated in the code below.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Set graphics arrangement</span>
@@ -269,7 +273,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
     </footer>
