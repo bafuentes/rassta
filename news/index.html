@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rassta</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,6 +55,13 @@
       <small>Source: <a href="https://github.com/bafuentes/rassta/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.3" id="rassta-103">rassta 1.0.3<a class="anchor" aria-label="anchor" href="#rassta-103"></a></h2>
+<ul><li><p>All the functions that return SpatRaster objects now assign proper variable names instead of getting the names from a reference SpatRaster.</p></li>
+<li><p>Fixed a bug which prevented ‘select_functions()’ from running properly when the argument ‘var.rast’ represents a single-layer SpatRaster object.</p></li>
+<li><p>‘select_functions()’ now allows to work with SpatRaster objects representing classification units whose numeric IDs are not sequentially defined (e.g., unordered classification units).</p></li>
+<li><p>Fixed a bug which prevented ‘strata()’ from retrieving the correct minimum and maximum values from SpatRaster objects with NA values present, and thus, from assigning the correct numeric codes for stratification units.</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.2" id="rassta-102">rassta 1.0.2<a class="anchor" aria-label="anchor" href="#rassta-102"></a></h2><p class="text-muted">CRAN release: 2021-12-09</p>
 <ul><li>Some functions have been renamed and vignettes for some functions have been created.</li>
