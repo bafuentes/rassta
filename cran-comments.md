@@ -142,4 +142,28 @@ There were no ERRORs or WARNINGs.
      Tipton (26:9)
   
   0 errors ✓ | 0 warnings ✓ | 1 note x
+  
+## Fifth submission - Wednesday, Feb 23, ~23:30 PM CDT
+
+### Test environments
+- R-hub windows-x86_64-devel (r-devel)
+- R-hub ubuntu-gcc-release (r-release)
+- R-hub fedora-clang-devel (r-devel)
+
+### R CMD check results
+There were no ERRORs or WARNINGs. 
+
+> On windows-x86_64-devel (r-devel),
+  ubuntu-gcc-release (r-release)
+
+  checking CRAN incoming feasibility ... NOTE
+  Maintainer: 'Bryan A. Fuentes <bryandrep@gmail.com>'
+  
+  Found the following (possibly) invalid URLs:
+    URL: https://doi.org/10.1002/9780470316801
+      From: man/som_gap.Rd
+      Status: 503
+      Message: Service Unavailable
+  
+  0 errors ✓ | 0 warnings ✓ | 1 note x
 
