@@ -383,7 +383,7 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
         `%do%` <- foreach::`%do%`
         tcol <- foreach::foreach(t = tres) %do% { terra::rast(t) }
         ## SpatRaster collection
-        tcol <- terra::src(tcol)
+        tcol <- terra::sprc(tcol)
 
         # Single-layer SpatRaster of modeled response
         ## File name
@@ -611,7 +611,7 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
         `%do%` <- foreach::`%do%`
         tcol <- foreach::foreach(t = tres) %do% { terra::rast(t) }
         ## SpatRaster collection
-        tcol <- terra::src(tcol)
+        tcol <- terra::sprc(tcol)
 
         # Single-layer SpatRaster of modeled response
         ## File name
