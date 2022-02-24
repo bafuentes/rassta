@@ -2,8 +2,8 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/bafuentes/rassta/workflows/R-CMD-check/badge.svg)](https://github.com/bafuentes/rassta/actions)
-[![CRANstatus](https://www.r-pkg.org/badges/version/rassta)](https://cran.r-project.org/package=rassta)
-[![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/rassta)](https://cran.rstudio.com/web/packages/rassta/index.html)
+[![CRANstatus](https://www.r-pkg.org/badges/version/rassta)]
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/rassta)]
 <!-- badges: end -->
 
 <img align="right" width="230" height="270" src="man/figures/rassta_logo.png">
