@@ -40,6 +40,9 @@ remotes::install_github("bafuentes/rassta")
     
 </p>
 
+Full documentation of `rassta` including some vignettes can be found [here](https://bafuentes.github.io/rassta/)
+
+
 ## Acknowledgments
 
 `rassta` greatly benefits from past and current efforts to make spatial data
