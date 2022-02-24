@@ -59,7 +59,7 @@
 #' classification unit. When the PDF is selected, values closer to, or at the
 #' peak of the PDF will be considered as the most typical. Contrarily, values at
 #' the tails of the PDF will be considered as the less typical. When the ECDF or
-#' the iECDF are selected, values toward (+)infinity and (-)infinity will be 
+#' the iECDF are selected, values toward (+)infinity and (-)infinity will be
 #' considered as the most typical values, respectively.
 #'
 #' In order to assist the selection process, when \emph{mode = "inter"}, this
@@ -137,16 +137,26 @@ select_functions <- function(cu.rast, var.rast, fun = mean,
   base::colnames(cu.stat)[1] <- "CU"
 
   # Parallel coordinates plot
-  .data <- rlang::.data
-  pcp <- GGally::ggparcoord(cu.stat,
-                            columns = 2:base::ncol(cu.stat),
-                            groupColumn = 1,
-                            scale = varscale,
-                            showPoints = TRUE,
-                            alphaLines = 1,
-                            mapping = ggplot2::aes(colour = .data[["CU"]]),
-                            ...
-                          ) + ggplot2::labs(colour = "CU")
+  if (base::ncol(cu.stat) < 3) {
+
+    parcoord <-
+      "Nothing to plot. A parallel coordinates plot needs at least 2 variables."
+
+  } else {
+
+    .data <- rlang::.data
+    pcp <- GGally::ggparcoord(cu.stat,
+                              columns = 2:base::ncol(cu.stat),
+                              groupColumn = 1,
+                              scale = varscale,
+                              showPoints = TRUE,
+                              alphaLines = 1,
+                              mapping = ggplot2::aes(colour = .data[["CU"]]),
+                              ...
+                            ) + ggplot2::labs(colour = "CU")
+    parcoord <- plotly::ggplotly(pcp)
+
+  }
 
   # Construct table for class-constrained, univariate distribution functions
   ## Get names of continuous variables
@@ -169,9 +179,6 @@ select_functions <- function(cu.rast, var.rast, fun = mean,
   data.table::setnames(distfunc, c("Class.Unit", "Variable", "Dist.Func"))
 
   if (mode == "inter") {
-
-    # Interactive plot of parallel coordinates
-    parcoord <- plotly::ggplotly(pcp)
 
     # Interactive table of unit-wise statistics
     ## Set UI
@@ -246,9 +253,6 @@ select_functions <- function(cu.rast, var.rast, fun = mean,
 
   } else if (mode == "auto") {
 
-    # Interactive plot of parallel coordinates
-    parcoord <- plotly::ggplotly(pcp)
-
     # Loop through variables to set distribution functions...
     # ...per classification unit
     `%do%` <- foreach::`%do%`
@@ -260,9 +264,13 @@ select_functions <- function(cu.rast, var.rast, fun = mean,
 
       # Get ID of classification unit for which the statistic is minimized
       min_cu <- base::order(cu.stat[[i]])[1]
+      min_cu <- cu.stat[min_cu, 1]
+      min_cu <- as.numeric(as.matrix(min_cu)[1])
 
       # Get ID of classification unit for which the statistic is maximized
       max_cu <- base::order(cu.stat[[i]], decreasing = TRUE)[1]
+      max_cu <- cu.stat[max_cu, 1]
+      max_cu <- as.numeric(as.matrix(max_cu)[1])
 
       # Inverse ECDF for classification unit that minimizes the statistic
       a <- distfunc %>%

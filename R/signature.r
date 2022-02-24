@@ -167,6 +167,7 @@ signature <- function(pdif.rast, inprex, outname, fun = mean,
 
         # Rename and retrieve raster layer of spatial signature
         base::names(ssig) <- outname[i]
+        terra::varnames(ssig) <- outname[i]
         ssig <- ssig
 
       }

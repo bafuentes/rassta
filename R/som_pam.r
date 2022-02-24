@@ -93,14 +93,17 @@ som_pam <- function(ref.rast, kohsom, k, metric = "manhattan", stand = FALSE,
   r.som <- ref.rast
   idx <- stats::complete.cases(terra::values(r.som))
   r.som[idx] <- kohsom$unit.classif
+  base::names(r.som) <- "SOM"
+  terra::varnames(r.som) <- "SOM"
 
   # Rasterize SOM-based PAM
   r.sompam <- ref.rast
   r.sompam[idx] <- m.sompam$clustering[kohsom$unit.classif]
+  base::names(r.sompam) <- "SOMPAM"
+  terra::varnames(r.sompam) <- "SOMPAM"
 
   # Multi-layer SpatRaster
   r.som <- c(r.som, r.sompam)
-  names(r.som) <- c("SOM", "SOMPAM")
 
   # Return list of components
   list(sompam = m.sompam, sompam.rast = r.som)

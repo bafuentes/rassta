@@ -254,6 +254,7 @@ similarity <- function(su.rast, su.code, sig.rast, fun = mean, to.disk = FALSE,
 
       # Rename and retrieve raster layer of landscape similarity
       base::names(landsim) <- lname
+      terra::varnames(landsim) <- lname
       landsim <- landsim
 
     }

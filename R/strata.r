@@ -85,10 +85,13 @@ strata <- function(cu.rast, to.disk = FALSE, outdir = ".", su.name, ...)
   ## Get number of layers
   nras <- terra::nlyr(cu.rast)
   ## Get (sorted) maximum values from layers
-  sortmax <- base::sort(terra::minmax(cu.rast)[2,])
+  sortmax <- base::sort(terra::global(cu.rast, "max", na.rm = TRUE)$max)
   ## Function to get index of layer in SpatRaster according to...
   ## ...corresponding maximum value
-  maxfun <- function(x, y) base::which(terra::minmax(y)[2,] == x)
+  maxfun <- function(x, y) base::which(terra::global(y,
+                                                     "max",
+                                                     na.rm = TRUE)$max == x
+                                       )
   ## Get indexes of layers in SpatRaster, now sorted by maximum values
   stacklist <- base::sapply(sortmax, maxfun, cu.rast)
   ## Eliminate duplicated indexes (happens when two or more layers have...
@@ -99,7 +102,7 @@ strata <- function(cu.rast, to.disk = FALSE, outdir = ".", su.name, ...)
 
   # Construct vector of powers before raster algebra
   ## Get vector of maximum values
-  maxs <- terra::minmax(curast)[2,]
+  maxs <- terra::global(curast, "max", na.rm = TRUE)$max
   ## Function to count number of digits in positive integers
   digitfun <- function(x) base::floor(base::log10(x)) + 1
   ## Count number of digits for each maximum value
@@ -134,6 +137,7 @@ strata <- function(cu.rast, to.disk = FALSE, outdir = ".", su.name, ...)
 
   # Return elements
   base::names(rasclasses) <- "SU"
+  terra::varnames(rasclasses) <- "SU"
   layers <- base::names(curast)
   multipliers <- c(mults)
   base::names(multipliers) <- layers

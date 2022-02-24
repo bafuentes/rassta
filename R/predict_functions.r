@@ -313,6 +313,7 @@ predict_functions <- function(cuvar.rast, cu.ind, cu, vars, dif,
     cname <- base::paste(prefix, cu[i], sep = "")
     lname <- base::paste(cname, vars[i], sep = "_")
     base::names(r) <- lname
+    terra::varnames(r) <- lname
 
     if(to.disk == TRUE) {
 

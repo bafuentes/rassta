@@ -98,6 +98,7 @@ dummies <- function(ca.rast, vals = NULL, preval = 100, absval = 0,
                            sep = ""
                           )
     base::names(car) <- layname
+    terra::varnames(car) <- layname
 
     # Write to disk?
     if (to.disk == TRUE) {
