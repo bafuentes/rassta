@@ -1,3 +1,20 @@
+# rassta 1.0.3
+
+* All the functions that return SpatRaster objects now assign proper variable names 
+instead of getting the names from a reference SpatRaster.
+
+* Fixed a bug which prevented ‘select_functions()’ from running properly when the 
+argument ‘var.rast’ represents a single-layer SpatRaster object.
+
+* ‘select_functions()’ now allows to work with SpatRaster objects representing 
+classification units whose numeric IDs are not sequentially defined (e.g., unordered 
+classification units).
+
+* Fixed a bug which prevented ‘strata()’ from retrieving the correct minimum and 
+maximum values from SpatRaster objects with NA values present, and thus, from 
+assigning the correct numeric codes for stratification units.  
+
+
 # rassta 1.0.2
 
 * Some functions have been renamed and vignettes for some functions have been created.
