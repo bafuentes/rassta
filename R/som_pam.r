@@ -89,15 +89,19 @@ som_pam <- function(ref.rast, kohsom, k, metric = "manhattan", stand = FALSE,
                            ...
                           )
 
+  # find incomplete cells across all layers
+  idx <- stats::complete.cases(terra::values(ref.rast))
+
+  # make template raster from first layer
+  r.som <- terra::rast(ref.rast[[1]])
+  r.sompam <- r.som
+
   # Rasterize SOM
-  r.som <- ref.rast
-  idx <- stats::complete.cases(terra::values(r.som))
   r.som[idx] <- kohsom$unit.classif
   base::names(r.som) <- "SOM"
   terra::varnames(r.som) <- "SOM"
 
   # Rasterize SOM-based PAM
-  r.sompam <- ref.rast
   r.sompam[idx] <- m.sompam$clustering[kohsom$unit.classif]
   base::names(r.sompam) <- "SOMPAM"
   terra::varnames(r.sompam) <- "SOMPAM"
