@@ -50,7 +50,7 @@
 #' f <- list.files(path = p, pattern = "geology2.tif", full.names = TRUE)
 #' geol <- terra::rast(f)
 #' # Dummy layer from geologic unit 1
-#' dummies <- dummies(ca.rast = geol, vals = 1, preval = 100, absval = 0)
+#' dums <- dummies(ca.rast = geol, vals = 1, preval = 100, absval = 0)
 #'
 #' @export
 #' @family
@@ -61,35 +61,32 @@
 #' \code{\link[terra]{segregate}}
 #'
 dummies <- function(ca.rast, vals = NULL, preval = 100, absval = 0,
-                   to.disk = FALSE, outdir = ".", extension = ".tif", ...)
+                    to.disk = FALSE, outdir = ".", extension = ".tif", ...)
 {
 
   #-----Binding variables to prevent devtools::check() notes-----#
   i <- NULL
   #--------------------------------------------------------------#
 
-    # If vals = NULL, get unique pixel values (i.e., categories)
-  val <- if(base::is.null(vals)) {
+  # If vals = NULL, get unique cell values (i.e., categories)
+  if(base::is.null(vals)) {
 
-    base::as.integer(unlist(as.list(terra::unique(ca.rast))))
+    val <- base::as.integer(terra::unique(ca.rast)[[1]])
+    val <- val[!base::is.na(val)]
 
   } else {
 
-    base::as.integer(vals)
+    val <- base::as.integer(vals)
 
   }
+  gc()
+
+  # Create placeholder SpatRaster for dummies
+  d <- terra::rast()
 
   # Loop through each category
   `%do%` <- foreach::`%do%`
-  dummy <- foreach::foreach(i = val) %do% {
-
-    # Copy SpatRaster with categories
-    car <- ca.rast
-
-    # Binarization
-    terra::values(car)[terra::values(car) != i] <- absval
-    terra::values(car)[terra::values(car) == i] <- preval
-    gc()
+  foreach::foreach(i = val) %do% {
 
     # Set layer name for dummy
     layname <- base::paste(base::names(ca.rast),
@@ -97,8 +94,9 @@ dummies <- function(ca.rast, vals = NULL, preval = 100, absval = 0,
                            as.character(i),
                            sep = ""
                           )
-    base::names(car) <- layname
-    terra::varnames(car) <- layname
+
+    # Create re-classification matrix
+    rcm <- base::matrix(c(i, preval), nrow = 1, ncol = 2)
 
     # Write to disk?
     if (to.disk == TRUE) {
@@ -106,22 +104,43 @@ dummies <- function(ca.rast, vals = NULL, preval = 100, absval = 0,
       # Set file name for dummy layer
       dumname <- base::paste(layname, extension, sep = "")
 
-      # Write dummy
-      car <- terra::writeRaster(car,
-                                base::file.path(outdir, dumname),
-                                datatype = "INT4S",
-                                ...
-                              )
+      # Binarization through re-classification
+      dx <- terra::classify(ca.rast,
+                            rcm,
+                            others = absval,
+                            filename = file.path(outdir, dumname),
+                            datatype = "INT4S",
+                            ...
+                          )
+
+      # Set layer name for dummy
+      base::names(dx) <- layname
+      terra::varnames(dx) <- layname
+
+      # Add dummy to placeholder
+      terra::add(d) <- dx
+      base::remove(dx)
+      gc()
 
     } else {
 
-      car
+      # Binarization through re-classification
+      dx <- terra::classify(ca.rast, rcm, others = absval)
+
+      # Set layer name for dummy
+      base::names(dx) <- layname
+      terra::varnames(dx) <- layname
+
+      # Add dummy to placeholder
+      terra::add(d) <- dx
+      base::remove(dx)
+      gc()
 
     }
 
   }
 
   # Return object
-  dummy <- terra::rast(dummy)
+  d
 
 }
