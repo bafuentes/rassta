@@ -113,21 +113,21 @@ classification units.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">locations</span><span class="op">(</span>
-  <span class="va">ls.rast</span>,
-  <span class="va">su.rast</span>,
-  method <span class="op">=</span> <span class="st">"buffer"</span>,
-  constrained <span class="op">=</span> <span class="cn">TRUE</span>,
-  buf.quant <span class="op">=</span> <span class="fl">0.9</span>,
-  buf.n <span class="op">=</span> <span class="fl">1</span>,
-  abs.n <span class="op">=</span> <span class="fl">1</span>,
-  tol <span class="op">=</span> <span class="fl">2</span>,
-  parallel <span class="op">=</span> <span class="cn">FALSE</span>,
-  to.disk <span class="op">=</span> <span class="cn">FALSE</span>,
-  outdir <span class="op">=</span> <span class="st">"."</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">locations</span><span class="op">(</span></span>
+<span>  <span class="va">ls.rast</span>,</span>
+<span>  <span class="va">su.rast</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"buffer"</span>,</span>
+<span>  constrained <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  buf.quant <span class="op">=</span> <span class="fl">0.9</span>,</span>
+<span>  buf.n <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  abs.n <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  tol <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  parallel <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  to.disk <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  outdir <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -135,31 +135,45 @@ classification units.</p>
     <dl><dt>ls.rast</dt>
 <dd><p>SpatRaster, as in <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></code>. Multi-layer
 SpatRaster representing landscape similarities to stratification units.</p></dd>
+
+
 <dt>su.rast</dt>
 <dd><p>SpatRaster. Single-layer SpatRaster representing the
 stratification units occurring across geographic space. Integer values are
 expected as cell values (i.e., numeric codes) of stratification units.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>Character. String denoting the sampling method. Current options
 are "buffer" for the maximum similarity within buffer zones method, and
 "absolute" for the absolute maximum similarity method. Default: "buffer"</p></dd>
+
+
 <dt>constrained</dt>
 <dd><p>Boolean. Should the sampling process be constrained to the
 boundaries of each stratification unit? See <strong>Details</strong>. Default: TRUE</p></dd>
+
+
 <dt>buf.quant</dt>
 <dd><p>Numeric. Number expressed in quantile notation (0-1)
 indicating the similarity threshold for the creation of buffer zones. Only
 zones enclosing raster cells with <em>landscape similarity &gt;= buf.quant</em>
 will be created and thus, considered for sampling. See <strong>Details</strong>.
 Default: 0.9</p></dd>
+
+
 <dt>buf.n</dt>
 <dd><p>Integer. Positive integer indicating the <em>n</em> largest buffer
 zones for which sampling locations will be selected (<em>n</em> buffer zones
 per stratification unit, one sampling location per buffer zone). Default: 1</p></dd>
+
+
 <dt>abs.n</dt>
 <dd><p>Integer. When <em>method = "absolute"</em>, Positive integer
 indicating the number of sampling locations to select for each
 stratification unit. See <strong>Details</strong>. Default: 1</p></dd>
+
+
 <dt>tol</dt>
 <dd><p>Numeric. This number will be subtracted from the sampled maximum
 value of a landscape similarity layer to ensure two things: (1) that the
@@ -169,38 +183,66 @@ found (see <strong>Details</strong>). The default assumes that landscape similar
 values are on a scale of 1 to 100. If these values are on a different scale
 (e.g., decimal), then, <em>tol</em> needs to be adjusted accordingly.
 Default: 2</p></dd>
+
+
 <dt>parallel</dt>
 <dd><p>Boolean. Perform parallel processing? A parallel backend must
 be registered beforehand with <code><a href="https://rdrr.io/pkg/doParallel/man/registerDoParallel.html" class="external-link">registerDoParallel</a></code>.
 Keep in mind that the amount of RAM to allocate when performing parallel
 processing can result prohibitive for large data sets. Default: FALSE</p></dd>
+
+
 <dt>to.disk</dt>
 <dd><p>Boolean. Should output SpatVector(s) (as in
 <code><a href="https://rdrr.io/pkg/terra/man/vect.html" class="external-link">vect</a></code>) be written to disk? Default: FALSE</p></dd>
+
+
 <dt>outdir</dt>
 <dd><p>Character. If <em>to.disk = TRUE</em>, string specifying the path
 for the output SpatVector(s). Default: "."</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>Boolean. Show warning messages in the console? Default: FALSE</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments, as for <code><a href="https://rdrr.io/pkg/terra/man/writeVector.html" class="external-link">writeVector</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>If <em>method = "buffer"</em> and <em>constrained = TRUE</em>, a list with the
-following components:
-<strong>locations</strong>: SpatVector of point geometry. Each point in this vector
+    
+
+<p>If <em>method = "buffer"</em> and <em>constrained = TRUE</em>, a list with the
+following components:</p>
+
+
+<p><strong>locations</strong>: SpatVector of point geometry. Each point in this vector
 represents the sampling location placed at the maximum landscape similarity
 value within a stratification unit's buffer zone. Tabular attributes in this
 SpatVector are (1) <em>SU</em> = stratification unit's numeric code, (2)
 <em>land_sim</em> = landscape similarity value, (3) <em>x</em> = X coordinate,
-and (4) <em>y</em> = Y coordinate.
-<strong>buffer</strong>: SpatVector of polygon geometry. Each polygon in this vector
-represents the buffer zone of an stratification unit.
-If <em>method = "buffer"</em> and <em>constrained = FALSE</em>:
-<strong>locations</strong>: Same as <strong>locations</strong> from <em>method = "buffer"</em>and <em>constrained = TRUE</em>.
-If <em>method = "absolute"</em>:
-<strong>locations</strong>: SpatVector of point geometry. Each point in this vector
+and (4) <em>y</em> = Y coordinate.</p>
+
+
+<p><strong>buffer</strong>: SpatVector of polygon geometry. Each polygon in this vector
+represents the buffer zone of an stratification unit.</p>
+
+
+<p>If <em>method = "buffer"</em> and <em>constrained = FALSE</em>:</p>
+
+
+<p><strong>locations</strong>: Same as <strong>locations</strong> from <em>method = "buffer"</em></p>
+
+
+<p>and <em>constrained = TRUE</em>.</p>
+
+
+<p>If <em>method = "absolute"</em>:</p>
+
+
+<p><strong>locations</strong>: SpatVector of point geometry. Each point in this vector
 represents the sampling location placed at the maximum landscape similarity
 value for an stratification unit. Tabular attributes in this SpatVector are
 (1) <em>SU</em> = stratification unit's numeric code, (2) <em>land_sim</em> =
@@ -238,16 +280,16 @@ classification units.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/terra/" class="external-link">terra</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"exdat"</span>, package <span class="op">=</span> <span class="st">"rassta"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Multi-layer SpatRaster of landscape similarities</span></span>
-<span class="r-in"><span class="va">fls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">p</span>, pattern <span class="op">=</span> <span class="st">"su_"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ls</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">fls</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Single-layer SpatRaster of stratification units</span></span>
-<span class="r-in"><span class="va">fsu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">p</span>, pattern <span class="op">=</span> <span class="st">"strata.tif"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">su</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">fsu</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Get 1 representative sampling location per stratification unit</span></span>
-<span class="r-in"><span class="va">rl</span> <span class="op">&lt;-</span> <span class="fu">locations</span><span class="op">(</span>ls.rast <span class="op">=</span> <span class="va">ls</span>, su.rast <span class="op">=</span> <span class="va">su</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/terra/" class="external-link">terra</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"exdat"</span>, package <span class="op">=</span> <span class="st">"rassta"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Multi-layer SpatRaster of landscape similarities</span></span></span>
+<span class="r-in"><span><span class="va">fls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">p</span>, pattern <span class="op">=</span> <span class="st">"su_"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ls</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">fls</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Single-layer SpatRaster of stratification units</span></span></span>
+<span class="r-in"><span><span class="va">fsu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">p</span>, pattern <span class="op">=</span> <span class="st">"strata.tif"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">su</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">fsu</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Get 1 representative sampling location per stratification unit</span></span></span>
+<span class="r-in"><span><span class="va">rl</span> <span class="op">&lt;-</span> <span class="fu">locations</span><span class="op">(</span>ls.rast <span class="op">=</span> <span class="va">ls</span>, su.rast <span class="op">=</span> <span class="va">su</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[expanse] unknown CRS. Results can be wrong</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[expanse] unknown CRS. Results can be wrong</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[expanse] unknown CRS. Results can be wrong</span>
@@ -266,12 +308,12 @@ classification units.</p>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[expanse] unknown CRS. Results can be wrong</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[expanse] unknown CRS. Results can be wrong</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[expanse] unknown CRS. Results can be wrong</span>
-<span class="r-in"><span class="co"># Plot representative locations (including buffer areas)</span></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">su</span>, type <span class="op">=</span> <span class="st">"classes"</span>, fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/lines.html" class="external-link">points</a></span><span class="op">(</span><span class="va">rl</span><span class="op">$</span><span class="va">locations</span><span class="op">)</span>,</span>
-<span class="r-in">                                                <span class="fu"><a href="https://rdrr.io/pkg/terra/man/lines.html" class="external-link">polys</a></span><span class="op">(</span><span class="va">rl</span><span class="op">$</span><span class="va">buffers</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">      <span class="op">)</span><span class="op">}</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="co"># Plot representative locations (including buffer areas)</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">su</span>, type <span class="op">=</span> <span class="st">"classes"</span>, fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/lines.html" class="external-link">points</a></span><span class="op">(</span><span class="va">rl</span><span class="op">$</span><span class="va">locations</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                                <span class="fu"><a href="https://rdrr.io/pkg/terra/man/lines.html" class="external-link">polys</a></span><span class="op">(</span><span class="va">rl</span><span class="op">$</span><span class="va">buffers</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>      <span class="op">)</span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -283,7 +325,7 @@ classification units.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

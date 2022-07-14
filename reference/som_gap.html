@@ -92,24 +92,24 @@ and <code><a href="https://rdrr.io/pkg/cluster/man/clusGap.html" class="external
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">som_gap</span><span class="op">(</span>
-  <span class="va">var.rast</span>,
-  xdim <span class="op">=</span> <span class="fl">12</span>,
-  ydim <span class="op">=</span> <span class="fl">12</span>,
-  topo <span class="op">=</span> <span class="st">"hexagonal"</span>,
-  neighbourhood.fct <span class="op">=</span> <span class="st">"gaussian"</span>,
-  rlen <span class="op">=</span> <span class="fl">600</span>,
-  dist.fcts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sumofsquares"</span>, <span class="st">"manhattan"</span><span class="op">)</span>,
-  mode <span class="op">=</span> <span class="st">"pbatch"</span>,
-  <span class="va">K.max</span>,
-  stand <span class="op">=</span> <span class="cn">FALSE</span>,
-  B <span class="op">=</span> <span class="fl">500</span>,
-  d.power <span class="op">=</span> <span class="fl">2</span>,
-  spaceH0 <span class="op">=</span> <span class="st">"original"</span>,
-  method <span class="op">=</span> <span class="st">"globalSEmax"</span>,
-  SE.factor <span class="op">=</span> <span class="fl">1</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">som_gap</span><span class="op">(</span></span>
+<span>  <span class="va">var.rast</span>,</span>
+<span>  xdim <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>  ydim <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>  topo <span class="op">=</span> <span class="st">"hexagonal"</span>,</span>
+<span>  neighbourhood.fct <span class="op">=</span> <span class="st">"gaussian"</span>,</span>
+<span>  rlen <span class="op">=</span> <span class="fl">600</span>,</span>
+<span>  dist.fcts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sumofsquares"</span>, <span class="st">"manhattan"</span><span class="op">)</span>,</span>
+<span>  mode <span class="op">=</span> <span class="st">"pbatch"</span>,</span>
+<span>  <span class="va">K.max</span>,</span>
+<span>  stand <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  B <span class="op">=</span> <span class="fl">500</span>,</span>
+<span>  d.power <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  spaceH0 <span class="op">=</span> <span class="st">"original"</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"globalSEmax"</span>,</span>
+<span>  SE.factor <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -118,58 +118,91 @@ and <code><a href="https://rdrr.io/pkg/cluster/man/clusGap.html" class="external
 <dd><p>SpatRaster, as in <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></code>. This Multi-layer
 SpatRaster must contain <em>n</em> continuous variables from which the SOM
 will be created.</p></dd>
+
+
 <dt>xdim</dt>
 <dd><p>Integer. Horizontal dimension of the SOM's grid. Default: 12</p></dd>
+
+
 <dt>ydim</dt>
 <dd><p>Integer. Vertical dimension of the SOM's grid. Default: 12</p></dd>
+
+
 <dt>topo</dt>
 <dd><p>Character. Topology of the SOM's grid. Options = "rectangular",
 "hexagonal". Default: "hexagonal"</p></dd>
+
+
 <dt>neighbourhood.fct</dt>
 <dd><p>Character. Neighborhood of the SOM's grid. Options =
 "bubble", "gaussian". Default: "gaussian"</p></dd>
+
+
 <dt>rlen</dt>
 <dd><p>Integer. Number of times the complete dataset will be presented
 to the SOM's network. Default: 600</p></dd>
+
+
 <dt>dist.fcts</dt>
 <dd><p>Character. Vector of length 2 containing the distance
 functions to use for SOM (First element, options = "sumofsquares",
 "euclidean", "manhattan") and for PAM (second element, options =
 "euclidean", "manhattan"). Default: c("sumofsquares", "manhattan")</p></dd>
+
+
 <dt>mode</dt>
 <dd><p>Character. Type of learning algorithm. Options are “online",
 "batch", and "pbatch". Default: "pbatch"</p></dd>
+
+
 <dt>K.max</dt>
 <dd><p>Integer. Maximum number of clusters to consider, must be at
 least two (2).</p></dd>
+
+
 <dt>stand</dt>
 <dd><p>Boolean. For PAM function, does SOM's codebook vectors need to
 be standardized? Default: FALSE</p></dd>
+
+
 <dt>B</dt>
 <dd><p>Integer. Number of bootstrap samples for the gap statistic. Default:
 500</p></dd>
+
+
 <dt>d.power</dt>
 <dd><p>Integer. Positive Power applied to euclidean distances for the
 gap statistic. Default: 2</p></dd>
+
+
 <dt>spaceH0</dt>
 <dd><p>Character. Space of the reference distribution for the gap
 statistic. Options = "scaledPCA", "original" (See <strong>Details</strong>).
 Default: "original"</p></dd>
+
+
 <dt>method</dt>
 <dd><p>Character. Optimal k selection criterion for the gap statistic.
 Options = "globalmax", "firstmax", "Tibs2001SEmax", "firstSEmax",
 "globalSEmax". See  <code><a href="https://rdrr.io/pkg/cluster/man/clusGap.html" class="external-link">clusGap</a></code> for more details.
 Default: "globalSEmax"</p></dd>
+
+
 <dt>SE.factor</dt>
 <dd><p>Numeric. Factor to feed into the standard error rule for the
 gap statistic. Only applicable for methods based on standard error (SE).
 See <code><a href="https://rdrr.io/pkg/cluster/man/clusGap.html" class="external-link">clusGap</a></code> for more details. Default: 1</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments as for <code><a href="https://rdrr.io/pkg/kohonen/man/supersom.html" class="external-link">supersom</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><strong>SOM</strong>: An object of class <strong>kohonen</strong> (see
+    
+
+<p><strong>SOM</strong>: An object of class <strong>kohonen</strong> (see
 <code><a href="https://rdrr.io/pkg/kohonen/man/supersom.html" class="external-link">supersom</a></code>). The components of class kohonen returned by
 this function are: (1) <em>data</em> = original input matrix, (2)
 <em>unit.classif</em> = winning units for all observations, (3)
@@ -180,16 +213,22 @@ vectors, (6) <em>changes</em> = matrix of mean average deviations from codebook
 vectors, (7) <em>dist.fcts</em> = selected distance function, and other
 arguments passed to <code><a href="https://rdrr.io/pkg/kohonen/man/supersom.html" class="external-link">supersom</a></code> (e.g., <em>radius</em>,
 <em>distance.weights</em>, etc.). Note that components 1, 2, and 3 will only be
-returned if <em>keep.data = TRUE</em>, which is the default.
-<strong>SOMdist</strong>: Object of class <strong>dist</strong>. Matrix of pairwise distances
-calculated from the SOM's codebook vectors.
-<strong>SOMgap</strong>: Object of class <strong>clusGap</strong>. The main component of
+returned if <em>keep.data = TRUE</em>, which is the default.</p>
+
+
+<p><strong>SOMdist</strong>: Object of class <strong>dist</strong>. Matrix of pairwise distances
+calculated from the SOM's codebook vectors.</p>
+
+
+<p><strong>SOMgap</strong>: Object of class <strong>clusGap</strong>. The main component of
 class clusGap returned by this function is <em>Tab</em>, which is a matrix of
 the gap statistic results (see <code><a href="https://rdrr.io/pkg/cluster/man/clusGap.html" class="external-link">clusGap</a></code>). Additional
 components are the arguments passed to the function (i.e., <em>spaceH0</em>,
 <em>B</em>), the PAM function, <em>n</em> (number of observations) and
-<em>call</em> (the clusGap call-type object).
-<strong>Kopt</strong>: Optimal <em>k</em>, as selected by arguments <em>method</em> and
+<em>call</em> (the clusGap call-type object).</p>
+
+
+<p><strong>Kopt</strong>: Optimal <em>k</em>, as selected by arguments <em>method</em> and
 (possibly) <em>SE.factor</em>.</p>
     </div>
     <div class="section level2">
@@ -227,25 +266,25 @@ R sessions with BLAS/LAPACK supported by the Intel Math Kernel Library (MKL).</p
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>L. Kaufman and P. Rousseeuw. Finding groups in data: an introduction to
 cluster analysis. John Wiley &amp; Sons, 1990.
-doi: <a href="https://doi.org/10.1002/9780470316801" class="external-link">10.1002/9780470316801</a></p>
+<a href="https://doi.org/10.1002/9780470316801" class="external-link">doi:10.1002/9780470316801</a></p>
 <p>T. Kohonen. Self-organized formation of topologically correct feature maps.
 Biological cybernetics, 43 (1):59–69, 1982.
-doi: <a href="https://doi.org/10.1007/bf00337288" class="external-link">10.1007/bf00337288</a></p>
+<a href="https://doi.org/10.1007/bf00337288" class="external-link">doi:10.1007/bf00337288</a></p>
 <p>T. Kohonen. The self-organizing map. Proceedings of the IEEE,
-78(9):1464–1480, 1990. doi: <a href="https://doi.org/10.1016/s0925-2312(98)00030-7" class="external-link">10.1016/s0925-2312(98)00030-7</a></p>
+78(9):1464–1480, 1990. <a href="https://doi.org/10.1016/s0925-2312%2898%2900030-7" class="external-link">doi:10.1016/s0925-2312(98)00030-7</a></p>
 <p>M. Maechler, P. Rousseeuw, A. Struyf, M. Hubert, and K. Hornik. cluster:
 Cluster Analysis Basics and Extensions, 2021.
 <a href="https://CRAN.R-project.org/package=cluster" class="external-link">https://CRAN.R-project.org/package=cluster</a></p>
 <p>R. Tibshirani, G. Walther, and T. Hastie. Estimating the number of clusters
 in a data set via the gap statistic. Journal of the Royal Statistical
 Society: Series B (Statistical Methodology), 63(2):411–423, 2001.
-doi: <a href="https://doi.org/10.1111/1467-9868.00293" class="external-link">10.1111/1467-9868.00293</a></p>
+<a href="https://doi.org/10.1111/1467-9868.00293" class="external-link">doi:10.1111/1467-9868.00293</a></p>
 <p>J. Vesanto and E. Alhoniemi. Clustering of the self-organizing map. IEEE
 Transactions on Neural Networks, 11(3):586–600, 2000.
-doi: <a href="https://doi.org/10.1109/72.846731" class="external-link">10.1109/72.846731</a></p>
+<a href="https://doi.org/10.1109/72.846731" class="external-link">doi:10.1109/72.846731</a></p>
 <p>R. Wehrens and J. Kruisselbrink. Flexible self-organizing maps in kohonen
 3.0. Journal of Statistical Software, 87(1):1–18, 2018.
-doi: <a href="https://doi.org/10.18637/jss.v087.i07" class="external-link">10.18637/jss.v087.i07</a></p>
+<a href="https://doi.org/10.18637/jss.v087.i07" class="external-link">doi:10.18637/jss.v087.i07</a></p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -256,25 +295,25 @@ doi: <a href="https://doi.org/10.18637/jss.v087.i07" class="external-link">10.18
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/terra/" class="external-link">terra</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Multi-layer SpatRaster with topographic variables</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"exdat"</span>, package <span class="op">=</span> <span class="st">"rassta"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">p</span>, pattern <span class="op">=</span> <span class="st">"^height|^slope|^wetness"</span>,</span>
-<span class="r-in">                 full.names <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">                <span class="op">)</span></span>
-<span class="r-in"><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">tf</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Scale topographic variables (mean = 0, StDev = 1)</span></span>
-<span class="r-in"><span class="va">ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Self-organizing map and gap statistic for optimum k</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">963</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">tsom</span> <span class="op">&lt;-</span> <span class="fu">som_gap</span><span class="op">(</span>var.rast <span class="op">=</span> <span class="va">ts</span>, xdim <span class="op">=</span> <span class="fl">8</span>, ydim <span class="op">=</span> <span class="fl">8</span>, rlen <span class="op">=</span> <span class="fl">150</span>,</span>
-<span class="r-in">               mode <span class="op">=</span> <span class="st">"online"</span>, K.max <span class="op">=</span> <span class="fl">6</span>, B <span class="op">=</span> <span class="fl">300</span>, spaceH0 <span class="op">=</span> <span class="st">"original"</span>,</span>
-<span class="r-in">               method <span class="op">=</span> <span class="st">"globalSEmax"</span></span>
-<span class="r-in">              <span class="op">)</span></span>
-<span class="r-in"><span class="co"># Optimum k</span></span>
-<span class="r-in"><span class="va">tsom</span><span class="op">$</span><span class="va">Kopt</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/terra/" class="external-link">terra</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Multi-layer SpatRaster with topographic variables</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"exdat"</span>, package <span class="op">=</span> <span class="st">"rassta"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">p</span>, pattern <span class="op">=</span> <span class="st">"^height|^slope|^wetness"</span>,</span></span>
+<span class="r-in"><span>                 full.names <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>                <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">tf</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Scale topographic variables (mean = 0, StDev = 1)</span></span></span>
+<span class="r-in"><span><span class="va">ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Self-organizing map and gap statistic for optimum k</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">963</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tsom</span> <span class="op">&lt;-</span> <span class="fu">som_gap</span><span class="op">(</span>var.rast <span class="op">=</span> <span class="va">ts</span>, xdim <span class="op">=</span> <span class="fl">8</span>, ydim <span class="op">=</span> <span class="fl">8</span>, rlen <span class="op">=</span> <span class="fl">150</span>,</span></span>
+<span class="r-in"><span>               mode <span class="op">=</span> <span class="st">"online"</span>, K.max <span class="op">=</span> <span class="fl">6</span>, B <span class="op">=</span> <span class="fl">300</span>, spaceH0 <span class="op">=</span> <span class="st">"original"</span>,</span></span>
+<span class="r-in"><span>               method <span class="op">=</span> <span class="st">"globalSEmax"</span></span></span>
+<span class="r-in"><span>              <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Optimum k</span></span></span>
+<span class="r-in"><span><span class="va">tsom</span><span class="op">$</span><span class="va">Kopt</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -286,7 +325,7 @@ doi: <a href="https://doi.org/10.18637/jss.v087.i07" class="external-link">10.18
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

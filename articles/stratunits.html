@@ -74,7 +74,7 @@
 
 
 <script src="stratunits_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Stratification Units</h1>
                         <h4 data-toc-skip class="author">rassta: Raster-based Spatial Stratification Algorithms</h4>
             
@@ -88,16 +88,16 @@
 <hr>
 <p>Get the data required for this vignette</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Compressed folder with files from rassta’s installation folder</span>
-<span class="va">wasoil</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"exdat/wasoil.zip"</span>, package <span class="op">=</span> <span class="st">"rassta"</span><span class="op">)</span>
-<span class="co"># Directory for temporary files</span>
-<span class="va">o</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co"># Copy compressed folder to directory for temporary files</span>
-<span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span>from <span class="op">=</span> <span class="va">wasoil</span>, to <span class="op">=</span> <span class="va">o</span><span class="op">)</span>
-<span class="co">#&gt; [1] TRUE</span>
-<span class="co"># Extract files to subfolder</span>
-<span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">o</span>, <span class="st">"/rassta"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">o</span>, <span class="st">"/wasoil.zip"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>, exdir <span class="op">=</span> <span class="va">d</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Compressed folder with files from rassta’s installation folder</span></span>
+<span><span class="va">wasoil</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"exdat/wasoil.zip"</span>, package <span class="op">=</span> <span class="st">"rassta"</span><span class="op">)</span></span>
+<span><span class="co"># Directory for temporary files</span></span>
+<span><span class="va">o</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># Copy compressed folder to directory for temporary files</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span>from <span class="op">=</span> <span class="va">wasoil</span>, to <span class="op">=</span> <span class="va">o</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span><span class="co"># Extract files to subfolder</span></span>
+<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">o</span>, <span class="st">"/rassta"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">o</span>, <span class="st">"/wasoil.zip"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>, exdir <span class="op">=</span> <span class="va">d</span><span class="op">)</span></span></code></pre></div>
 <hr>
 <p>Stratification units are second-level spatial entities that result from the spatial intersection of <em>n</em> sets of classification units. Each set of classification units may represent a landscape factor (e.g., topography), or a particular spatial scale of a landscape factor (e.g., micro-topography). One example of a stratification unit can be a unit representing cold, dry, and steeped terrain in high altitude. This stratification unit could have resulted from the spatial intersection of climatic classification units representing both precipitation and temperature gradients, and topographic classification units representing both elevation and slope gradients. Currently, <strong>rassta</strong> allows the creation of stratification units based on the simple intersection of raster layers representing sets of classification units.</p>
 <div class="section level2">
@@ -106,49 +106,49 @@
 <p>The process to create stratification units is fairly simple. First, <em>n</em> sets of classification units need to be loaded as a terra’s multi-layer <em>SpatRaster</em> object. Raster layers in this object must represent categorical data (i.e., classification units). Then, the function <em>strata()</em> is used to perform two processes: (1) spatial intersection of raster layers, and (2) assignment of a unique numeric code to each resulting unit.</p>
 <p>For this example, three sets of classification units will be used to create one set of stratification units. The sets of classification units correspond to (i) climatic, (ii) soil parent material, and (iii) terrain classification units. The maps below show the classification units and the interpretation for each set of classification units.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Load rassta and terra packages</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bafuentes.github.io/rassta/">rassta</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/terra/" class="external-link">terra</a></span><span class="op">)</span>
-<span class="co"># Multi-layer SpatRaster with 3 sets of classification units</span>
-<span class="va">cu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"climate.tif"</span>, <span class="st">"material.tif"</span>, <span class="st">"terrain.tif"</span><span class="op">)</span>
-<span class="va">cudir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">d</span>, <span class="va">cu</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>
-<span class="va">all.cu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">cudir</span><span class="op">)</span>
-<span class="co"># Plot the sets of classification units</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">all.cu</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"classes"</span>, main <span class="op">=</span> <span class="st">"Climatic Classification Units"</span>, 
-     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">4</span>, <span class="st">"spectral"</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">16</span><span class="op">)</span>,
-     levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1. Highest Rainfall and Lowest Temperature"</span>,
-                <span class="st">"2. High Rainfall and Low Temperature"</span>,
-                <span class="st">"3. Low Rainfall and High Temperature"</span>,
-                <span class="st">"4. Lowest Rainfall and Highest Temperature"</span>
-              <span class="op">)</span>
-    <span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">all.cu</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"classes"</span>, main <span class="op">=</span> <span class="st">"Soil Parent Material Units"</span>, 
-     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">6</span>, <span class="st">"spectral"</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">16</span><span class="op">)</span>,
-     levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1. Igneous"</span>, <span class="st">"2. Sedimentary"</span>,
-                <span class="st">"3. Alluvium - Moderately weathered "</span>,
-                <span class="st">"4. Alluvium - Somewhat weathered"</span>,
-                <span class="st">"5. Alluvium - Rich in organic matter"</span>,
-                <span class="st">"6. Alluvium - Rich in clay and organic matter"</span>
-                <span class="op">)</span>
-    <span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">all.cu</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"classes"</span>, main <span class="op">=</span> <span class="st">"Terrain Classification Units"</span>, 
-     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">8</span>, <span class="st">"spectral"</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">16</span><span class="op">)</span>,
-     levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1. Summit"</span>, <span class="st">"2. Shoulder"</span>, <span class="st">"3. Backslope"</span>,
-                <span class="st">"4. Backslope - Steep"</span>, <span class="st">"5. Footslope"</span>,
-                <span class="st">"6. Footslope - Steep"</span>, <span class="st">"7. Toeslope"</span>, <span class="st">"8. Floodplain"</span>
-                <span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Load rassta and terra packages</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bafuentes.github.io/rassta/">rassta</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/terra/" class="external-link">terra</a></span><span class="op">)</span></span>
+<span><span class="co"># Multi-layer SpatRaster with 3 sets of classification units</span></span>
+<span><span class="va">cu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"climate.tif"</span>, <span class="st">"material.tif"</span>, <span class="st">"terrain.tif"</span><span class="op">)</span></span>
+<span><span class="va">cudir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">d</span>, <span class="va">cu</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span></span>
+<span><span class="va">all.cu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">cudir</span><span class="op">)</span></span>
+<span><span class="co"># Plot the sets of classification units</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">all.cu</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"classes"</span>, main <span class="op">=</span> <span class="st">"Climatic Classification Units"</span>, </span>
+<span>     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">4</span>, <span class="st">"spectral"</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">16</span><span class="op">)</span>,</span>
+<span>     levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1. Highest Rainfall and Lowest Temperature"</span>,</span>
+<span>                <span class="st">"2. High Rainfall and Low Temperature"</span>,</span>
+<span>                <span class="st">"3. Low Rainfall and High Temperature"</span>,</span>
+<span>                <span class="st">"4. Lowest Rainfall and Highest Temperature"</span></span>
+<span>              <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">all.cu</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"classes"</span>, main <span class="op">=</span> <span class="st">"Soil Parent Material Units"</span>, </span>
+<span>     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">6</span>, <span class="st">"spectral"</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">16</span><span class="op">)</span>,</span>
+<span>     levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1. Igneous"</span>, <span class="st">"2. Sedimentary"</span>,</span>
+<span>                <span class="st">"3. Alluvium - Moderately weathered "</span>,</span>
+<span>                <span class="st">"4. Alluvium - Somewhat weathered"</span>,</span>
+<span>                <span class="st">"5. Alluvium - Rich in organic matter"</span>,</span>
+<span>                <span class="st">"6. Alluvium - Rich in clay and organic matter"</span></span>
+<span>                <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">all.cu</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"classes"</span>, main <span class="op">=</span> <span class="st">"Terrain Classification Units"</span>, </span>
+<span>     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">8</span>, <span class="st">"spectral"</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">16</span><span class="op">)</span>,</span>
+<span>     levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1. Summit"</span>, <span class="st">"2. Shoulder"</span>, <span class="st">"3. Backslope"</span>,</span>
+<span>                <span class="st">"4. Backslope - Steep"</span>, <span class="st">"5. Footslope"</span>,</span>
+<span>                <span class="st">"6. Footslope - Steep"</span>, <span class="st">"7. Toeslope"</span>, <span class="st">"8. Floodplain"</span></span>
+<span>                <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="stratunits_files/figure-html/climclass-1.png" width="374.4"></p>
 <p>The following code demonstrates how to create stratification units from the three sets of classification units with the function <em>strata()</em>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Stratification units from the intersection of classification units</span>
-<span class="va">su</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/strata.html">strata</a></span><span class="op">(</span>cu.rast <span class="op">=</span> <span class="va">all.cu</span><span class="op">)</span>
-<span class="co"># Plot SpatRaster of stratification units</span>
-<span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">su</span><span class="op">$</span><span class="va">su.rast</span>, type <span class="op">=</span> <span class="st">"classes"</span>, main <span class="op">=</span> <span class="st">"Stratification Units"</span>,
-     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">su</span><span class="op">$</span><span class="va">su.rast</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="st">"spectral"</span><span class="op">)</span>,
-     plg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">12</span><span class="op">)</span>
-    <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Stratification units from the intersection of classification units</span></span>
+<span><span class="va">su</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/strata.html">strata</a></span><span class="op">(</span>cu.rast <span class="op">=</span> <span class="va">all.cu</span><span class="op">)</span></span>
+<span><span class="co"># Plot SpatRaster of stratification units</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">su</span><span class="op">$</span><span class="va">su.rast</span>, type <span class="op">=</span> <span class="st">"classes"</span>, main <span class="op">=</span> <span class="st">"Stratification Units"</span>,</span>
+<span>     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">su</span><span class="op">$</span><span class="va">su.rast</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="st">"spectral"</span><span class="op">)</span>,</span>
+<span>     plg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">12</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span></code></pre></div>
 <p><img src="stratunits_files/figure-html/strata-1.png" width="480"></p>
 </div>
 <div class="section level2">
@@ -156,15 +156,15 @@
 </h2>
 <p>The numeric code makes it possible to trace back the specific classification unit that composes a given stratification unit. The code below demonstrates how to retrieve the <em>multipliers</em> used to create the numeric codes for the stratification units.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Print multipliers used to code each stratification unit</span>
-<span class="va">su</span><span class="op">$</span><span class="va">code.mult</span>
-<span class="co">#&gt;  climate material  terrain </span>
-<span class="co">#&gt;      100       10        1</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Print multipliers used to code each stratification unit</span></span>
+<span><span class="va">su</span><span class="op">$</span><span class="va">code.mult</span></span>
+<span><span class="co">#&gt;  climate material  terrain </span></span>
+<span><span class="co">#&gt;      100       10        1</span></span></code></pre></div>
 <p>The multipliers indicate the relative placement of the classification unit’s numeric ID from each landscape factor or factor scale. In this example, the classification unit from climate is denoted by the hundreds digit, that from soil parent material is denoted by the tens digit, and that from terrain is denoted by the units digit. For example, the stratification unit <strong>111</strong> indicates the spatial convergence of the climatic classification unit = <strong>1</strong> (highest rainfall and lowest temperature), the parent material classification unit = <strong>1</strong> (igneous), and the terrain classification unit = <strong>1</strong> (summit). Therefore, the stratification unit <strong>111</strong> can be interpreted as summits located on areas of volcanic origin (igneous), which are exposed to the highest amount of precipitation and the lowest temperature, as compared to the rest of the landscape.</p>
 <hr>
 <p>Clean files from temporary directory</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">o</span>, <span class="st">"/wasoil.zip"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>, <span class="va">d</span><span class="op">)</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">o</span>, <span class="st">"/wasoil.zip"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>, <span class="va">d</span><span class="op">)</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level2">
@@ -188,7 +188,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer>

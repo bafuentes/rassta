@@ -98,19 +98,19 @@ must be identified by an integer value.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">engine</span><span class="op">(</span>
-  res.type <span class="op">=</span> <span class="st">"cont"</span>,
-  <span class="va">ls.rast</span>,
-  n.win <span class="op">=</span> <span class="fl">3</span>,
-  <span class="va">su.repobs</span>,
-  <span class="va">tiles</span>,
-  parallel <span class="op">=</span> <span class="cn">FALSE</span>,
-  outdir <span class="op">=</span> <span class="st">"."</span>,
-  tile.rm <span class="op">=</span> <span class="cn">TRUE</span>,
-  extension <span class="op">=</span> <span class="st">".tif"</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">engine</span><span class="op">(</span></span>
+<span>  res.type <span class="op">=</span> <span class="st">"cont"</span>,</span>
+<span>  <span class="va">ls.rast</span>,</span>
+<span>  n.win <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  <span class="va">su.repobs</span>,</span>
+<span>  <span class="va">tiles</span>,</span>
+<span>  parallel <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  outdir <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  tile.rm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  extension <span class="op">=</span> <span class="st">".tif"</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -118,14 +118,20 @@ must be identified by an integer value.</p>
     <dl><dt>res.type</dt>
 <dd><p>Character. Type of response to model. Options are "cont" for
 continuous, and "cat" for categorical response. Default: "cont"</p></dd>
+
+
 <dt>ls.rast</dt>
 <dd><p>SpatRaster, as in <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></code>. Multi-layer
 SpatRaster representing landscape similarities to stratification units.
 Only similarities for units with a representative observation are allowed.
 Character prefix in the file name of similarities is allowed.</p></dd>
+
+
 <dt>n.win</dt>
 <dd><p>Integer. Positive number indicating how many winning
 stratification units should be considered. See <strong>Details</strong>. Default: 3</p></dd>
+
+
 <dt>su.repobs</dt>
 <dd><p>Data frame. The first column of this data frame must contain
 only the numeric code for the stratification units (without prefix). Each
@@ -134,6 +140,8 @@ observation for each stratification unit. Multiple response variables are
 allowed (one per column). Note that all response variables in the data
 frame must share the same type (<em>res.type</em>). See example on issues
 related to <strong>non-explicit column names</strong>.</p></dd>
+
+
 <dt>tiles</dt>
 <dd><p>SpatVector, as in <code><a href="https://rdrr.io/pkg/terra/man/vect.html" class="external-link">vect</a></code>. Spatial vector of
 polygon geometry with the boundaries of the area of interest. This vector
@@ -142,28 +150,43 @@ processing speed (see <strong>Details</strong>). If this vector is tiled, then i
 attribute table must only contain an ID column with a unique identifier for
 each tile (1,2,...,n). Additionally, This vector must have the same
 coordinate reference system as <em>ls.rast</em>.</p></dd>
+
+
 <dt>parallel</dt>
 <dd><p>Boolean. Perform parallel processing? A parallel backend
 needs to be registered beforehand with
 <code><a href="https://rdrr.io/pkg/doParallel/man/registerDoParallel.html" class="external-link">registerDoParallel</a></code>. Moreover, a tiled spatial
 vector should be supplied for <em>tiles</em>. Default: FALSE</p></dd>
+
+
 <dt>outdir</dt>
 <dd><p>Character. String specifying the path for the output raster
 tiles/layer(s) of modeled response(s). Default: "."</p></dd>
+
+
 <dt>tile.rm</dt>
 <dd><p>Boolean. Should the tiles of modeled response(s) be removed
 from disk after the tile merging process? Default: TRUE</p></dd>
+
+
 <dt>extension</dt>
 <dd><p>Character. String specifying the extension for the output
 raster layer(s) of modeled response(s). Default: ".tif"</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>Boolean. Show warning messages in the console? Default: FALSE</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments as for <code><a href="https://rdrr.io/pkg/terra/man/writeRaster.html" class="external-link">writeRaster</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Multi-layer or single-layer SpatRaster with modeled response(s).</p>
+    
+
+<p>Multi-layer or single-layer SpatRaster with modeled response(s).</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -207,52 +230,52 @@ Consequently, the parallel, tile-based processing will be less useful.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/terra/" class="external-link">terra</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"exdat"</span>, package <span class="op">=</span> <span class="st">"rassta"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Multi-layer SpatRaster of landscape similarities</span></span>
-<span class="r-in"><span class="va">fls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">p</span>, pattern <span class="op">=</span> <span class="st">"su_"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ls</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">fls</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Numeric code and representative response value for stratification units</span></span>
-<span class="r-in"><span class="va">fro</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">p</span>, pattern <span class="op">=</span> <span class="st">"repobs.csv"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ro</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">fro</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Extract only those stratification units with representative value</span></span>
-<span class="r-in"><span class="va">ls</span> <span class="op">&lt;-</span> <span class="va">ls</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">ro</span><span class="op">$</span><span class="va">SU</span><span class="op">)</span><span class="op">]</span><span class="op">]</span></span>
-<span class="r-in"><span class="co"># SpatVector with processing tiles</span></span>
-<span class="r-in"><span class="va">fti</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">p</span>, pattern <span class="op">=</span> <span class="st">"tiles.shp"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ti</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/vect.html" class="external-link">vect</a></span><span class="op">(</span><span class="va">fti</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Directory for temporary files</span></span>
-<span class="r-in"><span class="va">o</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Perform predictive modeling of continuous response</span></span>
-<span class="r-in"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu">engine</span><span class="op">(</span>res.type <span class="op">=</span> <span class="st">"cont"</span>, ls.rast <span class="op">=</span> <span class="va">ls</span>, n.win <span class="op">=</span> <span class="fl">2</span>, su.repobs <span class="op">=</span> <span class="va">ro</span>,</span>
-<span class="r-in">            tiles <span class="op">=</span> <span class="va">ti</span>, outdir <span class="op">=</span> <span class="va">o</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">           <span class="op">)</span></span>
-<span class="r-in"><span class="co"># Plot modeled response</span></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">}</span></span>
-<span class="r-in"><span class="co"># Clean temporary files</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">o</span>, pattern <span class="op">=</span> <span class="st">"soc.tif"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/terra/" class="external-link">terra</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"exdat"</span>, package <span class="op">=</span> <span class="st">"rassta"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Multi-layer SpatRaster of landscape similarities</span></span></span>
+<span class="r-in"><span><span class="va">fls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">p</span>, pattern <span class="op">=</span> <span class="st">"su_"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ls</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">fls</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Numeric code and representative response value for stratification units</span></span></span>
+<span class="r-in"><span><span class="va">fro</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">p</span>, pattern <span class="op">=</span> <span class="st">"repobs.csv"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ro</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">fro</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Extract only those stratification units with representative value</span></span></span>
+<span class="r-in"><span><span class="va">ls</span> <span class="op">&lt;-</span> <span class="va">ls</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">ro</span><span class="op">$</span><span class="va">SU</span><span class="op">)</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="co"># SpatVector with processing tiles</span></span></span>
+<span class="r-in"><span><span class="va">fti</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">p</span>, pattern <span class="op">=</span> <span class="st">"tiles.shp"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ti</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/vect.html" class="external-link">vect</a></span><span class="op">(</span><span class="va">fti</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Directory for temporary files</span></span></span>
+<span class="r-in"><span><span class="va">o</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Perform predictive modeling of continuous response</span></span></span>
+<span class="r-in"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu">engine</span><span class="op">(</span>res.type <span class="op">=</span> <span class="st">"cont"</span>, ls.rast <span class="op">=</span> <span class="va">ls</span>, n.win <span class="op">=</span> <span class="fl">2</span>, su.repobs <span class="op">=</span> <span class="va">ro</span>,</span></span>
+<span class="r-in"><span>            tiles <span class="op">=</span> <span class="va">ti</span>, outdir <span class="op">=</span> <span class="va">o</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>           <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Plot modeled response</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="co"># Clean temporary files</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">o</span>, pattern <span class="op">=</span> <span class="st">"soc.tif"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="co">#</span></span>
-<span class="r-in"><span class="co">#-------</span></span>
-<span class="r-in"><span class="co"># A note on non-explicit response's names (obtained from su.repobs):</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## This will result in incorrectly modeled response values</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SOM"</span>, <span class="st">"SOM_30cm"</span>, <span class="st">"SOM_45cm"</span><span class="op">)</span>    <span class="co"># SOM = soil organic matter</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">x</span><span class="op">)</span>                            <span class="co"># Non explicit</span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="co">#-------</span></span></span>
+<span class="r-in"><span><span class="co"># A note on non-explicit response's names (obtained from su.repobs):</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## This will result in incorrectly modeled response values</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SOM"</span>, <span class="st">"SOM_30cm"</span>, <span class="st">"SOM_45cm"</span><span class="op">)</span>    <span class="co"># SOM = soil organic matter</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">x</span><span class="op">)</span>                            <span class="co"># Non explicit</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 2 3</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">x</span><span class="op">)</span>                            <span class="co"># Explicit</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">x</span><span class="op">)</span>                            <span class="co"># Explicit</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">x</span><span class="op">)</span>                            <span class="co"># Explicit</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">x</span><span class="op">)</span>                            <span class="co"># Explicit</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## This will result in correct values</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SOM_15cm"</span>, <span class="st">"SOM_30cm"</span>, <span class="st">"SOM_45cm"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">x</span><span class="op">)</span>                            <span class="co"># Explicit</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## This will result in correct values</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SOM_15cm"</span>, <span class="st">"SOM_30cm"</span>, <span class="st">"SOM_45cm"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">x</span><span class="op">)</span>                            <span class="co"># Explicit</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">x</span><span class="op">)</span>                            <span class="co"># Explicit</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">x</span><span class="op">)</span>                            <span class="co"># Explicit</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">x</span><span class="op">)</span>                            <span class="co"># Explicit</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">x</span><span class="op">)</span>                            <span class="co"># Explicit</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -264,7 +287,7 @@ Consequently, the parallel, tile-based processing will be less useful.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

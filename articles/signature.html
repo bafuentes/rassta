@@ -74,7 +74,7 @@
 
 
 <script src="signature_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Spatial Signature of Classification Units</h1>
                         <h4 data-toc-skip class="author">rassta: Raster-based Spatial Stratification Algorithms</h4>
             
@@ -88,16 +88,16 @@
 <hr>
 <p>Get the data required for this vignette</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Compressed folder with files from rassta’s installation folder</span>
-<span class="va">wasoil</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"exdat/wasoil.zip"</span>, package <span class="op">=</span> <span class="st">"rassta"</span><span class="op">)</span>
-<span class="co"># Directory for temporary files</span>
-<span class="va">o</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co"># Copy compressed folder to directory for temporary files</span>
-<span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span>from <span class="op">=</span> <span class="va">wasoil</span>, to <span class="op">=</span> <span class="va">o</span><span class="op">)</span>
-<span class="co">#&gt; [1] TRUE</span>
-<span class="co"># Extract files to subfolder</span>
-<span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">o</span>, <span class="st">"/rassta"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">o</span>, <span class="st">"/wasoil.zip"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>, exdir <span class="op">=</span> <span class="va">d</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Compressed folder with files from rassta’s installation folder</span></span>
+<span><span class="va">wasoil</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"exdat/wasoil.zip"</span>, package <span class="op">=</span> <span class="st">"rassta"</span><span class="op">)</span></span>
+<span><span class="co"># Directory for temporary files</span></span>
+<span><span class="va">o</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># Copy compressed folder to directory for temporary files</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span>from <span class="op">=</span> <span class="va">wasoil</span>, to <span class="op">=</span> <span class="va">o</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span><span class="co"># Extract files to subfolder</span></span>
+<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">o</span>, <span class="st">"/rassta"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">o</span>, <span class="st">"/wasoil.zip"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>, exdir <span class="op">=</span> <span class="va">d</span><span class="op">)</span></span></code></pre></div>
 <hr>
 <p>The <strong>spatial signature</strong> is a relative measurement of the correspondence between any <em>XY</em> location in geographic space and the landscape configuration represented by a given classification unit. The spatial signature represents a first-level landscape correspondence metric. To estimate the spatial signature of a classification unit, a distribution function for each variable used to create the unit must be selected. Then, each selected distribution function must be estimated and predicted across geographic space. Finally, all the predicted distribution functions must be aggregated into a single measurement, which gives the spatial signature of the unit.</p>
 <div class="section level2">
@@ -124,28 +124,28 @@
 </ul>
 <p>The code below demonstrates the automatic selection of distribution functions for a set of 4 climatic classification units constructed using two variables (annual precipitation and mean annual temperature).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Load rassta and terra packages</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bafuentes.github.io/rassta/">rassta</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/terra/" class="external-link">terra</a></span><span class="op">)</span>
-<span class="co"># Multi-layer SpatRaster with 2 climatic variables</span>
-<span class="va">var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"precipitation.tif"</span>, <span class="st">"temperature.tif"</span><span class="op">)</span>
-<span class="va">vardir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">d</span>, <span class="va">var</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>
-<span class="va">clim.var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">vardir</span><span class="op">)</span>
-<span class="co"># Single-layer SpatRaster with 4 climatic classification units</span>
-<span class="va">clim.cu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">d</span>, <span class="st">"/climate.tif"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span>
-<span class="co"># Automatic selection of statistical distribution functions</span>
-<span class="va">clim.difun</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_functions.html">select_functions</a></span><span class="op">(</span>cu.rast <span class="op">=</span> <span class="va">clim.cu</span>,
-                               var.rast <span class="op">=</span> <span class="va">clim.var</span>, 
-                               mode <span class="op">=</span> <span class="st">"auto"</span>
-                              <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Load rassta and terra packages</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bafuentes.github.io/rassta/">rassta</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/terra/" class="external-link">terra</a></span><span class="op">)</span></span>
+<span><span class="co"># Multi-layer SpatRaster with 2 climatic variables</span></span>
+<span><span class="va">var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"precipitation.tif"</span>, <span class="st">"temperature.tif"</span><span class="op">)</span></span>
+<span><span class="va">vardir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">d</span>, <span class="va">var</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span></span>
+<span><span class="va">clim.var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">vardir</span><span class="op">)</span></span>
+<span><span class="co"># Single-layer SpatRaster with 4 climatic classification units</span></span>
+<span><span class="va">clim.cu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">d</span>, <span class="st">"/climate.tif"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Automatic selection of statistical distribution functions</span></span>
+<span><span class="va">clim.difun</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_functions.html">select_functions</a></span><span class="op">(</span>cu.rast <span class="op">=</span> <span class="va">clim.cu</span>,</span>
+<span>                               var.rast <span class="op">=</span> <span class="va">clim.var</span>, </span>
+<span>                               mode <span class="op">=</span> <span class="st">"auto"</span></span>
+<span>                              <span class="op">)</span></span></code></pre></div>
 <p>The classification units, variables, and selected distribution functions can be visualized as demonstrated in the code below.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Plot climatic classification units and variables</span>
-<span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">clim.cu</span>, <span class="va">clim.var</span><span class="op">)</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">100</span>, <span class="st">"Spectral"</span><span class="op">)</span>, nc <span class="op">=</span> <span class="fl">3</span>,
-     mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">5</span><span class="op">)</span>
-    <span class="op">)</span>
-<span class="co"># Selected distribution functions</span>
-<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">clim.difun</span><span class="op">$</span><span class="va">distfun</span>, filter <span class="op">=</span> <span class="st">"none"</span>, selection <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Plot climatic classification units and variables</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">clim.cu</span>, <span class="va">clim.var</span><span class="op">)</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">100</span>, <span class="st">"Spectral"</span><span class="op">)</span>, nc <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>     mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span><span class="co"># Selected distribution functions</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">clim.difun</span><span class="op">$</span><span class="va">distfun</span>, filter <span class="op">=</span> <span class="st">"none"</span>, selection <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Class.Unit</th>
@@ -203,19 +203,19 @@
 <p>Once a set of distribution functions has been selected for a classification unit, the estimation and prediction of these functions can be performed with <em>predict_functions()</em>. Given a classification unit <em>Z</em> and a variable <em>X</em>, <em>predict_functions()</em> first estimates the selected distribution function for <em>X</em>, using only observations selected from within <em>Z</em>. Subsequently, <em>predict_functions()</em> fits a locally-estimated scatterplot smoothing (LOESS). The LOESS is fitted using the observations from <em>X</em> as explanatory values and the values from the corresponding distribution function as response values. Finally, the fitted LOESS is predicted on the complete geographic space supported by the raster layer of <em>X</em>. This process is repeated for each variable used to construct <em>Z</em>.</p>
 <p>The code below demonstrates the estimation and prediction of distribution functions with <em>predict_functions()</em>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Multi-layer SpatRaster of climatic variables and classification units</span>
-<span class="va">clim.all</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">clim.var</span>, <span class="va">clim.cu</span><span class="op">)</span>
-<span class="co"># Ouput table from select_functions()</span>
-<span class="va">df</span> <span class="op">&lt;-</span> <span class="va">clim.difun</span><span class="op">$</span><span class="va">distfun</span>
-<span class="co"># Predicted distribution functions for climatic variables</span>
-<span class="va">clim.pdif</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_functions.html">predict_functions</a></span><span class="op">(</span>cuvar.rast <span class="op">=</span> <span class="va">clim.all</span>, cu.ind <span class="op">=</span> <span class="fl">3</span>, 
-                               cu <span class="op">=</span> <span class="va">df</span><span class="op">$</span><span class="va">Class.Unit</span>,
-                               vars <span class="op">=</span> <span class="va">df</span><span class="op">$</span><span class="va">Variable</span>,
-                               dif <span class="op">=</span> <span class="va">df</span><span class="op">$</span><span class="va">Dist.Func</span>
-                              <span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">clim.pdif</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">100</span>, <span class="st">"Oslo"</span>, rev <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, nc <span class="op">=</span> <span class="fl">4</span>,
-     mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">3.5</span><span class="op">)</span>
-    <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Multi-layer SpatRaster of climatic variables and classification units</span></span>
+<span><span class="va">clim.all</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">clim.var</span>, <span class="va">clim.cu</span><span class="op">)</span></span>
+<span><span class="co"># Ouput table from select_functions()</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">clim.difun</span><span class="op">$</span><span class="va">distfun</span></span>
+<span><span class="co"># Predicted distribution functions for climatic variables</span></span>
+<span><span class="va">clim.pdif</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_functions.html">predict_functions</a></span><span class="op">(</span>cuvar.rast <span class="op">=</span> <span class="va">clim.all</span>, cu.ind <span class="op">=</span> <span class="fl">3</span>, </span>
+<span>                               cu <span class="op">=</span> <span class="va">df</span><span class="op">$</span><span class="va">Class.Unit</span>,</span>
+<span>                               vars <span class="op">=</span> <span class="va">df</span><span class="op">$</span><span class="va">Variable</span>,</span>
+<span>                               dif <span class="op">=</span> <span class="va">df</span><span class="op">$</span><span class="va">Dist.Func</span></span>
+<span>                              <span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">clim.pdif</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">100</span>, <span class="st">"Oslo"</span>, rev <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, nc <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>     mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">3.5</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span></code></pre></div>
 <p><img src="signature_files/figure-html/pdf-1.png" width="652.8"></p>
 </div>
 <div class="section level2">
@@ -223,20 +223,20 @@
 </h2>
 <p>The function <em>signature()</em> calculates the spatial signature of a given classification unit by aggregating all the predicted distribution functions associated with the unit.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Spatial signatures from predicted distribution functions</span>
-<span class="va">clim.sig</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/signature.html">signature</a></span><span class="op">(</span>pdif.rast <span class="op">=</span> <span class="va">clim.pdif</span>,
-                      inprex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span>, <span class="st">"_"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>,
-                      outname <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"climate_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
-                    <span class="op">)</span>
-<span class="co"># Plot spatial signatures</span>
-<span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">clim.sig</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">100</span>, <span class="st">"Oslo"</span>, rev <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, nc <span class="op">=</span> <span class="fl">2</span>, 
-     mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">3.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Spatial signatures from predicted distribution functions</span></span>
+<span><span class="va">clim.sig</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/signature.html">signature</a></span><span class="op">(</span>pdif.rast <span class="op">=</span> <span class="va">clim.pdif</span>,</span>
+<span>                      inprex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span>, <span class="st">"_"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>,</span>
+<span>                      outname <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"climate_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span>                    <span class="op">)</span></span>
+<span><span class="co"># Plot spatial signatures</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">clim.sig</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">100</span>, <span class="st">"Oslo"</span>, rev <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, nc <span class="op">=</span> <span class="fl">2</span>, </span>
+<span>     mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">3.5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="signature_files/figure-html/spatsig-1.png" width="450.24"></p>
 <p>The argument <strong>inprex</strong> allows the identification of layers from a SpatRaster object that represent predicted distribution functions for each classification unit in a set. Similarly, the argument <strong>outname</strong> assigns a unique name to each layer in the resulting SpatRaster of spatial signatures.</p>
 <hr>
 <p>Clean files from temporary directory</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">o</span>, <span class="st">"/wasoil.zip"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>, <span class="va">d</span><span class="op">)</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">o</span>, <span class="st">"/wasoil.zip"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>, <span class="va">d</span><span class="op">)</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level2">
@@ -260,7 +260,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer>
