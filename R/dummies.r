@@ -140,7 +140,7 @@ dummies <- function(ca.rast, vals = NULL, preval = 100, absval = 0,
 
   }
 
-  # Return object
+  # Return SpatRaster with dummy layers
   d
 
 }
