@@ -89,10 +89,10 @@ som_pam <- function(ref.rast, kohsom, k, metric = "manhattan", stand = FALSE,
                            ...
                           )
 
-  # find incomplete cells across all layers
+  # Find incomplete cells across all layers
   idx <- stats::complete.cases(terra::values(ref.rast))
 
-  # make template raster from first layer
+  # Make template raster from first layer
   r.som <- terra::rast(ref.rast[[1]])
   r.sompam <- r.som
 
