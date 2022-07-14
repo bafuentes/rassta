@@ -89,7 +89,7 @@ valid cells as those in the multi-layer SpatRaster object used in
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">som_pam</span><span class="op">(</span><span class="va">ref.rast</span>, <span class="va">kohsom</span>, <span class="va">k</span>, metric <span class="op">=</span> <span class="st">"manhattan"</span>, stand <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">som_pam</span><span class="op">(</span><span class="va">ref.rast</span>, <span class="va">kohsom</span>, <span class="va">k</span>, metric <span class="op">=</span> <span class="st">"manhattan"</span>, stand <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -99,28 +99,43 @@ valid cells as those in the multi-layer SpatRaster object used in
 layer will serve as a reference for both cell position and geographic
 support for the rasterized representation of SOM's winning units and PAM's
 clustering.</p></dd>
+
+
 <dt>kohsom</dt>
 <dd><p>SOM Object of class <strong>kohonen</strong>, see
 <code><a href="https://rdrr.io/pkg/kohonen/man/supersom.html" class="external-link">supersom</a></code>. The following components must be present
 in the SOM object (1) <em>unit.classif</em> = winning units for all
 observations, and (2) <em>codes</em> = matrix of codebook vectors.</p></dd>
+
+
 <dt>k</dt>
 <dd><p>Integer (positive value). Number of clusters to form from the SOM's
 codebook vectors, where <em>k &lt; SOM's codebook vectors</em>.</p></dd>
+
+
 <dt>metric</dt>
 <dd><p>Character. Distance function for PAM. Options are "euclidean",
 and "manhattan". Default: "manhattan"</p></dd>
+
+
 <dt>stand</dt>
 <dd><p>Boolean. For the PAM function, do SOM's codebook vectors need to
 be standardized? Default: FALSE</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments as for <code><a href="https://rdrr.io/pkg/cluster/man/pam.html" class="external-link">pam</a></code>. See
 <strong>Details</strong>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><strong>sompam</strong>: Object of class <strong>pam</strong>. See ?pam.object for details.
-<strong>sompam.rast</strong>: Multi-layer SpatRaster, as in
+    
+
+<p><strong>sompam</strong>: Object of class <strong>pam</strong>. See ?pam.object for details.</p>
+
+
+<p><strong>sompam.rast</strong>: Multi-layer SpatRaster, as in
 <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></code>. The first raster layer corresponds to the SOM's
 winning units. The second raster layer corresponds to the clustered SOM's
 codebook vectors by PAM.</p>
@@ -143,29 +158,29 @@ is the default.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/terra/" class="external-link">terra</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Multi-layer SpatRaster with topographic variables</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"exdat"</span>, package <span class="op">=</span> <span class="st">"rassta"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">p</span>, pattern <span class="op">=</span> <span class="st">"^height|^slope|^wetness"</span>,</span>
-<span class="r-in">                 full.names <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">                <span class="op">)</span></span>
-<span class="r-in"><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">ft</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Scale topographic variables (mean = 0, StDev = 1)</span></span>
-<span class="r-in"><span class="va">ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Self-organizing map and gap statistic for optimum k</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">963</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">tsom</span> <span class="op">&lt;-</span> <span class="fu"><a href="som_gap.html">som_gap</a></span><span class="op">(</span>var.rast <span class="op">=</span> <span class="va">ts</span>, xdim <span class="op">=</span> <span class="fl">8</span>, ydim <span class="op">=</span> <span class="fl">8</span>, rlen <span class="op">=</span> <span class="fl">150</span>,</span>
-<span class="r-in">               mode <span class="op">=</span> <span class="st">"online"</span>, K.max <span class="op">=</span> <span class="fl">6</span>, B <span class="op">=</span> <span class="fl">300</span>, spaceH0 <span class="op">=</span> <span class="st">"original"</span>,</span>
-<span class="r-in">               method <span class="op">=</span> <span class="st">"globalSEmax"</span></span>
-<span class="r-in">              <span class="op">)</span></span>
-<span class="r-in"><span class="co"># Optimum k</span></span>
-<span class="r-in"><span class="va">tsom</span><span class="op">$</span><span class="va">Kopt</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/terra/" class="external-link">terra</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Multi-layer SpatRaster with topographic variables</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"exdat"</span>, package <span class="op">=</span> <span class="st">"rassta"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">p</span>, pattern <span class="op">=</span> <span class="st">"^height|^slope|^wetness"</span>,</span></span>
+<span class="r-in"><span>                 full.names <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>                <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">ft</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Scale topographic variables (mean = 0, StDev = 1)</span></span></span>
+<span class="r-in"><span><span class="va">ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Self-organizing map and gap statistic for optimum k</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">963</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tsom</span> <span class="op">&lt;-</span> <span class="fu"><a href="som_gap.html">som_gap</a></span><span class="op">(</span>var.rast <span class="op">=</span> <span class="va">ts</span>, xdim <span class="op">=</span> <span class="fl">8</span>, ydim <span class="op">=</span> <span class="fl">8</span>, rlen <span class="op">=</span> <span class="fl">150</span>,</span></span>
+<span class="r-in"><span>               mode <span class="op">=</span> <span class="st">"online"</span>, K.max <span class="op">=</span> <span class="fl">6</span>, B <span class="op">=</span> <span class="fl">300</span>, spaceH0 <span class="op">=</span> <span class="st">"original"</span>,</span></span>
+<span class="r-in"><span>               method <span class="op">=</span> <span class="st">"globalSEmax"</span></span></span>
+<span class="r-in"><span>              <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Optimum k</span></span></span>
+<span class="r-in"><span><span class="va">tsom</span><span class="op">$</span><span class="va">Kopt</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
-<span class="r-in"><span class="co"># PAM clustering of topographic SOM's codebook vectors</span></span>
-<span class="r-in"><span class="va">tpam</span> <span class="op">&lt;-</span> <span class="fu">som_pam</span><span class="op">(</span>ref.rast <span class="op">=</span> <span class="va">t</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, kohsom <span class="op">=</span> <span class="va">tsom</span><span class="op">$</span><span class="va">SOM</span>, k <span class="op">=</span> <span class="va">tsom</span><span class="op">$</span><span class="va">Kopt</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Plot topographic variables, SOM grid and PAM clustering</span></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">tpam</span><span class="op">$</span><span class="va">sompam.rast</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="co"># PAM clustering of topographic SOM's codebook vectors</span></span></span>
+<span class="r-in"><span><span class="va">tpam</span> <span class="op">&lt;-</span> <span class="fu">som_pam</span><span class="op">(</span>ref.rast <span class="op">=</span> <span class="va">t</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, kohsom <span class="op">=</span> <span class="va">tsom</span><span class="op">$</span><span class="va">SOM</span>, k <span class="op">=</span> <span class="va">tsom</span><span class="op">$</span><span class="va">Kopt</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Plot topographic variables, SOM grid and PAM clustering</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">tpam</span><span class="op">$</span><span class="va">sompam.rast</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -177,7 +192,7 @@ is the default.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

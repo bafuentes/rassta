@@ -95,7 +95,7 @@ of the logic behind the code assignment process.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">strata</span><span class="op">(</span><span class="va">cu.rast</span>, to.disk <span class="op">=</span> <span class="cn">FALSE</span>, outdir <span class="op">=</span> <span class="st">"."</span>, <span class="va">su.name</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">strata</span><span class="op">(</span><span class="va">cu.rast</span>, to.disk <span class="op">=</span> <span class="cn">FALSE</span>, outdir <span class="op">=</span> <span class="st">"."</span>, <span class="va">su.name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -105,24 +105,37 @@ of the logic behind the code assignment process.</p>
 SpatRaster for which each layer represents a set of classification units
 for a particular landscape factor or factor scale. Integer cell values
 (i.e., numeric identifiers) are expected.</p></dd>
+
+
 <dt>to.disk</dt>
 <dd><p>Boolean. Write the resulting raster layer of stratification
 units to disk? Default: FALSE</p></dd>
+
+
 <dt>outdir</dt>
 <dd><p>Character. If <em>to.disk = TRUE</em>, string specifying the path
 for the output raster layer of stratification units. Default: "."</p></dd>
+
+
 <dt>su.name</dt>
 <dd><p>Character. If <em>to.disk = TRUE</em>, file name (including
 extension) for the output raster layer of stratification units.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments as for <code><a href="https://rdrr.io/pkg/terra/man/writeRaster.html" class="external-link">writeRaster</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><strong>su.rast</strong>: Single-layer SpatRaster representing the stratification
+    
+
+<p><strong>su.rast</strong>: Single-layer SpatRaster representing the stratification
 units occurring across geographic space. The cell values in this raster layer
-represents the numeric codes of stratification units.
-<strong>code.mult</strong>: Multipliers used for the creation of the numeric codes.
+represents the numeric codes of stratification units.</p>
+
+
+<p><strong>code.mult</strong>: Multipliers used for the creation of the numeric codes.
 See <strong>Details</strong>.</p>
     </div>
     <div class="section level2">
@@ -145,40 +158,40 @@ the landscape factors/factor scales in the resulting numeric code.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/terra/" class="external-link">terra</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"exdat"</span>, package <span class="op">=</span> <span class="st">"rassta"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Multi-layer SpatRast with classification units (Cus)</span></span>
-<span class="r-in"><span class="co">## Three sets (i.e., landscape factors): geology, climate and topography</span></span>
-<span class="r-in"><span class="va">fcu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">p</span>,</span>
-<span class="r-in">                  pattern <span class="op">=</span> <span class="st">"geology.tif|climate.tif|topography.tif"</span>,</span>
-<span class="r-in">                  full.names <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">                 <span class="op">)</span></span>
-<span class="r-in"><span class="va">cu</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">fcu</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Stratification units (SUs)</span></span>
-<span class="r-in"><span class="va">su</span> <span class="op">&lt;-</span> <span class="fu">strata</span><span class="op">(</span>cu.rast <span class="op">=</span> <span class="va">cu</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Plot the stratification units</span></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">su</span><span class="op">$</span><span class="va">su.rast</span>, type <span class="op">=</span> <span class="st">"classes"</span><span class="op">)</span><span class="op">}</span></span>
-<span class="r-in"><span class="co">#</span></span>
-<span class="r-in"><span class="co"># Note code structure from SUs and corresponding values from CUs</span></span>
-<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">su</span><span class="op">$</span><span class="va">su.rast</span>, <span class="va">cu</span><span class="op">)</span><span class="op">[</span><span class="fl">46</span>,<span class="fl">61</span><span class="op">]</span>   <span class="co"># Example of one cell (row = 45, column = 45)</span></span>
-<span class="r-in"><span class="va">su</span><span class="op">$</span><span class="va">code.mult</span>                    <span class="co"># Multipliers</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/terra/" class="external-link">terra</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"exdat"</span>, package <span class="op">=</span> <span class="st">"rassta"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Multi-layer SpatRast with classification units (Cus)</span></span></span>
+<span class="r-in"><span><span class="co">## Three sets (i.e., landscape factors): geology, climate and topography</span></span></span>
+<span class="r-in"><span><span class="va">fcu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">p</span>,</span></span>
+<span class="r-in"><span>                  pattern <span class="op">=</span> <span class="st">"geology.tif|climate.tif|topography.tif"</span>,</span></span>
+<span class="r-in"><span>                  full.names <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>                 <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cu</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">fcu</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Stratification units (SUs)</span></span></span>
+<span class="r-in"><span><span class="va">su</span> <span class="op">&lt;-</span> <span class="fu">strata</span><span class="op">(</span>cu.rast <span class="op">=</span> <span class="va">cu</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Plot the stratification units</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">su</span><span class="op">$</span><span class="va">su.rast</span>, type <span class="op">=</span> <span class="st">"classes"</span><span class="op">)</span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="co"># Note code structure from SUs and corresponding values from CUs</span></span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">su</span><span class="op">$</span><span class="va">su.rast</span>, <span class="va">cu</span><span class="op">)</span><span class="op">[</span><span class="fl">46</span>,<span class="fl">61</span><span class="op">]</span>   <span class="co"># Example of one cell (row = 45, column = 45)</span></span></span>
+<span class="r-in"><span><span class="va">su</span><span class="op">$</span><span class="va">code.mult</span>                    <span class="co"># Multipliers</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    geology    climate topography </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        100         10          1 </span>
-<span class="r-in"><span class="va">z</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SU"</span>, <span class="fu"><a href="https://rdrr.io/pkg/terra/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">su</span><span class="op">$</span><span class="va">code.mult</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="co"># Code structure</span></span>
+<span class="r-in"><span><span class="va">z</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SU"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">su</span><span class="op">$</span><span class="va">code.mult</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="co"># Code structure</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    SU geology climate topography</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 245       2       4          5</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Note what happens when some landscape factors have cell values greater...</span></span>
-<span class="r-in"><span class="co">#... than 1 digit (i.e., more than 9 distinct classification units)</span></span>
-<span class="r-in"><span class="va">cu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">cu</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">cu</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">^</span><span class="fl">4</span>, <span class="va">cu</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">su</span> <span class="op">&lt;-</span> <span class="fu">strata</span><span class="op">(</span>cu.rast <span class="op">=</span> <span class="va">cu</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">su</span><span class="op">$</span><span class="va">code.mult</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Note what happens when some landscape factors have cell values greater...</span></span></span>
+<span class="r-in"><span><span class="co">#... than 1 digit (i.e., more than 9 distinct classification units)</span></span></span>
+<span class="r-in"><span><span class="va">cu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">cu</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">cu</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">^</span><span class="fl">4</span>, <span class="va">cu</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">su</span> <span class="op">&lt;-</span> <span class="fu">strata</span><span class="op">(</span>cu.rast <span class="op">=</span> <span class="va">cu</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">su</span><span class="op">$</span><span class="va">code.mult</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    climate    geology topography </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      10000        100          1 </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/terra/man/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">su</span><span class="op">$</span><span class="va">su.rast</span>, <span class="va">cu</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">su</span><span class="op">$</span><span class="va">code.mult</span><span class="op">)</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">[</span><span class="fl">46</span>,<span class="fl">61</span><span class="op">]</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">su</span><span class="op">$</span><span class="va">su.rast</span>, <span class="va">cu</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">su</span><span class="op">$</span><span class="va">code.mult</span><span class="op">)</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">[</span><span class="fl">46</span>,<span class="fl">61</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      SU climate geology topography</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 41625       4      16         25</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -190,7 +203,7 @@ the landscape factors/factor scales in the resulting numeric code.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>
