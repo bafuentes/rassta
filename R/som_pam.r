@@ -4,21 +4,21 @@
 #' @description
 #' Creation of a rasterized representation of the outputs from the
 #' self-organizing map (SOM) and partitioning around medoids (PAM). Given a
-#' reference raster layer, each SOM's winning unit and PAM's clustering value
-#' will be mapped on the corresponding cell in the reference layer and across
-#' the geographic space supported by such layer. Note that this function is a
-#' follow-up of the \code{\link{som_gap}} function.
+#' reference raster layer, each winning unit of the SOM and clustering value
+#' from the PAM will be mapped on the corresponding cell in the reference layer
+#' and across the geographic space supported by such layer. Note that this
+#' function is a follow-up of the \code{\link{som_gap}} function.
 #'
 #' @param ref.rast SpatRaster, as in \code{\link[terra]{rast}}. This raster
-#'   layer will serve as a reference for both valid cells' index and geographic
-#'   support for the rasterized representation of SOM's winning units and PAM's
-#'   clustering. See \emph{Details} for some notes about efficiency.
+#'   layer will serve as a reference of the index of valid cells and the
+#'   geographic support for the rasterized representation of SOM's winning units
+#'   and PAM's clustering. See \emph{Details} for some notes about efficiency.
 #' @param kohsom SOM Object of class \strong{kohonen}, see
 #'   \code{\link[kohonen]{supersom}}. The following components must be present
 #'   in the SOM object (1) \emph{unit.classif} = winning units for all
 #'   observations, and (2) \emph{codes} = matrix of codebook vectors.
-#' @param k Integer (positive value). Number of clusters to form from the SOM's
-#'   codebook vectors, where \emph{k < SOM's codebook vectors}.
+#' @param k Integer (positive value). Number of clusters to form from the
+#'   codebook vectors of the SOM, where \emph{k < SOM's codebook vectors}.
 #' @param metric Character. Distance function for PAM. Options are "euclidean",
 #'   and "manhattan". Default: "manhattan"
 #' @param stand Boolean. For the PAM function, do SOM's codebook vectors need to
