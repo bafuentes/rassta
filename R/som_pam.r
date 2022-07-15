@@ -115,10 +115,10 @@ som_pam <- function(ref.rast, kohsom, k, metric = "manhattan", stand = FALSE,
   terra::varnames(r.sompam) <- "SOMPAM"
 
   # Rasterize SOM
-  r.som[not.na(r.som)] <- kohsom$unit.classif
+  r.som[terra::not.na(r.som)] <- kohsom$unit.classif
 
   # Rasterize SOM-based PAM
-  r.sompam[not.na(r.som)] <- m.sompam$clustering[kohsom$unit.classif]
+  r.sompam[terra::not.na(r.som)] <- m.sompam$clustering[kohsom$unit.classif]
 
   # Multi-layer SpatRaster
   add(r.som) <- r.sompam
