@@ -6,17 +6,13 @@
 #' self-organizing map (SOM) and partitioning around medoids (PAM). Given a
 #' reference raster layer, each SOM's winning unit and PAM's clustering value
 #' will be mapped on the corresponding cell in the reference layer and across
-#' the geographic space supported by such layer. This function is a follow-up of
-#' the \code{\link{som_gap}} function. It is important to note that in order for
-#' \code{\link{som_pam}} to work properly, the reference layer \emph{ref.rast}
-#' must have the same cell size, number of rows, number of columns, and index of
-#' valid cells as those in the multi-layer SpatRaster object used in
-#' \code{\link{som_gap}}.
+#' the geographic space supported by such layer. Note that this function is a
+#' follow-up of the \code{\link{som_gap}} function.
 #'
 #' @param ref.rast SpatRaster, as in \code{\link[terra]{rast}}. This raster
-#'   layer will serve as a reference for both cell position and geographic
+#'   layer will serve as a reference for both valid cells' index and geographic
 #'   support for the rasterized representation of SOM's winning units and PAM's
-#'   clustering.
+#'   clustering. See \emph{Details} for some notes about efficiency.
 #' @param kohsom SOM Object of class \strong{kohonen}, see
 #'   \code{\link[kohonen]{supersom}}. The following components must be present
 #'   in the SOM object (1) \emph{unit.classif} = winning units for all
@@ -42,6 +38,15 @@
 #' As in \code{\link{som_gap}}, this function calls \code{\link[cluster]{pam}}
 #' to perform the clustering of SOM's codebook vectors. The SOM object must
 #' belong to the class \strong{kohonen}, as in \code{\link[kohonen]{supersom}}.
+#'
+#' Note that in order for \code{\link{som_pam}} to perform efficiently, the
+#' reference SpatRaster \emph{ref.rast} must be a single-layer SpatRaster with
+#' the same cell size, number of rows, number of columns, and index of valid
+#' cells as those in the multi-layer SpatRaster object used in
+#' \code{\link{som_gap}}. If a multi-layer SpatRaster (with each layer possibly
+#' having a different index of valid cells) is used as the \emph{ref.rast}, the
+#' efficiency of \code{\link{som_pam} (i.e., running time and/or memmory
+#' allocation) may be degraded when handling large SpatRaster objects.
 #'
 #' For this function to work as intended, the additional argument
 #' \emph{cluster.only} in \code{\link[cluster]{pam}} must remain as FALSE, which
@@ -89,25 +94,37 @@ som_pam <- function(ref.rast, kohsom, k, metric = "manhattan", stand = FALSE,
                            ...
                           )
 
-  # Find incomplete cells across all layers
-  idx <- stats::complete.cases(terra::values(ref.rast))
+  # Get template SpatRaster layers
+  ## For Self-Organizing Map
+  if(terra::nlyr(ref.rast) > 1) {
 
-  # Make template raster from first layer
-  r.som <- terra::rast(ref.rast[[1]])
-  r.sompam <- r.som
+    # Sum approach to reduce memory allocation...
+    #... (as compared to idx <- stats::complete.cases(terra::values(x)))
+    r.som <- terra::app(x = ref.rast, fun = sum)
 
-  # Rasterize SOM
-  r.som[idx] <- kohsom$unit.classif
+  } else {
+
+    r.som <- ref.rast
+
+  }
   base::names(r.som) <- "SOM"
   terra::varnames(r.som) <- "SOM"
-
-  # Rasterize SOM-based PAM
-  r.sompam[idx] <- m.sompam$clustering[kohsom$unit.classif]
+  ## For PAM clustering
+  r.sompam <- r.som
   base::names(r.sompam) <- "SOMPAM"
   terra::varnames(r.sompam) <- "SOMPAM"
 
+  # Rasterize SOM
+  r.som[not.na(r.som)] <- kohsom$unit.classif
+
+  # Rasterize SOM-based PAM
+  r.sompam[not.na(r.som)] <- m.sompam$clustering[kohsom$unit.classif]
+
   # Multi-layer SpatRaster
-  r.som <- c(r.som, r.sompam)
+  add(r.som) <- r.sompam
+
+  # Free some memory
+  gc()
 
   # Return list of components
   list(sompam = m.sompam, sompam.rast = r.som)
