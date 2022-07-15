@@ -121,7 +121,7 @@ som_pam <- function(ref.rast, kohsom, k, metric = "manhattan", stand = FALSE,
   r.sompam[terra::not.na(r.som)] <- m.sompam$clustering[kohsom$unit.classif]
 
   # Multi-layer SpatRaster
-  add(r.som) <- r.sompam
+  terra::add(r.som) <- r.sompam
 
   # Free some memory
   gc()
