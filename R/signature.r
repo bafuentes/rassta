@@ -122,13 +122,10 @@ signature <- function(pdif.rast, inprex, outname, fun = mean,
   ssig <- foreach::foreach(i = 1:base::length(inprex)) %ps% {
 
     # Find sets of predicted distribution functions
-    rlays <- pdif.rast[[base::grep(pattern = base::paste("^",
-                                                         inprex[i],
-                                                         sep = ""
-                                                        ),
-                                   x = base::names(pdif.rast)
-                                  )
-                      ]]
+    rlays <- pdif.rast[[base::grep(
+       pattern = base::paste("^", inprex[i], sep = ""),
+       x = base::names(pdif.rast)
+     )]]
 
     # Check that at least one predicted distribution function has been found
     if (terra::nlyr(rlays) < 1) {
@@ -137,29 +134,28 @@ signature <- function(pdif.rast, inprex, outname, fun = mean,
 
     } else {
 
+      # > Disk-based processing < #
       if(to.disk == TRUE) {
-
-        # > Disk-based processing < #
 
         # File name for output raster layer of spatial signature
         ssig <- base::paste(outname[i], extension, sep = "")
 
         # Aggregation of predicted distribution functions into spatial signature
-        terra::app(rlays,
-                   fun = fun,
-                   na.rm = TRUE,
-                   filename = base::file.path(outdir, ssig),
-                   overwrite = overwrite,
-                   wopt = base::list(names = outname[i], ...)
-                  )
+        terra::app(
+          rlays,
+          fun = fun,
+          na.rm = TRUE,
+          filename = base::file.path(outdir, ssig),
+          overwrite = overwrite,
+          wopt = base::list(names = outname[i], ...)
+        )
         gc()
 
         # Retrieve file name for raster layer of spatial signature
-        ssig <- ssig
+        ssig
 
+      # > Memory-based processing < #
       } else {
-
-        # > Memory-based processing < #
 
         # Aggregation of predicted distribution functions into spatial signature
         ssig <- terra::app(rlays, fun = fun, na.rm = TRUE)
@@ -168,7 +164,7 @@ signature <- function(pdif.rast, inprex, outname, fun = mean,
         # Rename and retrieve raster layer of spatial signature
         base::names(ssig) <- outname[i]
         terra::varnames(ssig) <- outname[i]
-        ssig <- ssig
+        ssig
 
       }
 
