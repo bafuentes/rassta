@@ -169,9 +169,10 @@ similarity <- function(su.rast, su.code, sig.rast, fun = mean, to.disk = FALSE,
   ## Renaming columns
   base::colnames(x) <- c("value", "variable")
   ## Creation of ID column for stratification units
-  x$id <- base::rep(1:(base::nrow(x)/base::length(su.code)),
-                    each = base::length(su.code)
-                  )
+  x$id <- base::rep(
+    1:(base::nrow(x)/base::length(su.code)),
+    each = base::length(su.code)
+  )
   ## Reshaping data frame with variables as new columns
   x <- stats::reshape(x, idvar = "id", timevar = "variable", direction = "wide")
   ## Renaming variable columns according user-defined code structure
@@ -190,7 +191,7 @@ similarity <- function(su.rast, su.code, sig.rast, fun = mean, to.disk = FALSE,
   landsim <- foreach::foreach(rw = 1:base::nrow(x)) %ps% {
 
     # Base raster to serve as reference for multi-layer SpatRaster
-    spatsign <- su.rast
+    spatsign <- terra::rast()
 
     # Sequential construction of multi-layer SpatRaster of spatial signatures
     # ... for each stratification unit
@@ -199,27 +200,18 @@ similarity <- function(su.rast, su.code, sig.rast, fun = mean, to.disk = FALSE,
 
       # Find spatial signature for classification unit in current iteration
       ## Search pattern
-      sptsgn <- base::paste("^",
-                            base::colnames(x[c]),
-                            "_",
-                            x[rw,c],
-                            "$",
-                            sep = ""
-                          )
+      sptsgn <- base::paste(
+        "^", base::colnames(x[c]), "_", x[rw,c], "$", sep = ""
+      )
       ## Find spatial signature
-      sptsgn <- base::grep(pattern = sptsgn,
-                           base::names(sig.rast),
-                           value = TRUE
-                          )
-      sptsgn <- sig.rast[[sptsgn]]
+      sptsgn <- base::grep(
+        pattern = sptsgn, base::names(sig.rast), value = TRUE
+      )
 
       # Add spatial signature for classification unit in current iteration
-      spatsign <- c(spatsign, sptsgn)
+      terra::add(spatsign) <- sig.rast[[sptsgn]]
 
     }
-
-    ### Discard base raster -> Only signatures now
-    spatsign <- (spatsign[[-1]])
 
     # Name for raster layer of landscape similarity
     ## layer name (from column with numeric codes of stratification units SU)
@@ -227,26 +219,25 @@ similarity <- function(su.rast, su.code, sig.rast, fun = mean, to.disk = FALSE,
     ## File name
     rname <- base::paste(prefix, lname, extension, sep = "")
 
+    # > Disk-based writing < #
     if(to.disk == TRUE) {
 
-      # > Disk-based writing < #
-
       # Aggregation of spatial signatures into landscape similarity
-      landsim <- terra::app(spatsign,
-                            fun = fun,
-                            na.rm = TRUE,
-                            filename = base::file.path(outdir, rname),
-                            overwrite = overwrite,
-                            wopt = base::list(names = lname, ...)
-                          )
+      landsim <- terra::app(
+        spatsign,
+        fun = fun,
+        na.rm = TRUE,
+        filename = base::file.path(outdir, rname),
+        overwrite = overwrite,
+        wopt = base::list(names = lname, ...)
+      )
       gc()
 
       # Retrieve file name for raster layer of landscape similarity
       landsim <- rname
 
+    # > Memory-based writing < #
     } else {
-
-      # > Memory-based writing < #
 
       # Aggregation of spatial signatures into landscape similarity
       landsim <- terra::app(spatsign, fun = fun, na.rm = TRUE)
@@ -255,8 +246,7 @@ similarity <- function(su.rast, su.code, sig.rast, fun = mean, to.disk = FALSE,
       # Rename and retrieve raster layer of landscape similarity
       base::names(landsim) <- lname
       terra::varnames(landsim) <- lname
-      landsim <- landsim
-
+      landsim
     }
 
   }
@@ -266,11 +256,9 @@ similarity <- function(su.rast, su.code, sig.rast, fun = mean, to.disk = FALSE,
     # Retrieve raster layers of landscape similarity from disk
     landsim <- base::unlist(landsim)
     landsim <- base::paste("^", landsim, "$", sep = "")
-    landsim <- base::lapply(landsim,
-                            list.files,
-                            path = outdir,
-                            full.names = TRUE
-                          )
+    landsim <- base::lapply(
+      landsim, list.files, path = outdir, full.names = TRUE
+    )
     landsim <- terra::rast(base::unlist(landsim))
 
     # Final objects
