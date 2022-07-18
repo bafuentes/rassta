@@ -8,17 +8,17 @@ som_pam(ref.rast, kohsom, k, metric = "manhattan", stand = FALSE, ...)
 }
 \arguments{
 \item{ref.rast}{SpatRaster, as in \code{\link[terra]{rast}}. This raster
-layer will serve as a reference for both cell position and geographic
-support for the rasterized representation of SOM's winning units and PAM's
-clustering.}
+layer will serve as a reference of the index of valid cells and the
+geographic support for the rasterized representation of SOM's winning units
+and PAM's clustering. See \emph{Details} for some notes about efficiency.}
 
 \item{kohsom}{SOM Object of class \strong{kohonen}, see
 \code{\link[kohonen]{supersom}}. The following components must be present
 in the SOM object (1) \emph{unit.classif} = winning units for all
 observations, and (2) \emph{codes} = matrix of codebook vectors.}
 
-\item{k}{Integer (positive value). Number of clusters to form from the SOM's
-codebook vectors, where \emph{k < SOM's codebook vectors}.}
+\item{k}{Integer (positive value). Number of clusters to form from the
+codebook vectors of the SOM, where \emph{k < SOM's codebook vectors}.}
 
 \item{metric}{Character. Distance function for PAM. Options are "euclidean",
 and "manhattan". Default: "manhattan"}
@@ -40,19 +40,24 @@ codebook vectors by PAM.
 \description{
 Creation of a rasterized representation of the outputs from the
 self-organizing map (SOM) and partitioning around medoids (PAM). Given a
-reference raster layer, each SOM's winning unit and PAM's clustering value
-will be mapped on the corresponding cell in the reference layer and across
-the geographic space supported by such layer. This function is a follow-up of
-the \code{\link{som_gap}} function. It is important to note that in order for
-\code{\link{som_pam}} to work properly, the reference layer \emph{ref.rast}
-must have the same cell size, number of rows, number of columns, and index of
-valid cells as those in the multi-layer SpatRaster object used in
-\code{\link{som_gap}}.
+reference raster layer, each winning unit of the SOM and clustering value
+from the PAM will be mapped on the corresponding cell in the reference layer
+and across the geographic space supported by such layer. Note that this
+function is a follow-up of the \code{\link{som_gap}} function.
 }
 \details{
 As in \code{\link{som_gap}}, this function calls \code{\link[cluster]{pam}}
 to perform the clustering of SOM's codebook vectors. The SOM object must
 belong to the class \strong{kohonen}, as in \code{\link[kohonen]{supersom}}.
+
+Note that in order for \code{\link{som_pam}} to perform efficiently, the
+reference SpatRaster \emph{ref.rast} must be a single-layer SpatRaster with
+the same cell size, number of rows, number of columns, and index of valid
+cells as those in the multi-layer SpatRaster object used in
+\code{\link{som_gap}}. If a multi-layer SpatRaster (with each layer possibly
+having a different index of valid cells) is used as the \emph{ref.rast}, the
+efficiency of \code{\link{som_pam}} (i.e., running time and/or memmory
+allocation) may be degraded when handling large SpatRaster objects.
 
 For this function to work as intended, the additional argument
 \emph{cluster.only} in \code{\link[cluster]{pam}} must remain as FALSE, which

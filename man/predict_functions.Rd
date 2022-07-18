@@ -15,11 +15,15 @@ predict_functions(
   grid.mult = 1,
   kern = "normal",
   quant.sep = 0.01,
+  method = "loess",
   span = 0.6,
+  k = 20,
+  discrete = TRUE,
   to.disk = FALSE,
   outdir = ".",
   prefix = "",
   extension = ".tif",
+  overwrite = FALSE,
   verbose = FALSE,
   ...
 )
@@ -47,8 +51,8 @@ The function will match the position of the name of the distribution
 function with that of the name of the continuous variable in \emph{vars}.}
 
 \item{hist.type}{Character. Type of histogram to calculate. Options are
-"regular", "irregular" (unequally-sized bins, computationally demanding),
-and "combined" (the one with greater penalized likelihood is returned). See
+"regular", "irregular" (unequally-sized bins, very slow), and "combined"
+(the one with greater penalized likelihood is returned). See
 \code{\link[histogram]{histogram}}. Default: "regular"}
 
 \item{hist.pen}{Character. Penalty to apply when calculating the histogram
@@ -64,11 +68,24 @@ Default: 1}
 the ECDF and iECDF. Quantiles are in the range of 0-1 thus spacing must be
 a decimal. Default: 0.01}
 
-\item{span}{Numeric. Degree of smoothing for the LOESS. Default: 0.6}
+\item{method}{Character. Model to fit. Current options are "loess" for
+locally-estimated scatterplot smoothing (see \code{\link[stats]{loess}}),
+and "gam" for generalized additive model with support for large datasets
+(see \code{\link[mgcv]{bam}}). Default: "loess"}
+
+\item{span}{Numeric. If \emph{method = "loess"}, degree of smoothing for
+LOESS fitting. Default: 0.6}
+
+\item{k}{Numeric. If \emph{method = "gam"}, Number of knots for the
+\emph{cubic regression splines}. Default: 20}
+
+\item{discrete}{Boolean. If \emph{method = "gam"}, discretize variables for
+storage and efficiency reasons? Can reduce processing time significantly.
+Default: TRUE}
 
 \item{to.disk}{Boolean. Write the output raster layers of predicted
-distribution function to disk? See details about parallel processing.
-Default: FALSE}
+distribution function to disk? See details an example about parallel
+processing. Default: FALSE}
 
 \item{outdir}{Character. If \emph{to.disk = TRUE}, string specifying the path
 for the output raster layers of predicted distribution function. Default:
@@ -81,6 +98,10 @@ function. Default: ""}
 \item{extension}{Character. If \emph{to.disk = TRUE}, string specifying the
 extension for the output raster layers of predicted distribution function.
 Default: ".tif"}
+
+\item{overwrite}{Boolean. If \emph{to.disk = TRUE}, should raster layers in
+disk and with same name as the output raster layer(s) of predicted
+distribution function be overwritten? Default: FALSE}
 
 \item{verbose}{Boolean. Show warning messages in the console? Default: FALSE}
 
@@ -98,20 +119,21 @@ create a classification unit, this function first calculates a user-defined
 distribution function for that variable using only observations selected from
 within the classification unit. In this way, the distribution function is
 univariate and constrained. Subsequently, a \emph{locally-estimated
-scatterplot smoothing} is fitted (see \code{\link[stats]{loess}}). The LOESS
-is fitted using the variable’s observations as explanatory values and the
-values from the distribution function as the response values. Finally, the
-fitted LOESS is predicted on the complete geographic space supported by the
-raster layer of the given variable. This process is iterated for all of the
-continuous variables and classification units. Each resulting layer can be
-thought of as a landscape correspondence measurement between an \emph{XY}
-location in geographic space and the landscape configuration represented by a
-given classification unit in terms of a specific variable. The following
-distribution functions are currently supported: the probability density
-function (PDF), the empirical cumulative density function (ECDF), and the
-inverse of the empirical cumulative density function (iECDF). Please refer to
-\strong{Details} for more information about how each distribution function is
-calculated. Also, see details on parallel processing.
+scatterplot smoothing} (LOESS) or a \emph{generalized additive model} (GAM)
+is fitted. This model is fitted using the variable’s observations as
+explanatory values and the values from the distribution function as the
+response values. Finally, the fitted model is predicted on the complete
+geographic space supported by the raster layer of the given variable. This
+process is iterated for all of the continuous variables and classification
+units. Each resulting layer can be thought of as a landscape correspondence
+measurement between an \emph{XY} location in geographic space and the
+landscape configuration represented by a given classification unit in terms
+of a specific variable. The following distribution functions are currently
+supported: the probability density function (PDF), the empirical cumulative
+density function (ECDF), and the inverse of the empirical cumulative density
+function (iECDF). Please refer to \strong{Details} for more information about
+how each distribution function is calculated. Also, see details on parallel
+processing.
 }
 \details{
 To calculate the PDF, this function uses the binned KDE for observations
@@ -140,6 +162,12 @@ be predicted in parallel if a parallel backend is registered beforehand with
 \code{\link[doParallel]{registerDoParallel}}. Keep in mind that the function
 may require a large amount of memory when using a parallel backend with large
 raster layers (i.e., high resolution and/or large spatial coverage).
+
+Some issues have been reported when manually creating cluster objects using
+the \pkg{parallel} package. To overcome this issue, a cluster object can be
+registered directly through \code{\link[doParallel]{registerDoParallel}}
+without passing it first through \code{\link[parallel]{makeCluster}}. See
+examples.
 }
 \examples{
 require(terra)
@@ -163,14 +191,41 @@ tdif <- read.csv(ftdif)
 head(tdif)
 # Predict distribution functions
 ## 1 distribution function per variable and classification unit = 1
-tpdif <- predict_functions(cuvar.rast = tcuvars, cu.ind = 1,
+tpdif <- predict_functions(cuvar.rast = tcuvars,
+                           cu.ind = 1,
                            cu = tdif$Class.Unit[1:3],
                            vars = tdif$Variable[1:3],
                            dif = tdif$Dist.Func[1:3],
-                           grid.mult = 3, span = 0.9
+                           grid.mult = 3,
+                           span = 0.9
                          )
 # Plot predicted distribution functions
 if(interactive()){plot(tpdif, col = hcl.colors(100, "Oslo", rev = TRUE))}
+
+#--------
+# Writing results to disk and parallel processing
+
+if(interactive()){
+  # Directory for temporary files
+  o <- tempdir()
+  # Register parallel backend
+  require(doParallel)
+  registerDoParallel(4)
+  # Predict distribution functions
+  tpdif <- predict_functions(cuvar.rast = tcuvars,
+                             cu.ind = 1,
+                             cu = tdif$Class.Unit[1:3],
+                             vars = tdif$Variable[1:3],
+                             dif = tdif$Dist.Func[1:3],
+                             grid.mult = 3, span = 0.9,
+                             to.disk = TRUE,
+                             outdir = o
+                         )
+   # Stop cluster
+   stopImplicitCluster()
+   # Clean temporary files
+   file.remove(sources(tpdif))
+ }
 
 }
 \references{

@@ -72,7 +72,7 @@ p <- system.file("exdat", package = "rassta")
 f <- list.files(path = p, pattern = "geology2.tif", full.names = TRUE)
 geol <- terra::rast(f)
 # Dummy layer from geologic unit 1
-dummies <- dummies(ca.rast = geol, vals = 1, preval = 100, absval = 0)
+dums <- dummies(ca.rast = geol, vals = 1, preval = 100, absval = 0)
 
 }
 \seealso{

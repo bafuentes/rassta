@@ -45,7 +45,7 @@
 #' cells as those in the multi-layer SpatRaster object used in
 #' \code{\link{som_gap}}. If a multi-layer SpatRaster (with each layer possibly
 #' having a different index of valid cells) is used as the \emph{ref.rast}, the
-#' efficiency of \code{\link{som_pam} (i.e., running time and/or memmory
+#' efficiency of \code{\link{som_pam}} (i.e., running time and/or memmory
 #' allocation) may be degraded when handling large SpatRaster objects.
 #'
 #' For this function to work as intended, the additional argument

@@ -31,7 +31,7 @@ URL: https://bafuentes.github.io/rassta/
 BugReports: https://github.com/bafuentes/rassta/issues/
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Imports: 
     cluster (>= 2.1.2), data.table (>= 1.14.0), dplyr (>= 1.0.7),
     DT (>= 0.18), foreach (>= 1.5.1), GGally (>= 2.1.2),
