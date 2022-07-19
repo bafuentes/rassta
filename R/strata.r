@@ -8,12 +8,12 @@
 #' topography, climate) or to a particular spatial scale for a single landscape
 #' factor (e.g., micro-climate, macro-topography). Each resulting stratification
 #' unit is considered to represent a distinct landscape configuration in terms
-#' of multiple landscape factors/factor scales (represented by the classification
-#' units). This function automatically assigns a unique numeric code to each
-#' stratification unit. For \emph{x} stratification unit, the numeric code
-#' represents the unique combination of classification units whose spatial
-#' intersection resulted in \emph{x}. See \strong{Examples} to get a better idea
-#' of the logic behind the code assignment process.
+#' of multiple landscape factors/factor scales (represented by the
+#' classification units). This function automatically assigns a unique numeric
+#' code to each stratification unit. For \emph{x} stratification unit, the
+#' numeric code represents the unique combination of classification units whose
+#' spatial intersection resulted in \emph{x}. See \strong{Examples} to get a
+#' better idea of the logic behind the code assignment process.
 #'
 #' @param cu.rast SpatRaster, as in \code{\link[terra]{rast}}. Multi-layer
 #'   SpatRaster for which each layer represents a set of classification units
@@ -88,10 +88,9 @@ strata <- function(cu.rast, to.disk = FALSE, outdir = ".", su.name, ...)
   sortmax <- base::sort(terra::global(cu.rast, "max", na.rm = TRUE)$max)
   ## Function to get index of layer in SpatRaster according to...
   ## ...corresponding maximum value
-  maxfun <- function(x, y) base::which(terra::global(y,
-                                                     "max",
-                                                     na.rm = TRUE)$max == x
-                                       )
+  maxfun <- function(x, y) base::which(
+    terra::global(y, "max", na.rm = TRUE)$max == x
+  )
   ## Get indexes of layers in SpatRaster, now sorted by maximum values
   stacklist <- base::sapply(sortmax, maxfun, cu.rast)
   ## Eliminate duplicated indexes (happens when two or more layers have...
@@ -120,14 +119,12 @@ strata <- function(cu.rast, to.disk = FALSE, outdir = ".", su.name, ...)
   ## Raster algebra (optional raster to disk)
   if (to.disk == TRUE) {
 
-    rasclasses <- terra::app(x = (curast * mults),
-                             fun = sum,
-                             filename = base::file.path(outdir, su.name),
-                             wopt = base::list(datatype = 'INT4S',
-                                               names = "SU",
-                                               ...
-                                              )
-                            )
+    rasclasses <- terra::app(
+      x = (curast * mults),
+      fun = sum,
+      filename = base::file.path(outdir, su.name),
+      wopt = base::list(datatype = 'INT4S', names = "SU", ...)
+    )
 
   } else {
 
