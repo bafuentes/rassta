@@ -357,27 +357,37 @@ predict_functions <- function(cuvar.rast, cu.ind, cu, vars, dif,
 
     } else {
 
-      # Prepare formula
-      fm <- base::paste(
-        "y", " ~ ",
-        "s(",
-        base::names(cuvar.rast[[vars[i]]]), ", bs = 'cr', k = ", k,
-        ")",
-        sep = ""
-      )
+      if(rlang::is_installed("mgcv") == FALSE) {
 
-      # Fit
-      fit <- mgcv::bam(
-        formula = stats::formula(fm),
-        data = fit_df,
-        family = stats::gaussian(link = "identity"),
-        method = "fREML",
-        select = FALSE,
-        fit = TRUE,
-        discrete = discrete,
-        nthreads = 1,
-        cluster = NULL
-      )
+        base::stop(
+          'Package \"mgcv\" must be installed to use method = \"gam\"'
+        )
+
+      } else {
+
+        # Prepare formula
+        fm <- base::paste(
+          "y", " ~ ",
+          "s(",
+          base::names(cuvar.rast[[vars[i]]]), ", bs = 'cr', k = ", k,
+          ")",
+          sep = ""
+        )
+
+        # Fit
+        fit <- mgcv::bam(
+          formula = stats::formula(fm),
+          data = fit_df,
+          family = stats::gaussian(link = "identity"),
+          method = "fREML",
+          select = FALSE,
+          fit = TRUE,
+          discrete = discrete,
+          nthreads = 1,
+          cluster = NULL
+        )
+
+      }
 
     }
 
