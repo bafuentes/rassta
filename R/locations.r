@@ -150,97 +150,105 @@ locations <- function(ls.rast, su.rast, method = "buffer", constrained = TRUE,
   if(method == "buffer") {
 
     # Iteration over SU's landscape similarity layers in SpatRaster
-    `%ps%` <- if(parallel == TRUE) { foreach::`%dopar%` } else {foreach::`%do%`}
+    `%ps%` <- if(parallel == TRUE) {foreach::`%dopar%`} else {foreach::`%do%`}
     su_ls <- foreach::foreach(i = 1:(terra::nlyr(ls.rast))) %ps% {
 
       # Numeric code of SU from landscape similarity layer on current iteration
-      sucode <- stringi::stri_replace_all_regex(base::names(ls.rast[[i]]),
-                                                "[a-zA-punct]",
-                                                ""
-                                              )
+      sucode <- stringi::stri_replace_all_regex(
+        base::names(ls.rast[[i]]), "[a-zA-punct]", ""
+      )
       sucode <- base::as.numeric(sucode)
 
-      # Create empty data frame as basis for shapefile of locations
-      reploc <- base::data.frame(SU = base::character(),
-                                 land_sim = base::numeric(),
-                                 x = base::numeric(),
-                                 y = base::numeric()
-                                )
+      # Create template data frame to store attributes of locations shapefile
+      reploc <- base::data.frame(
+        SU = base::character(),
+        land_sim = base::numeric(),
+        x = base::numeric(),
+        y = base::numeric()
+      )
 
       # Constrained buffer pixels to geographic space covered by SU?
       if(constrained == TRUE) {
 
         # Extract patches spatially enclosed by SU
-        ## Copy SU raster layer
-        su <- su.rast
-        ## Remove all pixels not equal to SU
-        su[su != sucode] <- NA
-        ## Mask out patches and/or patches portions outside SU
-        wsu <- terra::mask(ls.rast[[i]], su)
-        base::remove(su)
+        wsu <- terra::mask(
+          ls.rast[[i]], su.rast, inverse = TRUE, maskvalues = sucode
+        )
 
         # Extraction of buffer pixels with values above SU's landscape...
         # ...similarity threshold
         ## Define SU's landscape similarity threshold value
-        wsu <- raster::raster(wsu) # No custom quantile support from terra
-        qthresh <- base::as.numeric(raster::quantile(wsu, buf.quant))
+        qthresh <- base::as.numeric(
+          terra::global(wsu, fun = quantile, probs = buf.quant, na.rm = TRUE)
+        )
         ## "Binarization" of SU's landscape similarity layer based on...
         ## ...buffer pixels' threshold value
-        wsu <- terra::rast(wsu) # terra is back
-        wsu[wsu < qthresh] <- NA
-        wsu <- wsu*0+1
+        wsu <- terra::classify(
+          wsu,
+          base::matrix(
+            c(qthresh, terra::minmax(wsu)[2], 1), ncol = 3, nrow = 1
+          ),
+          include.lowest = TRUE,
+          others = NA
+        )
 
         # Identify group(s) of connected buffer pixels (i.e., boundary...
         # ...detection [Queen's case])
         wsu <- terra::patches(wsu, directions = 8)
 
         # Convert patches to polygons and calculate area
-        x <- terra::as.polygons(wsu,
-                                trunc = TRUE,
-                                dissolve = TRUE,
-                                values = TRUE,
-                                extent = FALSE
-                              )
+        x <- terra::as.polygons(
+          wsu, trunc = TRUE, dissolve = TRUE, values = TRUE, extent = FALSE
+        )
         x$area <- terra::expanse(x)
         base::remove(wsu)
+        gc()
 
       } else {
 
         # Extraction of buffer pixels with values above SU's landscape...
         # ...similarity threshold
         ## Define SU's landscape similarity threshold value
-        wt <- raster::raster(ls.rast[[i]])
-        qthresh <- base::as.numeric(raster::quantile(wt, buf.quant))
+        qthresh <- base::as.numeric(
+          terra::global(
+            ls.rast[[i]], fun = quantile, probs = buf.quant, na.rm = TRUE
+          )
+        )
         ## "Binarization" of SU's landscape similarity layer based on...
         ## ...buffer pixels' threshold value
-        wt <- terra::rast(wt)
-        wt[wt < qthresh] <- NA
-        wt <- wt*0+1
+        wt <- terra::classify(
+          ls.rast[[i]],
+          base::matrix(
+            c(qthresh, terra::minmax(ls.rast[[i]])[2], 1),
+            ncol = 3,
+            nrow = 1
+          ),
+          include.lowest = TRUE,
+          others = NA
+        )
 
         # Identify group(s) of connected buffer pixels (i.e., boundary...
         # ...detection [Queen's case])
         wt <- terra::patches(wt, directions = 8)
 
         # Convert patches to polygons and calculate area
-        x <- terra::as.polygons(wt,
-                                trunc = TRUE,
-                                dissolve = TRUE,
-                                values = TRUE,
-                                extent = FALSE
-                              )
+        x <- terra::as.polygons(
+          wt, trunc = TRUE, dissolve = TRUE, values = TRUE, extent = FALSE
+        )
         x$area <- terra::expanse(x)
         remove(wt)
+        gc()
 
       }
 
       # Extract n largest polygon(s) via area sorting
       ## Make sure that requested n is not greater than number of polygons
       maxunits <- base::as.numeric(
-        if(buf.n > base::length(x)) { maxunits <- base::length(x) } else {buf.n}
+        if(buf.n > base::length(x)) {maxunits <- base::length(x)} else {buf.n}
       )
       ## Extract n polygon(s) with largest area
       xd <- terra::as.data.frame(x)
-      xd <- base::order(-xd[,2])[1:maxunits]
+      xd <- base::order(-xd[, 2])[1:maxunits]
       x <- x[xd, ]
       ## Add column with numeric code of SU's landscape similarity layer...
       ## ...on current iteration
@@ -253,37 +261,27 @@ locations <- function(ls.rast, su.rast, method = "buffer", constrained = TRUE,
 
         # Mask and crop to extract SU's landscape similarity pixels within...
         # ...polygon
-        z <- terra::crop(terra::mask(ls.rast[[i]], x[j]),
-                         x[j]
-                        )
+        z <- terra::mask(
+          terra::crop(ls.rast[[i]], x[j]), x[j]
+        )
 
-        # Get maximum SU's landscape similarity value (minus tolerance)
-        val <- terra::global(z, fun = "max", sample = 10^9, na.rm = TRUE)[[1]]
-        ## Tolerance to ensure safe search of pixel values
-        val <- val - tol
+        # Get maximum SU's landscape similarity value and its location
+        ## Index of cell
+        zmax <- terra::where.max(z)
+        ## Position
+        zxy <- terra::xyFromCell(z, zmax[1, 2])
 
-        # Eliminate SU's landscape similarity pixels lower than maximum...
-        # ...value (minus tolerance)
-        z[z < val] <- NA
-
-        # Convert raster pixels to point locations
-        z <- terra::as.points(z)
-        ## Get coordinates as attributes
-        z[["x"]] <- terra::geom(z)[,c("x")]
-        z[["y"]] <- terra::geom(z)[,c("y")]
-        z <- base::as.data.frame(z[[1:3]])
-
-        # Extract only first location (maximum value)
-        z <- z[base::order(z[,1], decreasing = TRUE)[1], ]
-
-        # Rename column with SU's landscape similarity value
-        base::colnames(z)[1] <- "land_sim"
+        # Rename columns with SU and maximum SU's landscape similarity value
+        base::colnames(zmax)[c(1, 3)] <- c("SU", "land_sim")
 
         # Add column with name of SU's landscape similarity layer on...
         # ...current iteration
-        z$SU <- sucode
-        base::rownames(z) <- NULL
-        z <- z[,c(4,1,2,3)]
+        zmax[1, 1] <- sucode
+        zmax <- base::as.data.frame(zmax)
+
+        ## Append XY location to maximum SU's landscape similarity value
+        zxy <- base::as.data.frame(zxy)
+        z <- base::cbind(zmax[, c(1, 3)], zxy)
 
         # Send extracted location to originally empty data frame
         reploc <- base::rbind(reploc, z)
@@ -305,17 +303,16 @@ locations <- function(ls.rast, su.rast, method = "buffer", constrained = TRUE,
     }
 
     # Merge list of data frames with sampling locations
-    locations <- base::Reduce(function(...) base::merge(..., all = TRUE),
-                              locations
-                            )
+    locations <- base::Reduce(
+      function(...) base::merge(..., all = TRUE), locations
+    )
     ## Enforce sorting by SU
     locations <- locations[base::order(locations[,1]), ]
 
     # Create SpatVector with sampling locations
-    locations <- terra::vect(locations,
-                             geom = c("x", "y"),
-                             crs = terra::crs(su.rast)
-                            )
+    locations <- terra::vect(
+      locations, geom = c("x", "y"), crs = terra::crs(su.rast)
+    )
 
     # Get list of data frames with sampling buffers
     `%do%` <- foreach::`%do%`
@@ -326,17 +323,16 @@ locations <- function(ls.rast, su.rast, method = "buffer", constrained = TRUE,
     }
 
     # Merge list of data frames with sampling buffers
-    buffers <- base::Reduce(function(...) base::merge(..., all = TRUE),
-                            buffers
-                          )
+    buffers <- base::Reduce(
+      function(...) base::merge(..., all = TRUE), buffers
+    )
     ## Enforce sorting by SU
     buffers <- buffers[base::order(buffers[,3]), ]
 
     # Create SpatVector with sampling buffers
-    buffers <- terra::vect(buffers,
-                           geom = "geometry",
-                           crs = terra::crs(su.rast)
-                          )
+    buffers <- terra::vect(
+      buffers, geom = "geometry", crs = terra::crs(su.rast)
+    )
     ## Select only SU's numeric code and buffer area as attributes
     buffers <- buffers[, c(3:2)]
 
@@ -345,23 +341,20 @@ locations <- function(ls.rast, su.rast, method = "buffer", constrained = TRUE,
 
       if(constrained == TRUE) {
 
-        terra::writeVector(locations,
-                           base::file.path(outdir, "reploc_buf_con.shp"),
-                           ...
-                          )
-        terra::writeVector(buffers,
-                           base::file.path(outdir, "reppol_buf_con.shp"),
-                           ...
-                          )
+        terra::writeVector(
+          locations, base::file.path(outdir, "reploc_buf_con.shp"), ...
+        )
+        terra::writeVector(
+          buffers, base::file.path(outdir, "reppol_buf_con.shp"), ...
+        )
         base::list(locations = locations, buffers = buffers)
 
       } else {
 
-        terra::writeVector(locations,
-                           base::file.path(outdir, "reploc_buf_uncon.shp"),
-                           ...
-                          )
-        locations <- locations
+        terra::writeVector(
+          locations, base::file.path(outdir, "reploc_buf_uncon.shp"), ...
+        )
+        locations
 
       }
 
@@ -387,39 +380,58 @@ locations <- function(ls.rast, su.rast, method = "buffer", constrained = TRUE,
 
       # Numeric code of SU from landscape similarity layer on current...
       # ...iteration
-      sucode <- stringi::stri_replace_all_regex(base::names(ls.rast[[i]]),
-                                                "[a-zA-punct]",
-                                                ""
-                                              )
+      sucode <- stringi::stri_replace_all_regex(
+        base::names(ls.rast[[i]]), "[a-zA-punct]", ""
+      )
       sucode <- base::as.numeric(sucode)
 
       # Create empty data frame to serve as basis for shapefile of locations
-      reploc <- base::data.frame(SU = base::character(),
-                                 land_sim = base::numeric(),
-                                 x = base::numeric(),
-                                 y = base::numeric()
-                                )
+      reploc <- base::data.frame(
+        SU = base::character(),
+        land_sim = base::numeric(),
+        x = base::numeric(),
+        y = base::numeric()
+      )
 
       # Constrained locations within space covered by SU?
       if(constrained == TRUE) {
 
         # Extract patches spatially enclosed by SU
-        ## Copy SU raster layer
-        su <- su.rast
-        ## Remove all pixels not equal to SU
-        su[su != sucode] <- NA
-        ## Mask out patches and/or patches portions outside SU
-        w <- terra::mask(ls.rast[[i]], su)
-        base::remove(su)
+        w <- terra::mask(
+          ls.rast[[i]], su.rast, inverse = TRUE, maskvalues = sucode
+        )
 
         # Get maximum SU's landscape similarity value (minus tolerance)
-        val <- terra::global(w, fun = "max", sample = 10^9, na.rm = TRUE)[[1]]
-        ## Tolerance to ensure safe search of pixel values
-        val <- val - tol
+        val <- terra::minmax(w)[2]
+
+        # Subtract tolerance value
+        if((val - tol) < terra::minmax(w)[1]) {
+
+          base::stop(
+            paste(
+              'Tolerance value is too high. Please use a lower value.',
+              'Problem occurred for similarity layer',
+              base::names(ls.rast[[i]])
+            )
+          )
+
+        } else {
+
+          val <- val - tol
+
+        }
 
         # Eliminate pixel with SU's landscape similarity values lower...
         # ...than maximum (minus tolerance)
-        w[w < val] <- NA
+        w <- terra::classify(
+          w,
+          base::matrix(
+            c(terra::minmax(w)[1], val, NA),
+            nrow = 1,
+            ncol = 3
+          ),
+          right = FALSE
+        )
 
         # Convert raster pixels to point locations
         w <- terra::as.points(w)
@@ -431,21 +443,35 @@ locations <- function(ls.rast, su.rast, method = "buffer", constrained = TRUE,
       } else {
 
         # Get maximum SU's landscape similarity value (minus tolerance)
-        val <- terra::global(ls.rast[[i]],
-                             fun = "max",
-                             sample = 10^9,
-                             na.rm = TRUE
-                            )[[1]]
+        val <- terra::minmax(ls.rast[[i]])[2]
 
-        ## Tolerance to ensure safe search of pixel values
-        val <- val - tol
+        if((val - tol) < terra::minmax(w)[1]) {
 
-        # Copy SU's landscape similarity layer
-        w <- ls.rast[[i]]
+          base::stop(
+            paste(
+              'Tolerance value is too high. Please use a lower value.',
+              'Problem occurred for similarity layer',
+              base::names(ls.rast[[i]])
+            )
+          )
+
+        } else {
+
+          val <- val - tol
+
+        }
 
         # Eliminate pixel with SU's landscape similarity values lower than...
         # ...maximum (minus tolerance)
-        w[w < val] <- NA
+        w <- terra::classify(
+          ls.rast[[i]],
+          base::matrix(
+            c(terra::minmax(ls.rast[[i]])[1], val, NA),
+            nrow = 1,
+            ncol = 3
+          ),
+          right = FALSE
+        )
 
         # Convert raster pixels to point locations
         w <- terra::as.points(w)
@@ -469,7 +495,7 @@ locations <- function(ls.rast, su.rast, method = "buffer", constrained = TRUE,
       ## ...current iteration
       w$SU <- sucode
       base::rownames(w) <- NULL
-      w <- w[,c(4,1,2,3)]
+      w <- w[, c(4,1,2,3)]
 
       # Send extracted location to originally empty data frame
       reploc <- base::rbind(reploc, w)
@@ -481,42 +507,39 @@ locations <- function(ls.rast, su.rast, method = "buffer", constrained = TRUE,
     }
 
     # Merge list of data frames with sampling locations
-    locations <- base::Reduce(function(...) base::merge(..., all = TRUE),
-                              su_ls
-                            )
+    locations <- base::Reduce(
+      function(...) base::merge(..., all = TRUE), su_ls
+    )
     ## Enforce sorting by SU
     locations <- locations[base::order(locations[,1]), ]
 
     # Create SpatVector with sampling locations
-    locations <- terra::vect(locations,
-                             geom = c("x", "y"),
-                             crs = terra::crs(su.rast)
-                            )
+    locations <- terra::vect(
+      locations, geom = c("x", "y"), crs = terra::crs(su.rast)
+    )
 
     # Return objects
     if(to.disk == TRUE) {
 
       if(constrained == TRUE) {
 
-        terra::writeVector(locations,
-                           base::file.path(outdir, "reploc_abs_con.shp"),
-                           ...
-                          )
-        locations <- locations
+        terra::writeVector(
+          locations, base::file.path(outdir, "reploc_abs_con.shp"), ...
+        )
+        locations
 
       } else {
 
-        terra::writeVector(locations,
-                           base::file.path(outdir, "reploc_abs_uncon.shp"),
-                           ...
-                           )
-        locations <- locations
+        terra::writeVector(
+          locations, base::file.path(outdir, "reploc_abs_uncon.shp"), ...
+        )
+        locations
 
       }
 
     } else {
 
-      locations <- locations
+      locations
 
     }
 
