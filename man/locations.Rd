@@ -49,14 +49,13 @@ per stratification unit, one sampling location per buffer zone). Default: 1}
 indicating the number of sampling locations to select for each
 stratification unit. See \strong{Details}. Default: 1}
 
-\item{tol}{Numeric. This number will be subtracted from the sampled maximum
-value of a landscape similarity layer to ensure two things: (1) that the
-'true' maximum similarity value is found regardless of the size of the
-layer, and (2) that the requested number of sampling locations will be
-found (see \strong{Details}). The default assumes that landscape similarity
+\item{tol}{Numeric. When \emph{method = "absolute"}, this number will be
+subtracted from the sampled maximum value of a landscape similarity layer
+to ensure that the requested number of sampling locations will be found
+(see \strong{Details}). The default assumes that landscape similarity
 values are on a scale of 1 to 100. If these values are on a different scale
 (e.g., decimal), then, \emph{tol} needs to be adjusted accordingly.
-Default: 2}
+Default: 1}
 
 \item{parallel}{Boolean. Perform parallel processing? A parallel backend must
 be registered beforehand with \code{\link[doParallel]{registerDoParallel}}.

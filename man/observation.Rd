@@ -71,14 +71,14 @@ whose response value is (closest to) the median of all response values, as
 measured from the observations spatially enclosed by a given stratification
 unit. The random selection, as implied by the name, randomly selects one
 observation from the set of observations spatially enclosed by a given
-stratification unit. See \strong{Details} for some guidance in the use of this
-function for classification units.
+stratification unit. See \strong{Details} for some guidance in the use of
+this function for classification units.
 }
 \details{
 This selection scheme can be applied to classification units. For
 classification units, one should replace the multi-layer SpatRaster of
-landscape similarities with a multi-layer SpatRaster of spatial signatures. One
-should also replace the raster layer of stratification units with that of
+landscape similarities with a multi-layer SpatRaster of spatial signatures.
+One should also replace the raster layer of stratification units with that of
 classification units.
 }
 \examples{
