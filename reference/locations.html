@@ -175,14 +175,13 @@ stratification unit. See <strong>Details</strong>. Default: 1</p></dd>
 
 
 <dt>tol</dt>
-<dd><p>Numeric. This number will be subtracted from the sampled maximum
-value of a landscape similarity layer to ensure two things: (1) that the
-'true' maximum similarity value is found regardless of the size of the
-layer, and (2) that the requested number of sampling locations will be
-found (see <strong>Details</strong>). The default assumes that landscape similarity
+<dd><p>Numeric. When <em>method = "absolute"</em>, this number will be
+subtracted from the sampled maximum value of a landscape similarity layer
+to ensure that the requested number of sampling locations will be found
+(see <strong>Details</strong>). The default assumes that landscape similarity
 values are on a scale of 1 to 100. If these values are on a different scale
 (e.g., decimal), then, <em>tol</em> needs to be adjusted accordingly.
-Default: 2</p></dd>
+Default: 1</p></dd>
 
 
 <dt>parallel</dt>
