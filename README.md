@@ -52,10 +52,11 @@ on as well.
 
 ## Citation
 
-A journal article describing the analysis and theoretical background of `rassta`
-is on its way. In the meantime, if you use `rassta` as part of your research
-please cite the EarthArXiv preprint in your work:
+A journal article describing the methods and theoretical background of `rassta`
+has been accepted by the R Journal and now it is in press. In the meantime, if
+you use `rassta` as part of your research please cite the EarthArXiv preprint in
+your work:
 
-B.A. Fuentes, M.J. Dorantes, and J.R. Tipton. rassta: Raster-based Spatial
+B.A. Fuentes, M.J. Dorantes, and J.R. Tipton. rassta: Raster-Based Spatial
 Stratification Algorithms. *EarthArXiv*, 2021. https://doi.org/10.31223/X50S57
 

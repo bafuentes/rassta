@@ -1,6 +1,6 @@
 Package: rassta
 Title: Raster-Based Spatial Stratification Algorithms
-Version: 1.0.3
+Version: 1.0.4
 Authors@R: c(person("Bryan A.", "Fuentes", role = c("aut", "cre"),
                      email = "bryandrep@gmail.com",
                      comment = c(ORCID = "0000-0003-3506-7101")),
@@ -12,7 +12,9 @@ Authors@R: c(person("Bryan A.", "Fuentes", role = c("aut", "cre"),
                      comment = c(ORCID = "0000-0002-6135-8141")),
              person("Robert J.", "Hijmans", role = "ctb",
                      email = "r.hijmans@gmail.com",
-                     comment = c(ORCID = "0000-0001-5872-2872"))
+                     comment = c(ORCID = "0000-0001-5872-2872")),
+             person("Andrew G.", "Brown", role = "ctb",
+                     email = "brown.andrewg@gmail.com")
             )
 Description: Algorithms for the spatial stratification of landscapes, sampling and modeling of 
     spatially-varying phenomena. These algorithms offer a simple framework for the stratification 
