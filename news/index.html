@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rassta</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,22 +56,46 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.0.3" id="rassta-103">rassta 1.0.3<a class="anchor" aria-label="anchor" href="#rassta-103"></a></h2><p class="text-muted">CRAN release: 2022-02-25</p>
-<ul><li><p>All the functions that return SpatRaster objects now assign proper variable names instead of getting the names from a reference SpatRaster.</p></li>
-<li><p>Fixed a bug which prevented select_functions() from running properly when the argument var.rast represents a single-layer SpatRaster object.</p></li>
-<li><p>select_functions() now allows to work with SpatRaster objects representing classification units whose numeric IDs are not sequentially defined (e.g., unordered classification units).</p></li>
-<li><p>Fixed a bug which prevented strata() from retrieving the correct minimum and maximum values from SpatRaster objects with NA values present, and thus, from assigning the correct numeric codes for stratification units.</p></li>
+<h2 class="pkg-version" data-toc-text="1.0.4" id="rassta-104"><strong>rassta 1.0.4</strong><a class="anchor" aria-label="anchor" href="#rassta-104"></a></h2>
+<div class="section level4">
+<h4 id="new-1-0-4"><strong>New</strong><a class="anchor" aria-label="anchor" href="#new-1-0-4"></a></h4>
+<ul><li>Function <code><a href="../reference/predict_functions.html">predict_functions()</a></code> now allows generalized additive models (GAM) as prediction method.</li></ul></div>
+<div class="section level4">
+<h4 id="enhancements-1-0-4"><strong>Enhancements</strong><a class="anchor" aria-label="anchor" href="#enhancements-1-0-4"></a></h4>
+<ul><li><p>Complete removal of package <code>raster</code> dependency</p></li>
+<li><p>Code optimization for several functions based on native <code>terra</code> methods such as <code>add()</code>, <code><a href="https://rdrr.io/pkg/terra/man/classify.html" class="external-link">classify()</a></code>, <code><a href="https://rdrr.io/pkg/terra/man/minmax.html" class="external-link">minmax()</a></code>, <code><a href="https://rdrr.io/pkg/terra/man/not.na.html" class="external-link">not.na()</a></code>, and <code><a href="https://rdrr.io/pkg/terra/man/predict.html" class="external-link">predict()</a></code>.</p></li>
+<li><p>Function <code><a href="../reference/som_pam.html">som_pam()</a></code> now allows a multi-layer SpatRaster, possibly containing layers with different structure (location and number) of NA values, as reference SpatRaster.</p></li>
 </ul></div>
+</div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.0.2" id="rassta-102">rassta 1.0.2<a class="anchor" aria-label="anchor" href="#rassta-102"></a></h2><p class="text-muted">CRAN release: 2021-12-09</p>
+<h2 class="pkg-version" data-toc-text="1.0.3" id="rassta-103"><strong>rassta 1.0.3</strong><a class="anchor" aria-label="anchor" href="#rassta-103"></a></h2><p class="text-muted">CRAN release: 2022-02-25</p>
+<div class="section level4">
+<h4 id="enhancements-1-0-3"><strong>Enhancements</strong><a class="anchor" aria-label="anchor" href="#enhancements-1-0-3"></a></h4>
+<ul><li>
+<code><a href="../reference/select_functions.html">select_functions()</a></code> now allows to work with SpatRaster objects representing classification units whose numeric IDs are not sequentially defined (e.g., unordered classification units).</li></ul></div>
+<div class="section level4">
+<h4 id="fixes-1-0-3"><strong>Fixes</strong><a class="anchor" aria-label="anchor" href="#fixes-1-0-3"></a></h4>
+<ul><li><p>All the functions that return SpatRaster objects now assign proper variable names instead of getting the names from a reference SpatRaster.</p></li>
+<li><p>Fixed a bug which prevented <code><a href="../reference/select_functions.html">select_functions()</a></code> from running properly when the argument var.rast represents a single-layer SpatRaster object.</p></li>
+<li><p>Fixed a bug which prevented <code><a href="../reference/strata.html">strata()</a></code> from retrieving the correct minimum and maximum values from SpatRaster objects with NA values present, and thus, from assigning the correct numeric codes for stratification units.</p></li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.2" id="rassta-102"><strong>rassta 1.0.2</strong><a class="anchor" aria-label="anchor" href="#rassta-102"></a></h2><p class="text-muted">CRAN release: 2021-12-09</p>
+<div class="section level4">
+<h4 id="enhancements-1-0-2"><strong>Enhancements</strong><a class="anchor" aria-label="anchor" href="#enhancements-1-0-2"></a></h4>
 <ul><li>Some functions have been renamed and vignettes for some functions have been created.</li></ul></div>
+</div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.0.1" id="rassta-101">rassta 1.0.1<a class="anchor" aria-label="anchor" href="#rassta-101"></a></h2><p class="text-muted">CRAN release: 2021-10-14</p>
+<h2 class="pkg-version" data-toc-text="1.0.1" id="rassta-101"><strong>rassta 1.0.1</strong><a class="anchor" aria-label="anchor" href="#rassta-101"></a></h2><p class="text-muted">CRAN release: 2021-10-14</p>
+<div class="section level4">
+<h4 id="fixes-1-0-1"><strong>Fixes</strong><a class="anchor" aria-label="anchor" href="#fixes-1-0-1"></a></h4>
 <ul><li>Fixed violation of CRAN’s policy regarding package code that attempts to write to the user library. Check logs can be accessed through: <a href="https://cran-archive.r-project.org/web/checks/2021/2021-10-08_check_results_rassta.html" class="external-link uri">https://cran-archive.r-project.org/web/checks/2021/2021-10-08_check_results_rassta.html</a>
 </li></ul></div>
+</div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.0.0" id="rassta-100">rassta 1.0.0<a class="anchor" aria-label="anchor" href="#rassta-100"></a></h2><p class="text-muted">CRAN release: 2021-09-22</p>
-<ul><li>Added a <code>NEWS.md</code> file to track changes to the package.</li></ul></div>
+<h2 class="pkg-version" data-toc-text="1.0.0" id="rassta-100"><strong>rassta 1.0.0</strong><a class="anchor" aria-label="anchor" href="#rassta-100"></a></h2><p class="text-muted">CRAN release: 2021-09-22</p>
+<ul><li>Initial release</li></ul></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
