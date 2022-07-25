@@ -136,7 +136,7 @@
 #' \code{\link{similarity}}, \code{\link{strata}}
 #'
 locations <- function(ls.rast, su.rast, method = "buffer", constrained = TRUE,
-                      buf.quant = 0.9, buf.n = 1, abs.n = 1, tol = 2,
+                      buf.quant = 0.9, buf.n = 1, abs.n = 1, tol = 1,
                       parallel = FALSE, to.disk = FALSE, outdir = ".",
                       verbose = FALSE, ...)
 {
