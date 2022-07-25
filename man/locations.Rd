@@ -12,7 +12,7 @@ locations(
   buf.quant = 0.9,
   buf.n = 1,
   abs.n = 1,
-  tol = 2,
+  tol = 1,
   parallel = FALSE,
   to.disk = FALSE,
   outdir = ".",
