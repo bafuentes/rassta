@@ -102,8 +102,8 @@ soc <- engine(ls.rast = su.ls$landsim,
             )
 ```
 
-The ouput SpatRaster with predicted SOC values and the statistical evaluation of
-prediction performance can be plotted as demonstrated in the code below.
+The output SpatRaster with predicted SOC values and the statistical evaluation
+of prediction performance can be plotted as demonstrated in the code below.
 ```{r ev, fig.height = 4, fig.width = 7, message = FALSE, warning = FALSE, error = TRUE}
 # Set graphics arrangement
 par(mfrow = c(1,2))
