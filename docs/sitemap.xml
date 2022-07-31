@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://bafuentes.github.io/rassta/404.html</loc>
+  </url>
+  <url>
+    <loc>https://bafuentes.github.io/rassta/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://bafuentes.github.io/rassta/articles/classunits.html</loc>
+  </url>
+  <url>
+    <loc>https://bafuentes.github.io/rassta/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://bafuentes.github.io/rassta/articles/modeling.html</loc>
+  </url>
+  <url>
+    <loc>https://bafuentes.github.io/rassta/articles/sampling.html</loc>
+  </url>
+  <url>
+    <loc>https://bafuentes.github.io/rassta/articles/signature.html</loc>
+  </url>
+  <url>
+    <loc>https://bafuentes.github.io/rassta/articles/similarity.html</loc>
+  </url>
+  <url>
+    <loc>https://bafuentes.github.io/rassta/articles/stratunits.html</loc>
+  </url>
+  <url>
+    <loc>https://bafuentes.github.io/rassta/authors.html</loc>
+  </url>
+  <url>
     <loc>https://bafuentes.github.io/rassta/index.html</loc>
+  </url>
+  <url>
+    <loc>https://bafuentes.github.io/rassta/news/index.html</loc>
   </url>
   <url>
     <loc>https://bafuentes.github.io/rassta/reference/dummies.html</loc>
@@ -11,6 +44,9 @@
   </url>
   <url>
     <loc>https://bafuentes.github.io/rassta/reference/figure.html</loc>
+  </url>
+  <url>
+    <loc>https://bafuentes.github.io/rassta/reference/index.html</loc>
   </url>
   <url>
     <loc>https://bafuentes.github.io/rassta/reference/locations.html</loc>
@@ -41,23 +77,5 @@
   </url>
   <url>
     <loc>https://bafuentes.github.io/rassta/reference/strata.html</loc>
-  </url>
-  <url>
-    <loc>https://bafuentes.github.io/rassta/articles/classunits.html</loc>
-  </url>
-  <url>
-    <loc>https://bafuentes.github.io/rassta/articles/modeling.html</loc>
-  </url>
-  <url>
-    <loc>https://bafuentes.github.io/rassta/articles/sampling.html</loc>
-  </url>
-  <url>
-    <loc>https://bafuentes.github.io/rassta/articles/signature.html</loc>
-  </url>
-  <url>
-    <loc>https://bafuentes.github.io/rassta/articles/similarity.html</loc>
-  </url>
-  <url>
-    <loc>https://bafuentes.github.io/rassta/articles/stratunits.html</loc>
   </url>
 </urlset>
