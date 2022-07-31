@@ -1,8 +1,8 @@
 url: https://bafuentes.github.io/rassta
 template:
   bootstrap: 5
-  bootswatch: cyborg
-  theme: arrow-dark
+  bootswatch: solar
+  theme: solarized-dark
 plugins:
 - jekyll-remote-theme
 reference:
