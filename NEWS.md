@@ -1,3 +1,11 @@
+# **rassta 1.0.5**
+
+### **Fixes**
+
+* Fixed a bug which forced `engine()` to delete not only the tiles of a modeled
+variable, but the final (merged) layer too.
+
+
 # **rassta 1.0.4**
 
 ### **New**
@@ -36,6 +44,7 @@ the argument var.rast represents a single-layer SpatRaster object.
 * Fixed a bug which prevented `strata()` from retrieving the correct minimum and
 maximum values from SpatRaster objects with NA values present, and thus, from
 assigning the correct numeric codes for stratification units.
+
 
 # **rassta 1.0.2**
 
