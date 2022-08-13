@@ -164,11 +164,12 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
 
       # Landscape similarity matrix from SUs' landscape similarities...
       # ...Only pixels within tile, each column is a landscape similarity layer
-      rastile <- terra::as.data.frame(terra::mask(ls.rast,
-                                                  tiles[tiles$id == i, ]
-                                                ),
-                                      na.rm = TRUE
-                                    )
+      rastile <- terra::as.data.frame(
+        terra::mask(
+          ls.rast, tiles[tiles$id == i, ]
+        ),
+        na.rm = TRUE
+      )
 
       # Define functions for (row-wise) descending sorting -> Equivalent...
       # ...to pixel-wise sorting of SUs' landscape similarity layers
@@ -187,17 +188,19 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
       # ...values of n winning SU(s)
       z <- data.table::as.data.table(t(base::rbind(x, y)))
       ## Rename column(s) for n winning SU(s)' column indexes
-      base::colnames(z)[1:n.win] <- base::paste("su_max_",
-                                                base::seq(1:n.win),
-                                                "_ind",
-                                                sep = ""
-                                              )
+      base::colnames(z)[1:n.win] <- base::paste(
+        "su_max_",
+        base::seq(1:n.win),
+        "_ind",
+        sep = ""
+      )
       ## Rename column(s) for n winning SU(s)' landscape similarity values
-      base::colnames(z)[(n.win+1):(n.win*2)] <- base::paste("su_max_",
-                                                            base::seq(1:n.win),
-                                                            "_ls",
-                                                            sep = ""
-                                                          )
+      base::colnames(z)[(n.win+1):(n.win*2)] <- base::paste(
+        "su_max_",
+        base::seq(1:n.win),
+        "_ls",
+        sep = ""
+      )
 
       # Add columns to original landscape similarity matrix
       rastile <- base::cbind(rastile, z)
@@ -235,15 +238,16 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
         # Merging landscape similarity matrix with with table of SU(s)'...
         # ...representative observation response values -> By column of n...
         # ...winning SU' numeric codes
-        v <- data.table::merge.data.table(rastile,
-                                          su.repobs,
-                                          by.x = newnames[k],
-                                          by.y = base::colnames(su.repobs)[1],
-                                          sort = FALSE,
-                                          no.dups = FALSE
-                                        )[,
-                            (base::ncol(rastile)+1):(base::ncol(rastile)+n.resp)
-                          ]
+        v <- data.table::merge.data.table(
+          rastile,
+          su.repobs,
+          by.x = newnames[k],
+          by.y = base::colnames(su.repobs)[1],
+          sort = FALSE,
+          no.dups = FALSE
+        )[,
+          (base::ncol(rastile)+1):(base::ncol(rastile)+n.resp)
+        ]
       }
 
       # Format table of n winning SU(s)' representative observation...
@@ -251,19 +255,22 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
       v <- data.table::as.data.table(v)
 
       # Assing column names based on n winning SU(s) and response(s)
-      base::colnames(v) <- base::paste("su_max",
-                                       base::rep(1:n.win, each = n.resp),
-                                       base::colnames(su.repobs)[-1],
-                                       sep = "_"
-                                      )
+      base::colnames(v) <- base::paste(
+        "su_max",
+        base::rep(1:n.win, each = n.resp),
+        base::colnames(su.repobs)[-1],
+        sep = "_"
+      )
 
       # Bind landscape similarity matrix with table of SUs' representative...
       # ...observation response values -> Columns corresponding to landscape...
       # ...similarity layers and column indexes of winning SU(s) are discarded
-      rastile <- base::cbind(rastile[,
-        (terra::nlyr(ls.rast) + n.win + 1):(terra::nlyr(ls.rast) + n.win * 2)],
+      rastile <- base::cbind(
+        rastile[,
+                (terra::nlyr(ls.rast)+n.win+1):(terra::nlyr(ls.rast)+n.win*2)
+              ],
         v
-        )
+      )
       base::remove(v)
 
       # Get name(s) for column(s) with landscape similarity values of n...
@@ -303,15 +310,12 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
 
         # Form full expression for weighted average -> Nested paste()...
         # ...is for denominator
-        z <- base::paste('(', z,')',
-                         "/",
-                         '(',
-                         base::paste(base::colnames(rastile)[1:n.win],
-                                     collapse = ' + '
-                                    ),
-                         ')',
-                         sep = ""
-                        )
+        z <- base::paste(
+          '(', z,')', "/", '(',
+          base::paste(base::colnames(rastile)[1:n.win], collapse = ' + '),
+          ')',
+          sep = ""
+        )
 
         # Model response through weighted average -> Full expression applied...
         # ...to landscape similarity matrix
@@ -329,12 +333,13 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
         tname <- base::paste(layname, extension, sep = "")
 
         # Save raster tile of modeled response
-        terra::writeRaster(raslay,
-                           base::file.path(outdir, tname),
-                           datatype = 'FLT4S',
-                           names = layname,
-                           ...
-                          )
+        terra::writeRaster(
+          raslay,
+          base::file.path(outdir, tname),
+          datatype = 'FLT4S',
+          names = layname,
+          ...
+        )
 
         # Retrieve file name for tile of modeled response stored in disk
         tname <- tname
@@ -350,8 +355,6 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
     response <- foreach::foreach(i = base::colnames(su.repobs)[-1]) %ps% {
 
       # Only tiles for a single response
-      ## Base name of tiles from same modeled response
-      tres <- base::paste("^", i, "_tile", sep = "")
       ## List of tiles from same modeled response
       tres <- base::grep(pattern = i, tname, value = TRUE)
       ## Read files from list of tiles from same modeled response
@@ -363,15 +366,16 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
         # SpatRaster (tile) with modeled response
         tcol <- terra::rast(tres[[1]])
         resname <- base::paste(i, extension, sep = "")
-        tcol <- terra::writeRaster(tcol,
-                                   filename = base::file.path(outdir, resname),
-                                   datatype = 'FLT4S',
-                                   names = i,
-                                   ...
-                                  )
+        tcol <- terra::writeRaster(
+          tcol,
+          filename = base::file.path(outdir, resname),
+          datatype = 'FLT4S',
+          names = i,
+          ...
+        )
 
         # Remove tile
-        base::file.remove(base::file.path(outdir, tname))
+        base::file.remove(base::file.path(tres))
 
         # Retrieve file name of modeled response stored in disk
         response <- resname
@@ -389,16 +393,17 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
         ## File name
         resname <- base::paste(i, extension, sep = "")
         ## Reduce tiles collection into single-layer SpatRaster
-        terra::merge(tcol,
-                     filename = base::file.path(outdir, resname),
-                     datatype = 'FLT4S',
-                     names = i,
-                     ...
-                    )
+        terra::merge(
+          tcol,
+          filename = base::file.path(outdir, resname),
+          datatype = 'FLT4S',
+          names = i,
+          ...
+        )
 
         # Remove tiles?
         if(tile.rm == TRUE) {
-          base::file.remove(base::file.path(outdir, tname))
+          base::file.remove(base::file.path(tres))
         } else {
           NULL
         }
@@ -413,11 +418,9 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
     # Retrieve raster layer(s) of modeled response(s) from disk
     response <- base::unlist(response)
     response <- base::paste("^", response, "$", sep = "")
-    response <- base::lapply(response,
-                             list.files,
-                             path = outdir,
-                             full.names = TRUE
-                            )
+    response <- base::lapply(
+      response, list.files, path = outdir, full.names = TRUE
+    )
     response <- terra::rast(base::unlist(response))
 
   } else if (res.type == "cat") {
@@ -433,11 +436,12 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
 
       # Landscape similarity matrix from SUs' landscape similarities...
       # ...Only pixels within tile, each column is a landscape similarity layer
-      rastile <- terra::as.data.frame(terra::mask(ls.rast,
-                                                  tiles[tiles$id == i, ]
-                                                ),
-                                      na.rm = TRUE
-                                    )
+      rastile <- terra::as.data.frame(
+        terra::mask(
+          ls.rast, tiles[tiles$id == i, ]
+        ),
+        na.rm = TRUE
+      )
 
       # Define functions for (row-wise) descending sorting -> Equivalent...
       # ...to pixel-wise sorting of SUs' landscape similarity layers
@@ -456,17 +460,19 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
       # ...values of n winning SU(s)
       z <- data.table::as.data.table(t(base::rbind(x, y)))
       ## Rename column(s) for n winning SU(s)' column indexes
-      base::colnames(z)[1:n.win] <- base::paste("su_max_",
-                                                base::seq(1:n.win),
-                                                "_ind",
-                                                sep = ""
-                                              )
+      base::colnames(z)[1:n.win] <- base::paste(
+        "su_max_",
+        base::seq(1:n.win),
+        "_ind",
+        sep = ""
+      )
       ## Rename column(s) for n winning SU(s)' landscape similarity values
-      base::colnames(z)[(n.win+1):(n.win*2)] <- base::paste("su_max_",
-                                                            seq(1:n.win),
-                                                            "_ls",
-                                                            sep = ""
-                                                          )
+      base::colnames(z)[(n.win+1):(n.win*2)] <- base::paste(
+        "su_max_",
+        seq(1:n.win),
+        "_ls",
+        sep = ""
+      )
 
       # Add columns to original landscape similarity matrix
       rastile <- base::cbind(rastile, z)
@@ -504,15 +510,16 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
         # Merging landscape similarity matrix with with table of SU(s)'...
         # ...representative observation response values -> By column of n...
         # ...winning SU' numeric codes
-        v <- data.table::merge.data.table(rastile,
-                                          su.repobs,
-                                          by.x = newnames[k],
-                                          by.y = base::colnames(su.repobs)[1],
-                                          sort = FALSE,
-                                          no.dups = FALSE
-                                        )[,
-                            (base::ncol(rastile)+1):(base::ncol(rastile)+n.resp)
-                          ]
+        v <- data.table::merge.data.table(
+          rastile,
+          su.repobs,
+          by.x = newnames[k],
+          by.y = base::colnames(su.repobs)[1],
+          sort = FALSE,
+          no.dups = FALSE
+        )[,
+          (base::ncol(rastile)+1):(base::ncol(rastile)+n.resp)
+        ]
       }
 
       # Format table of n winning SU(s)' representative observation...
@@ -520,11 +527,12 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
       v <- data.table::as.data.table(v)
 
       # Assign column names based on n winning SU(s) and response(s)
-      base::colnames(v) <- base::paste("su_max",
-                                       base::rep(1:n.win, each = n.resp),
-                                       base::colnames(su.repobs)[-1],
-                                       sep = "_"
-                                      )
+      base::colnames(v) <- base::paste(
+        "su_max",
+        base::rep(1:n.win, each = n.resp),
+        base::colnames(su.repobs)[-1],
+        sep = "_"
+      )
 
       # Remove landscape similarity matrix
       base::remove(rastile)
@@ -556,12 +564,13 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
         tname <- base::paste(layname, extension, sep = "")
 
         # Save raster tile of modeled response
-        terra::writeRaster(raslay,
-                           base::file.path(outdir, tname),
-                           datatype = 'INT4S',
-                           names = layname,
-                           ...
-                          )
+        terra::writeRaster(
+          raslay,
+          base::file.path(outdir, tname),
+          datatype = 'INT4S',
+          names = layname,
+          ...
+        )
 
         # Retrieve file name for tile of modeled response stored in disk
         tname <- tname
@@ -578,8 +587,6 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
     response <- foreach::foreach(i = base::colnames(su.repobs)[-1]) %ps% {
 
       # Only tiles for a single response
-      ## Base name of tiles from same modeled response
-      tres <- base::paste("^", i, "_tile", sep = "")
       ## List of tiles from same modeled response
       tres <- base::grep(pattern = i, tname, value = TRUE)
       ## Read files from list of tiles from same modeled response
@@ -591,15 +598,16 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
         # SpatRaster (tile) with modeled response
         tcol <- terra::rast(tres[[1]])
         resname <- base::paste(i, extension, sep = "")
-        tcol <- terra::writeRaster(tcol,
-                                   filename = base::file.path(outdir, resname),
-                                   datatype = 'FLT4S',
-                                   names = i,
-                                   ...
-                                  )
+        tcol <- terra::writeRaster(
+          tcol,
+          filename = base::file.path(outdir, resname),
+          datatype = 'FLT4S',
+          names = i,
+          ...
+        )
 
         # Remove tile
-        base::file.remove(base::file.path(outdir, tname))
+        base::file.remove(base::file.path(tres))
 
         # Retrieve file name of modeled response stored in disk
         response <- resname
@@ -617,16 +625,17 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
         ## File name
         resname <- base::paste(i, extension, sep = "")
         ## Reduce tiles collection into single-layer SpatRaster
-        terra::merge(tcol,
-                     filename = base::file.path(outdir, resname),
-                     datatype = 'INT4S',
-                     names = i,
-                     ...
-                    )
+        terra::merge(
+          tcol,
+          filename = base::file.path(outdir, resname),
+          datatype = 'INT4S',
+          names = i,
+          ...
+        )
 
         # Remove tiles?
         if(tile.rm == TRUE) {
-          base::file.remove(base::file.path(outdir, tname))
+          base::file.remove(base::file.path(tres))
         } else {
           NULL
         }
@@ -641,11 +650,9 @@ engine <- function(res.type = "cont", ls.rast, n.win = 3, su.repobs, tiles,
     # Retrieve raster layer(s) of modeled response(s) from disk
     response <- base::unlist(response)
     response <- base::paste("^", response, "$", sep = "")
-    response <- base::lapply(response,
-                             list.files,
-                             path = outdir,
-                             full.names = TRUE
-                            )
+    response <- base::lapply(
+      response, list.files, path = outdir, full.names = TRUE
+    )
     response <- terra::rast(base::unlist(response))
 
   } else {
