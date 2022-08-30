@@ -5,6 +5,9 @@
 * Fixed a bug which forced `engine()` to delete not only the tiles of a modeled
 variable, but the final (merged) layer too.
 
+* Fixed a bug which prevented the (re) classification of SpatRasters due to a 
+change in `terra`'s arguments (`othersNA` to `others = NA`).
+
 
 # **rassta 1.0.4**
 
