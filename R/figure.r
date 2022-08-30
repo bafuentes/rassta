@@ -319,10 +319,10 @@ figure <- function(x, d, scaling = 100, to.disk = FALSE, verbose = FALSE) {
   # Multi-layer SpatRaster with signatures and landscape similarity for SU = 468
     su468 <- c(d[[1]]$landsim[[56]], d[[3]][[4]], d[[4]][[6]], d[[5]][[8]])
     # Spatial boundaries for SU = 111 with terra::classify() and ::as.polygon()
-    b111 <- terra::classify(d[[2]], cbind(111, 1), othersNA = TRUE)
+    b111 <- terra::classify(d[[2]], cbind(111, 1), others = NA)
     b111 <- terra::as.polygons(b111)
     # Spatial boundaries for SU = 468 with terra::classify() and ::as.polygon()
-    b468 <- terra::classify(d[[2]], cbind(468, 1), othersNA = TRUE)
+    b468 <- terra::classify(d[[2]], cbind(468, 1), others = NA)
     b468 <- terra::as.polygons(b468)
     # Set graphics arrangement
     graphics::par(mfrow = c(2,4))
